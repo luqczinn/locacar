@@ -43,7 +43,7 @@ representada.
 
 
 Sprint | Aula | Requsitos
---------- | ------
+--------- | ------ | ----------------------------------------------
 Sprint 1| RF001 |
 Sprint 1 | RF002 |
 Sprint 1 | RF003 |
