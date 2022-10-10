@@ -16,6 +16,7 @@ public class Veiculo {
     private String tipoMotor;
     private String modeloCarro;
     private int kmRodados;
+    private double valorAluguel; 
 
     public int getAno() {
         return ano;

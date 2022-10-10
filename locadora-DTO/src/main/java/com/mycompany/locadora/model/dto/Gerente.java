@@ -10,6 +10,7 @@ package com.mycompany.locadora.model.dto;
  */
 public class Gerente extends Usuario{
     private double salario;
+    private String nome; 
     
     public Gerente(String username, String senha, double salario){
         this.username = username;

@@ -17,5 +17,6 @@ public class VeiculoDAO {
     private static String statusVeiculoBD(Veiculo v){return null;}
     private static List<Veiculo> listarEstoqueVeiculosBD(){return null;}
     private static List<Veiculo> listarVeiculosAlugadosBD(){return null;}
+    private static double calcularAluguel() {double valorAluguel = 0; return valorAluguel; }
     
 }

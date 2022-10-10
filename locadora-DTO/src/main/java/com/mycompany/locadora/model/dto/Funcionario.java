@@ -10,6 +10,7 @@ package com.mycompany.locadora.model.dto;
  */
 public class Funcionario extends Usuario{
     private double salario;
+    private String nome; 
     
     public Funcionario(String username, String senha, double salario){
         this.username = username;
