@@ -39,3 +39,12 @@ complexidades até o mais simples. Iremos iniciar pela interface (front-end) e a
 que seja possível enxergar as funcionalidades do sistema por ela, iremos implementar essas
 funcionalidades a partir do back-end, de forma que elas estejam condizentes com a interface
 representada.
+
+
+
+Sprint | Aula | Requsitos
+--------- | ------
+Sprint 1| RF001 |
+Sprint 1 | RF002 |
+Sprint 1 | RF003 |
+Sprint 1 | RF004 |
