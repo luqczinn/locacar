@@ -1,6 +1,6 @@
 <style>
     #{
-        font-color:red;
+        color:red;
     }
 </style>
 
