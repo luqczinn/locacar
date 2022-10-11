@@ -11,6 +11,7 @@ package com.mycompany.locadora.model.dto;
 public class Usuario {
     public String username;
     public String senha;
+    public int cpf;
 
     public Usuario(String username, String senha){
         this.username = username;
@@ -31,6 +32,14 @@ public class Usuario {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public int getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(int cpf) {
+        this.cpf = cpf;
     }
     
     

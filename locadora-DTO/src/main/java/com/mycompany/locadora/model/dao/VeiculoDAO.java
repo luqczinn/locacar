@@ -10,7 +10,7 @@ import java.util.List;
  *
  * @author Aluno
  */
-public class VeiculoDAO {
+public class VeiculoDAO{
     
     private static void cadastrarVeiculoBD(Veiculo v){}
     private static Veiculo removerVeiculoBD(Veiculo v){return null;}

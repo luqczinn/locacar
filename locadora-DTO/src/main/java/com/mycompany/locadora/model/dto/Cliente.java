@@ -9,8 +9,13 @@ package com.mycompany.locadora.model.dto;
  * @author Aluno
  */
 public class Cliente extends Usuario{
-    private String nome;
-    private int cpf;
-    private int cnpj;
+    private int numCadastro;
+    private int codigo;
+    private int status;
     
+    private Cliente(String username, String senha, int numCadastro){
+        super(username, senha);
+        this.numCadastro = numCadastro;
+        this.codigo = 0;
+    }
 }
