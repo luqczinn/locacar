@@ -1,11 +1,4 @@
-<style>
-     .heading1{
-        color:red;
-    }
-</style>
-
-
-# Trabalho Final: Locacar {#identifier .heading1}
+# Trabalho Final: Locacar
 #### REQUISITOS/PROTÓTIPOS
 Físicos: estação de trabalho PC ou Mobile com conexão estável com a internet.
 Não-físicos: banco de dados hospedado na nuvem para maior tráfego e velocidade de dados; servidor
