@@ -9,14 +9,15 @@ package com.mycompany.locadora.model.dto;
  * @author Aluno
  */
 public class Usuario {
+
     public String username;
     public String senha;
 
-    public Usuario(String username, String senha){
+    public Usuario(String username, String senha) {
         this.username = username;
         this.senha = senha;
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -32,6 +33,5 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
-    
+
 }
