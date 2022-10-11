@@ -17,7 +17,7 @@ public class Gerente extends Usuario{
         this.senha = senha;
         this.salario = salario;
     }
-    
+ 
     public double getSalario() {
         return salario;
     }
