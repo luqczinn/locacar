@@ -110,6 +110,11 @@ public class TelaLogin extends javax.swing.JFrame {
                 .addContainerGap(190, Short.MAX_VALUE))
         );
 
+        jTextField1.getAccessibleContext().setAccessibleName("nomeUsuarioCampo");
+        jLabel1.getAccessibleContext().setAccessibleName("nomeUsuario");
+        jTextField2.getAccessibleContext().setAccessibleName("senhaCampo");
+        jLabel2.getAccessibleContext().setAccessibleName("Senha");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
