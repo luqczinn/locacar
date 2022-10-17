@@ -8,7 +8,7 @@ package com.mycompany.locadora.model.dto;
  *
  * @author Aluno
  */
-public class Cliente extends Usuario{
+public class Cliente{
     private String nome;
     private int cpf;
     private int cnpj;

@@ -8,9 +8,11 @@ package com.mycompany.locadora.model.dto;
  *
  * @author Aluno
  */
-public class Gerente extends Usuario{
+public class Gerente{
     private double salario;
     private String nome; 
+    private String username;
+    private String senha;
     
     public Gerente(String username, String senha, double salario){
         this.username = username;

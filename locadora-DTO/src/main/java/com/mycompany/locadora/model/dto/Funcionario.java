@@ -8,10 +8,11 @@ package com.mycompany.locadora.model.dto;
  *
  * @author Aluno
  */
-public class Funcionario extends Usuario{
+public class Funcionario{
     private double salario;
     private String nome; 
-    
+    private String username;
+    private String senha;
     public Funcionario(String username, String senha, double salario){
         this.username = username;
         this.senha = senha;
