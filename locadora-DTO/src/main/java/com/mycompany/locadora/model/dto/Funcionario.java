@@ -4,46 +4,18 @@
  */
 package com.mycompany.locadora.model.dto;
 
-/**
- *
- * @author Aluno
- */
-public class Funcionario extends Usuario{
-    private double salario;
+
     
-    public Funcionario(String username, String senha, double salario){
+
+public class Funcionario extends Usuario {
+
+    private double salario;
+    private String nome;
+
+    public Funcionario(double salario, String nome, String username, String senha) {
         super(username, senha);
         this.salario = salario;
-    }
-    
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getSenha() {
-        return senha;
-    }
-
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public int getCpf() {
-        return cpf;
-    }
-
-    @Override
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
+        this.nome = nome;
     }
 
     public double getSalario() {
@@ -53,5 +25,13 @@ public class Funcionario extends Usuario{
     public void setSalario(double salario) {
         this.salario = salario;
     }
-    
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
 }

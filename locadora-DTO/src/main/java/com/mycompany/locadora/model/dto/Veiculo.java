@@ -16,7 +16,19 @@ public class Veiculo {
     private String tipoMotor;
     private String modeloCarro;
     private int kmRodados;
-    private double valorAluguel; 
+    private double valorAluguel;
+    private String status;
+
+    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status) {
+        this.ano = ano;
+        this.placa = placa;
+        this.marca = marca;
+        this.tipoMotor = tipoMotor;
+        this.modeloCarro = modeloCarro;
+        this.kmRodados = kmRodados;
+        this.valorAluguel = valorAluguel;
+        this.status = status;
+    }
 
     public int getAno() {
         return ano;
@@ -42,6 +54,14 @@ public class Veiculo {
         return kmRodados;
     }
 
+    public double getValorAluguel() {
+        return valorAluguel;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    
     public void setAno(int ano) {
         this.ano = ano;
     }
@@ -65,6 +85,13 @@ public class Veiculo {
     public void setKmRodados(int kmRodados) {
         this.kmRodados = kmRodados;
     }
-    
+
+    public void setValorAluguel(double valorAluguel) {
+        this.valorAluguel = valorAluguel;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
     
 }

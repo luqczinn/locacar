@@ -9,15 +9,15 @@ package com.mycompany.locadora.model.dto;
  * @author Aluno
  */
 public class Usuario {
+
     public String username;
     public String senha;
-    public int cpf;
 
-    public Usuario(String username, String senha){
+    public Usuario(String username, String senha) {
         this.username = username;
         this.senha = senha;
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -34,13 +34,4 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public int getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
-    }
-    
-    
 }

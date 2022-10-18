@@ -4,46 +4,31 @@
  */
 package com.mycompany.locadora.model.dto;
 
-/**
- *
- * @author Aluno
- */
-public class Gerente extends Funcionario{
-    private final String tipo;
+public class Gerente extends Usuario {
 
-    public Gerente(String username, String senha, double salario){
-        super(username, senha, salario);
-        this.tipo = "gerente";
-    }
-
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public String getSenha() {
-        return senha;
-    }
-
-    @Override
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    @Override
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    @Override
-    public int getCpf() {
-        return cpf;
-    }
-
-    @Override
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
-    }
+    private double salario;
+    private String nome;
     
+    public Gerente(double salario, String nome, String username, String senha) {
+        super(username, senha);
+        this.salario = salario;
+        this.nome = nome;
+    }
+
+    public double getSalario() {
+        return salario;
+    }
+
+    public void setSalario(double salario) {
+        this.salario = salario;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+ 
 }
