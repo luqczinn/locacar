@@ -4,6 +4,7 @@
  */
 package com.mycompany.locadora.model.dto;
 
+
 public class Cliente extends Usuario {
 
     private String nome;

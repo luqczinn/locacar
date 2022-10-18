@@ -7,6 +7,13 @@ package com.mycompany.locadora.model.dao;
 import com.mycompany.locadora.model.dto.Veiculo;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.List;
+/**
+ *
+ * @author Aluno
+ */
+
+
 
 /**
  *
@@ -14,7 +21,7 @@ import java.util.List;
  */
 public class VeiculoDAO {
 
-    private static List<Veiculo> consultarPorAno(int ano) {
+    public static List<Veiculo> consultarPorAno(int ano) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -27,7 +34,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorMarca(String marca) {
+    public static List<Veiculo> consultarPorMarca(String marca) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -40,7 +47,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorMotor(String motor) {
+    public static List<Veiculo> consultarPorMotor(String motor) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -53,7 +60,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorModelo(String modelo) {
+    public static List<Veiculo> consultarPorModelo(String modelo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -66,7 +73,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorKm(int kmRodados) {
+    public static List<Veiculo> consultarPorKm(int kmRodados) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -79,7 +86,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorFaixaValores(int minimo, int maximo) {
+    public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -92,7 +99,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static List<Veiculo> consultarPorStatus(String status) {
+    public static List<Veiculo> consultarPorStatus(String status) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -105,7 +112,7 @@ public class VeiculoDAO {
         return null;
     }
     
-    private static Veiculo consultarPorPlaca(String placa) {
+    public static Veiculo consultarPorPlaca(String placa) {
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
                 if (v.getPlaca().equals(placa)) {
@@ -116,7 +123,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    private static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status) {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status) {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status);
             // adicionar veiculo ao banco de dados (REALIZADO FUTURAMENTE)
@@ -125,7 +132,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    private static Veiculo removerVeiculoBD(String placa) {
+    public static Veiculo removerVeiculoBD(String placa) {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
             // apagar veiculo do banco de dados (REALIZADO FUTURAMENTE)
@@ -134,7 +141,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    private static String statusVeiculoBD(String placa) {
+    public static String statusVeiculoBD(String placa) {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
             return v.getStatus();
@@ -142,7 +149,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    private static List<Veiculo> listarVeiculosBD() {
+    public static List<Veiculo> listarVeiculosBD() {
         /* PARTE DO BANCO DE DADOS (RETORNA LISTA DOS VEICULOS) if (contatoList.isEmpty() != true) {
             return contatoList;
         }

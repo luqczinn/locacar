@@ -4,10 +4,9 @@
  */
 package com.mycompany.locadora.model.dto;
 
-/**
- *
- * @author Aluno
- */
+
+    
+
 public class Funcionario extends Usuario {
 
     private double salario;
