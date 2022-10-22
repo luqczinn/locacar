@@ -136,7 +136,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Endere&#xe7;o">
-              <Font PropertyName="font" name="Amiri" size="16" style="1"/>
+              <Font PropertyName="font" name="Amiri" size="16" style="0"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -296,7 +296,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Outras Informa&#xe7;&#xf5;es">
-              <Font PropertyName="font" name="Amiri" size="16" style="1"/>
+              <Font PropertyName="font" name="Amiri" size="16" style="0"/>
             </TitledBorder>
           </Border>
         </Property>

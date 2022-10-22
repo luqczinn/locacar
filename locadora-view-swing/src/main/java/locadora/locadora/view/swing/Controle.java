@@ -41,10 +41,12 @@ public class Controle {
             }
         });
     }
-    public void abrirHome(){
+    
+    public static void abrirHome(){
         
     }
-    public void abrirCadastroVeiculos(){
+    
+    public static  void abrirCadastroVeiculos(){
         
     }
 }
