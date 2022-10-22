@@ -18,8 +18,10 @@ public class Veiculo {
     private int kmRodados;
     private double valorAluguel;
     private String status;
+    private char tipo;
+    private String cambio;
 
-    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status) {
+    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status, char tipo, String cambio) {
         this.ano = ano;
         this.placa = placa;
         this.marca = marca;
@@ -28,6 +30,8 @@ public class Veiculo {
         this.kmRodados = kmRodados;
         this.valorAluguel = valorAluguel;
         this.status = status;
+        this.tipo = tipo;
+        this.cambio = cambio;
     }
 
     public int getAno() {
@@ -62,6 +66,14 @@ public class Veiculo {
         return status;
     }
     
+    public char getTipo() {
+        return tipo;
+    }
+    
+    public String getCambio() {
+        return cambio;
+    }
+    
     public void setAno(int ano) {
         this.ano = ano;
     }
@@ -94,4 +106,11 @@ public class Veiculo {
         this.status = status;
     }
     
+    public void setTipo(char tipo) {
+        this.tipo = tipo;
+    }
+    
+    public void setCambio(String cambio) {
+        this.cambio = cambio;
+    }
 }
