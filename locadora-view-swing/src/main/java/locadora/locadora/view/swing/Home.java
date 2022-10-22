@@ -73,7 +73,7 @@ public class Home extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Minha conta"));
 
         jLabel1.setText("Nome da pessoa\n");
 
@@ -105,9 +105,9 @@ public class Home extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Menu"));
 
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Veículos"));
 
         jButton1.setText("Adicionar veículo");
 
@@ -151,7 +151,7 @@ public class Home extends javax.swing.JDialog {
                     .addContainerGap(85, Short.MAX_VALUE)))
         );
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedores"));
 
         jButton5.setText("Adicionar vendedor");
 
@@ -184,7 +184,7 @@ public class Home extends javax.swing.JDialog {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerentes"));
 
         jButton9.setText("Adicionar gerentes");
 
@@ -217,7 +217,7 @@ public class Home extends javax.swing.JDialog {
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidades"));
 
         jButton13.setText("Adicionar unidades");
 
@@ -272,7 +272,7 @@ public class Home extends javax.swing.JDialog {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Últimos usuários onlines"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -312,9 +312,9 @@ public class Home extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(null));
+        jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Data/hora"));
 
         jLabel2.setText("17/10/2022");
 
