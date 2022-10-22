@@ -121,10 +121,36 @@ public class VeiculoDAO {
         }
         return null;
     }
+    
+    public static List<Veiculo> consultarPorTipo(char tipo) {
+        List<Veiculo> listaConsulta = new ArrayList<>();
+        if (listarVeiculosBD() != null) {
+            for (Veiculo v : listarVeiculosBD()) {
+                if (v.getTipo() == tipo) {
+                    listaConsulta.add(v);
+                }
+            }
+            return listaConsulta;
+        }
+        return null;
+    }
+    
+    public static List<Veiculo> consultarPorCambio(String cambio) {
+        List<Veiculo> listaConsulta = new ArrayList<>();
+        if (listarVeiculosBD() != null) {
+            for (Veiculo v : listarVeiculosBD()) {
+                if (v.getCambio().equals(cambio)) {
+                    listaConsulta.add(v);
+                }
+            }
+            return listaConsulta;
+        }
+        return null;
+    }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status) {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status, char tipo, String cambio) {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status);
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
             // adicionar veiculo ao banco de dados (REALIZADO FUTURAMENTE)
             return v;
         }

@@ -85,7 +85,23 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorStatus(status);
     }
     
-    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status) throws negocioException{
+    public static List<Veiculo> consultarPorTipo(char tipo) throws negocioException{
+        
+        if(tipo != ' ')
+            throw new negocioException(319, "Insira o tipo do veículos!");
+        
+        return VeiculoDAO.consultarPorTipo(tipo);
+    }
+    
+    public static List<Veiculo> consultarPorCambio(String cambio) throws negocioException{
+        
+        if(cambio.isEmpty())
+            throw new negocioException(319, "Insira o câmbio dos veículos!");
+        
+        return VeiculoDAO.consultarPorCambio(cambio);
+    }
+    
+    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, char tipo, String cambio) throws negocioException{
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
         if (placa.isEmpty())
@@ -103,7 +119,7 @@ public class ServicoVeiculo {
         if (status.isEmpty())
             throw new negocioException(319, "O status do veículo é obrigatório.");
         
-        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseInt(kmRodados), parseDouble(valorAluguel), status);
+        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseInt(kmRodados), parseDouble(valorAluguel), status, tipo, cambio);
     }
     
     public static Veiculo removerVeiculoPorPlaca(String placa) throws negocioException{
