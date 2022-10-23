@@ -8,6 +8,14 @@ public class Unidades {
     private String endereco;
     private Integer numReferencia;
     private Integer codigo;
+    private Integer cep;
+
+    public Unidades(String endereco, Integer numReferencia, Integer codigo, Integer cep) {
+        this.endereco = endereco;
+        this.numReferencia = numReferencia;
+        this.codigo = codigo;
+        this.cep = cep;
+    }
     
     public String getEndereco() {
         return endereco;
@@ -32,4 +40,13 @@ public class Unidades {
     public void setCodigo(Integer codigo) {
         this.codigo = codigo;
     }   
+
+    public Integer getCep() {
+        return cep;
+    }
+
+    public void setCep(Integer cep) {
+        this.cep = cep;
+    }
+    
 }
