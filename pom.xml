@@ -24,4 +24,5 @@
     <module>locadora-view-swing</module>
     <module>locadora-database-connection</module>
   </modules>
+  
 </project>

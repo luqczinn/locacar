@@ -11,6 +11,7 @@ import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.excessoes.persistenciaException;
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -101,7 +102,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorCambio(cambio);
     }
     
-    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, char tipo, String cambio) throws negocioException{
+    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, char tipo, String cambio) throws negocioException, SQLException{
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
         if (placa.isEmpty())
@@ -119,7 +120,7 @@ public class ServicoVeiculo {
         if (status.isEmpty())
             throw new negocioException(319, "O status do veículo é obrigatório.");
         
-        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseInt(kmRodados), parseDouble(valorAluguel), status, tipo, cambio);
+        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseDouble(kmRodados), parseDouble(valorAluguel), status, tipo, cambio);
     }
     
     public static Veiculo removerVeiculoPorPlaca(String placa) throws negocioException{

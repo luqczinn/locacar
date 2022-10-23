@@ -5,19 +5,11 @@
 package locadora.locadora.negocio.dao;
 
 import locadora.locadora.negocio.dto.Veiculo;
+import locadora.locadora.database.Conexao;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-/**
- *
- * @author Aluno
- */
 
-
-
-/**
- *
- * @author Aluno
- */
 public class VeiculoDAO {
 
     public static List<Veiculo> consultarPorAno(int ano) {
@@ -32,7 +24,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorMarca(String marca) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -45,7 +37,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorMotor(String motor) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -58,7 +50,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorModelo(String modelo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -71,7 +63,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorKm(int kmRodados) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -84,7 +76,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -97,7 +89,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorStatus(String status) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -110,7 +102,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static Veiculo consultarPorPlaca(String placa) {
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -121,7 +113,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorTipo(char tipo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -134,7 +126,7 @@ public class VeiculoDAO {
         }
         return null;
     }
-    
+
     public static List<Veiculo> consultarPorCambio(String cambio) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
@@ -148,10 +140,13 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, int kmRodados, double valorAluguel, String status, char tipo, String cambio) {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, char tipo, String cambio) throws SQLException {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
-            // adicionar veiculo ao banco de dados (REALIZADO FUTURAMENTE)
+            Connection com = Conexao.getConnection();
+            Statement statement = com.createStatement();
+            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"',"+cambio+"',"+valorAluguel+",'"+status+"')";
+            statement.executeUpdate(sql);
             return v;
         }
         return null;

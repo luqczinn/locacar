@@ -62,6 +62,11 @@ public class CadastroVeiculo extends javax.swing.JFrame {
 
         jButton6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton6.setText("Cadastrar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton7.setText("Salvar");
@@ -312,6 +317,10 @@ public class CadastroVeiculo extends javax.swing.JFrame {
     private void jComboBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox7ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox7ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
