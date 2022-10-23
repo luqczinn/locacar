@@ -8,6 +8,7 @@ package locadora.locadora.view.swing;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.persistenciaException;
 /**
@@ -136,12 +137,15 @@ public class TelaLogin extends javax.swing.JFrame {
         String insereUsuario = inserirUsuario.getText();
         String insereSenha = inserirSenha.getText(); 
         
-        //chamando função para funcionar
-        /*
-        ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+        try {
+            //chamando função para funcionar
+            ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+        } catch (negocioException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         Controle.abrirHome();
-        */         
+                 
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed

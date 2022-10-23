@@ -114,7 +114,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorTipo(char tipo) {
+    public static List<Veiculo> consultarPorTipo(String tipo) {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -140,7 +140,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, char tipo, String cambio) throws SQLException {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) throws SQLException {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
             Connection com = Conexao.getConnection();
