@@ -18,66 +18,80 @@ import locadora.locadora.negocio.dto.Unidades;
  * @author Aluno
  */
 public class ServicoUnidades {
-    
-    private ServicoUnidades(){ }
-    
-    public static Unidades consultarPorEndereco(String endereco) throws negocioException{
-        
-        if(endereco.isEmpty())
+
+    private ServicoUnidades() {
+    }
+
+    public static Unidades consultarPorEndereco(String endereco) throws negocioException {
+
+        if (endereco.isEmpty()) {
             throw new negocioException(319, "Insira o endereço da unidade!");
-        
+        }
+
         return UnidadesDAO.consultarPorEndereco(endereco);
     }
-    
-    public static Unidades consultarPorCep(Integer cep) throws negocioException{
-        
-        if(cep < 0) //futura verificaçao 
+
+    public static Unidades consultarPorCep(Integer cep) throws negocioException {
+
+        if (cep < 0) //futura verificaçao 
+        {
             throw new negocioException(319, "Insira o CEP da unidade!");
-        
+        }
+
         return UnidadesDAO.consultarPorCep(cep);
     }
-    
-    public static Unidades consultarPorCodigo(Integer codigo) throws negocioException{
-        
-        if(codigo < 0) //futura verificaçao 
+
+    public static Unidades consultarPorCodigo(Integer codigo) throws negocioException {
+
+        if (codigo < 0) //futura verificaçao 
+        {
             throw new negocioException(319, "Insira o código da unidade!");
-        
+        }
+
         return UnidadesDAO.consultarPorCodigo(codigo);
     }
-    
-    public static Unidades consultarPorNumReferencia(Integer numReferencia) throws negocioException{
-        
-        if(numReferencia < 0) //futura verificaçao 
+
+    public static Unidades consultarPorNumReferencia(Integer numReferencia) throws negocioException {
+
+        if (numReferencia < 0) //futura verificaçao 
+        {
             throw new negocioException(319, "Insira o número de referência da unidade!");
-        
+        }
+
         return UnidadesDAO.consultarPorNumReferencia(numReferencia);
     }
-    
-    public static Unidades inserirUnidadeBD(String endereco, Integer numReferencia, Integer codigo, Integer cep) throws negocioException{
-        if (endereco.isEmpty())
+
+    public static Unidades inserirUnidadeBD(String endereco, Integer numReferencia, Integer codigo, Integer cep, String estado, String cidade, Integer numero, String complemento, Integer estoque, String gerente) throws negocioException {
+        if (endereco.isEmpty()) {
             throw new negocioException(319, "O endereço é obrigatório.");
-        if (numReferencia < 0)
+        }
+        if (numReferencia < 0) {
             throw new negocioException(319, "O número de referência da unidade é obrigatório.");
-        if (codigo < 0)
+        }
+        if (codigo < 0) {
             throw new negocioException(319, "O código é obrigatório.");
-        if (cep < 0)
+        }
+        if (cep < 0) {
             throw new negocioException(319, "O CEP é obrigatório.");
-        
-        return UnidadesDAO.cadastrarUnidadeBD(endereco, numReferencia, codigo, cep);
+        }
+
+        return UnidadesDAO.cadastrarUnidadeBD(endereco, numReferencia, codigo, cep, estado, cidade, numero, complemento, estoque, gerente);
     }
-    
-    public static Unidades removerUnidadePorCEP(Integer cep) throws negocioException{
-        if(cep < 0)
-            throw new negocioException (319, "Informe o CEP o veículo");
-        
+
+    public static Unidades removerUnidadePorCEP(Integer cep) throws negocioException {
+        if (cep < 0) {
+            throw new negocioException(319, "Informe o CEP o veículo");
+        }
+
         return UnidadesDAO.removerUnidadeBD(cep);
     }
-    
-    public static List<Unidades> listarVeiculos() throws negocioException{
-        if(UnidadesDAO.listarUnidadesBD() == null)
-            throw new negocioException (315, "Não existem unidades cadastrados!");
-        
+
+    public static List<Unidades> listarVeiculos() throws negocioException {
+        if (UnidadesDAO.listarUnidadesBD() == null) {
+            throw new negocioException(315, "Não existem unidades cadastrados!");
+        }
+
         return UnidadesDAO.listarUnidadesBD();
     }
-    
+
 }

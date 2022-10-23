@@ -8,7 +8,7 @@ import locadora.locadora.negocio.dto.Unidades;
 import java.util.List;
 
 public class UnidadesDAO {
-    
+
     public static Unidades consultarPorCep(Integer cep) {
         if (listarUnidadesBD() != null) {
             for (Unidades u : listarUnidadesBD()) {
@@ -19,7 +19,7 @@ public class UnidadesDAO {
         }
         return null;
     }
-    
+
     public static Unidades consultarPorEndereco(String endereco) {
         if (listarUnidadesBD() != null) {
             for (Unidades u : listarUnidadesBD()) {
@@ -30,7 +30,7 @@ public class UnidadesDAO {
         }
         return null;
     }
-    
+
     public static Unidades consultarPorCodigo(Integer codigo) {
         if (listarUnidadesBD() != null) {
             for (Unidades u : listarUnidadesBD()) {
@@ -41,7 +41,7 @@ public class UnidadesDAO {
         }
         return null;
     }
-    
+
     public static Unidades consultarPorNumReferencia(Integer numReferencia) {
         if (listarUnidadesBD() != null) {
             for (Unidades u : listarUnidadesBD()) {
@@ -53,9 +53,9 @@ public class UnidadesDAO {
         return null;
     }
 
-    public static Unidades cadastrarUnidadeBD(String endereco, Integer numReferencia, Integer codigo, Integer cep) {
+    public static Unidades cadastrarUnidadeBD(String endereco, Integer numReferencia, Integer codigo, Integer cep, String estado, String cidade, Integer numero, String complemento, Integer estoque, String gerente) {
         if (consultarPorCep(cep) == null | listarUnidadesBD() == null) {
-            Unidades unidade = new Unidades(endereco, numReferencia, codigo, cep);
+            Unidades unidade = new Unidades(endereco, numReferencia, codigo, cep, estado, cidade, numero, complemento, estoque, gerente);
             // adicionar unidade ao banco de dados (REALIZADO FUTURAMENTE)
             return unidade;
         }
@@ -71,7 +71,7 @@ public class UnidadesDAO {
         return null;
     }
 
-    public static List<Unidades> listarUnidadesBD(){
+    public static List<Unidades> listarUnidadesBD() {
         /* PARTE DO BANCO DE DADOS (RETORNA LISTA DOS VEICULOS) if (contatoList.isEmpty() != true) {
             return contatoList;
         }
