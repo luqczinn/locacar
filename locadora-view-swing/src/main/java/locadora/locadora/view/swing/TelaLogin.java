@@ -8,8 +8,8 @@ package locadora.locadora.view.swing;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-//import locadora.locadora.;
-//import locadora.locadora.negocio.excessoes.persistenciaException;
+import locadora.locadora.negocio.servico.ServicoUsuario;
+import locadora.locadora.negocio.excessoes.persistenciaException;
 /**
  *
  * @author Aluno
