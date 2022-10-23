@@ -5,8 +5,11 @@
  */
 package locadora.locadora.view.swing;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import locadora.locadora.negocio.dao.UsuarioDAO;
+import locadora.locadora.negocio.excessoes.persistenciaException;
 /**
  *
  * @author Aluno
@@ -34,8 +37,8 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         inserirSenha = new javax.swing.JPasswordField();
-        jButton1 = new javax.swing.JButton();
-        inserirUsuario = new javax.swing.JPasswordField();
+        btnEntrar = new javax.swing.JButton();
+        inserirUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,10 +53,16 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Senha:");
 
-        jButton1.setText("Entrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnEntrar.setText("Entrar");
+        btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnEntrarActionPerformed(evt);
+            }
+        });
+
+        inserirUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirUsuarioActionPerformed(evt);
             }
         });
 
@@ -69,15 +78,15 @@ public class TelaLogin extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(inserirSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inserirSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                            .addComponent(inserirUsuario)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(jButton1)))
+                        .addComponent(btnEntrar)))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -85,15 +94,17 @@ public class TelaLogin extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-                    .addComponent(inserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(inserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(inserirSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
+                .addComponent(btnEntrar)
                 .addGap(19, 19, 19))
         );
 
@@ -119,10 +130,13 @@ public class TelaLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
         // TODO add your handling code here:
         //se nenhum dos campos de senha tiverem vazios//
-        if(inserirUsuario.getText().isEmpty() || inserirUsuario.getText().isBlank()) {
+        String insereUsuario = inserirUsuario.getText();
+        String insereSenha = inserirSenha.getText(); 
+        
+        if(insereUsuario.isEmpty() || insereUsuario.isBlank()) {
             JOptionPane.showMessageDialog(null,
                     "Digite o seu usuário!",
                     "Atenção",
@@ -130,49 +144,47 @@ public class TelaLogin extends javax.swing.JFrame {
             return; 
         }
         
-        if(inserirSenha.getText().isEmpty() || inserirSenha.getText().isBlank()) {
+        if(insereSenha.isEmpty() || insereSenha.isBlank()) {
             JOptionPane.showMessageDialog(null,
                     "Digite a sua senha!",
                     "Atenção",
-                    JOptionPane.ERROR_MESSAGE);
-            return; 
-        }
+                    JOptionPane.ERROR_MESSAGE);        }
         //se todos os campos estiverem preenchidos checas se os dados existem no bd//
         else {
-            Controle.abrirHome();
-            //se existerem abrir a tela home de acordo com o tipo de funcionário//
-            /*
-            if (procurarFuncionario != null) {
-                //abrir a tela de home
-                Controle.abrirHome();
-                //fecha a tela de login
-                this.dispose();
-            }
-            */
-            
-            /*se não existerem abrir mensagem de erro*/
-            /*
-            else {
-                    JOptionPane.showMessageDialog(null,
-                    "Funcionário não existe, digite novamente seus dados!",
-                    "Atenção",
-                    JOptionPane.ERROR_MESSAGE);
-            }
-            */
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+                /*se não existerem abrir mensagem de erro*/
+                if (UsuarioDAO.procurarPorUsername(insereUsuario) == null) {
+                    
+                    try {
+                        if(UsuarioDAO.logarUsuario(insereUsuario, insereSenha) == null) {
+                            
+                        }
+                    } catch (persistenciaException ex) {
+                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                
+                //se existerem abrir a tela home de acordo com o tipo de funcionário//
+                else {
+                    //abrir a tela de home
+                    Controle.abrirHome();
+                    //fecha a tela de login
+                    this.setVisible(false);
+                }}
+    }//GEN-LAST:event_btnEntrarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirUsuarioActionPerformed
+
+    
     public static void main(String args[]) {
        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEntrar;
     private javax.swing.JPasswordField inserirSenha;
-    private javax.swing.JPasswordField inserirUsuario;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JTextField inserirUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

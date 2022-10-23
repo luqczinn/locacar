@@ -23,7 +23,7 @@ public class UsuarioDAO{
     public static Usuario procurarPorUsername(String username){
         ///lista provisória até inserção de BD !!!!!
         List<Usuario> listarUsuarios = new ArrayList<>();
-        
+        listarUsuarios.add(new Usuario("stella", "televisao")); 
         if (listarUsuarios != null) {
             for (Usuario u : listarUsuarios) {
                 if (u.getUsername() == username) {
@@ -32,7 +32,7 @@ public class UsuarioDAO{
             }
         }
         return null;
-    }
+    } 
     
     public static Usuario logarUsuario(String username, String senha)throws persistenciaException{
         Usuario usuario = procurarPorUsername(username);
