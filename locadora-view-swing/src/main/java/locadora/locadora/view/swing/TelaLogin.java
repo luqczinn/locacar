@@ -8,8 +8,8 @@ package locadora.locadora.view.swing;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import locadora.locadora.negocio.dao.UsuarioDAO;
-import locadora.locadora.negocio.excessoes.persistenciaException;
+//import locadora.locadora.;
+//import locadora.locadora.negocio.excessoes.persistenciaException;
 /**
  *
  * @author Aluno
@@ -136,46 +136,21 @@ public class TelaLogin extends javax.swing.JFrame {
         String insereUsuario = inserirUsuario.getText();
         String insereSenha = inserirSenha.getText(); 
         
-        if(insereUsuario.isEmpty() || insereUsuario.isBlank()) {
-            JOptionPane.showMessageDialog(null,
-                    "Digite o seu usuário!",
-                    "Atenção",
-                    JOptionPane.ERROR_MESSAGE);
-            return; 
-        }
-        
-        if(insereSenha.isEmpty() || insereSenha.isBlank()) {
-            JOptionPane.showMessageDialog(null,
-                    "Digite a sua senha!",
-                    "Atenção",
-                    JOptionPane.ERROR_MESSAGE);        }
-        //se todos os campos estiverem preenchidos checas se os dados existem no bd//
-        else {
-                /*se não existerem abrir mensagem de erro*/
-                if (UsuarioDAO.procurarPorUsername(insereUsuario) == null) {
-                    
-                    try {
-                        if(UsuarioDAO.logarUsuario(insereUsuario, insereSenha) == null) {
-                            
-                        }
-                    } catch (persistenciaException ex) {
-                        Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                //se existerem abrir a tela home de acordo com o tipo de funcionário//
-                else {
-                    //abrir a tela de home
-                    Controle.abrirHome();
-                    //fecha a tela de login
-                    this.setVisible(false);
-                }}
+        //chamando função para funcionar
+        /*
+        ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+        this.setVisible(false);
+        Controle.abrirHome();
+        */         
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirUsuarioActionPerformed
-
+    
+    public static void main (String args[]) {
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
