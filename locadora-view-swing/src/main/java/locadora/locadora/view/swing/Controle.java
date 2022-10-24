@@ -4,6 +4,10 @@
  */
 package locadora.locadora.view.swing;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import locadora.locadora.negocio.excessoes.negocioException;
+
 /**
  *
  * @author gugup
@@ -174,7 +178,11 @@ public class Controle {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsultaVeiculo().setVisible(true);
+                try {
+                    new ConsultaVeiculo().setVisible(true);
+                } catch (negocioException ex) {
+                   //
+                }
             }
         });
     }

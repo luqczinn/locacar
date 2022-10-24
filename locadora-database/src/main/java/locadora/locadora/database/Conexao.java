@@ -38,7 +38,7 @@ public class Conexao {
         return con;
     }
 
-    public void closeConnection() {
+    public static void closeConnection() {
         if (con != null) {
             try {
                 con.close();
