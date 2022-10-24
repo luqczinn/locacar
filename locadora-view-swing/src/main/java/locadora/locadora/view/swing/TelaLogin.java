@@ -141,6 +141,7 @@ public class TelaLogin extends javax.swing.JFrame {
             //chamando função para funcionar
             ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
         } catch (negocioException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
