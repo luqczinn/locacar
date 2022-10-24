@@ -18,7 +18,7 @@ public class ServicoUsuario {
     
     private ServicoUsuario() {}
     
-    public static Usuario logarUsuario(String username, String senha)throws negocioException{
+    public static String logarUsuario(String username, String senha)throws negocioException{
         if(username.isEmpty()){
             throw new negocioException(319, "Insira o username!");
         }

@@ -9,6 +9,9 @@ import locadora.locadora.negocio.dto.Gerente;
 import java.util.List;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.persistenciaException;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 /**
  *
  * @author Aluno
@@ -34,20 +37,34 @@ public class UsuarioDAO{
         return null;
     } 
     
-    public static Usuario logarUsuario(String username, String senha)throws persistenciaException{
+    public static String logarUsuario(String username, String senha)throws persistenciaException{
         Usuario usuario = procurarPorUsername(username);
-        
-        if(usuario == null){
+
+        if (usuario == null) {
             throw new persistenciaException("Username de usuário não encontrado!");
         }
-        if(usuario.getSenha() == desencriptografarSenha(senha)){
-            return usuario;
-        }else{
-            throw new persistenciaException("Senha incorreta!");
+        try {
+            if (usuario.getSenha() == criptografarSenha(senha)) {
+                String className = usuario.getClass().getSimpleName();
+                return className;
+            } else {
+                throw new persistenciaException("Senha incorreta!");
+            }
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            throw new persistenciaException("Erro ao inserir a senha");
         }
-        
     }
     
-    public static String encriptografarSenha(String senha){return null;}
-    public static String desencriptografarSenha(String senha){return null;}
+    public static String criptografarSenha(String senha)throws UnsupportedEncodingException, NoSuchAlgorithmException{
+        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : messageDigest) {
+            hexString.append(String.format("%02X", 0xFF & b));
+        }
+        String senhahex = hexString.toString();
+        return senhahex;
+    }
+
 }
