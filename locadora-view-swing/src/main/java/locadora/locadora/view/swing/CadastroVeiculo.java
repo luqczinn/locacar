@@ -6,6 +6,7 @@ package locadora.locadora.view.swing;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import locadora.locadora.negocio.servico.ServicoVeiculo;
 import locadora.locadora.negocio.excessoes.negocioException;
 /**
@@ -333,9 +334,8 @@ public class CadastroVeiculo extends javax.swing.JFrame {
             //adicionar na lista de carros
             ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, modelo,
                     quilometragem, valorDiaria, status, tipoDeCarro, cambio); 
-        } catch (negocioException ex) {
-            Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (negocioException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         

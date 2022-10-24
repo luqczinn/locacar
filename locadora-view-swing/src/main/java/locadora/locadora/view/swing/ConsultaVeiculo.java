@@ -12,7 +12,11 @@ import javax.swing.table.DefaultTableModel;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoVeiculo;
 import locadora.locadora.negocio.dto.Veiculo; 
+<<<<<<< HEAD
 import locadora.locadora.negocio.dao.VeiculoDAO; 
+=======
+import javax.swing.JOptionPane;
+>>>>>>> origin/team
 /**
  *
  * @author Aluno
@@ -444,8 +448,10 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, modelo,
                     quilometragem, valorDiaria, status, tipoDeCarro, cambio); 
         } catch (negocioException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         */
