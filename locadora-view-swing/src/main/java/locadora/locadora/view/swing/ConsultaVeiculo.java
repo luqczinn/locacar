@@ -5,6 +5,7 @@
  */
 package locadora.locadora.view.swing;
 
+import java.sql.SQLException;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,12 +25,12 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
      * Creates new form ControleVeiculo
      * @throws locadora.locadora.negocio.excessoes.negocioException
      */
-    public ConsultaVeiculo() throws negocioException {
+    public ConsultaVeiculo() throws negocioException, SQLException {
         initComponents();
         ListarTabela(); 
     }
     
-    public void ListarTabela() throws negocioException {
+    public void ListarTabela() throws negocioException, SQLException {
         Object colunas[] = {
             "ano", "placa", "marca", "tipo Motor", "modelo", "quilometragem", 
             "valor aluguel", "status", "tipo de Carro", "cambio"
@@ -489,6 +490,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             try { 
                 ServicoVeiculo.listarVeiculos().get(linha);
             } catch (negocioException ex) {
+                Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
                 Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 

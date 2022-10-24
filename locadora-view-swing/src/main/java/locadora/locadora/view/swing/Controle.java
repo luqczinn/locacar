@@ -185,6 +185,8 @@ public class Controle {
                     new ConsultaVeiculo().setVisible(true);
                 } catch (negocioException ex) {
                    //
+                } catch (SQLException ex) {
+                    Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
