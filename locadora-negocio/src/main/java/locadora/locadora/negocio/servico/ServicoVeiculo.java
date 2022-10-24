@@ -19,6 +19,10 @@ import java.util.List;
  * @author Aluno
  */
 public class ServicoVeiculo {
+
+    public static void inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modelo, String quilometragem, String status, char tipoDeCarro, String cambio) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     private ServicoVeiculo(){ }
     
@@ -86,9 +90,9 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorStatus(status);
     }
     
-    public static List<Veiculo> consultarPorTipo(char tipo) throws negocioException{
+    public static List<Veiculo> consultarPorTipo(String tipo) throws negocioException{
         
-        if(tipo != ' ')
+        if(tipo.isEmpty())
             throw new negocioException(319, "Insira o tipo do veículos!");
         
         return VeiculoDAO.consultarPorTipo(tipo);
@@ -102,7 +106,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorCambio(cambio);
     }
     
-    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, char tipo, String cambio) throws negocioException, SQLException{
+    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio) throws negocioException, SQLException{
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
         if (placa.isEmpty())

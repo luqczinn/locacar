@@ -22,7 +22,7 @@
     <module>locadora-view-web</module>
     <module>locadora-negocio</module>
     <module>locadora-view-swing</module>
-    <module>locadora-database-connection</module>
+    <module>locadora-database</module>
   </modules>
   
 </project>

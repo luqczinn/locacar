@@ -1,4 +1,15 @@
+<<<<<<< HEAD
 /locadora-view-web/target/
 /locadora-negocio/target/
 /locadora-view-swing/target/
 /locadora-database-connection/target/
+/main/target/
+/locadora-database/target/
+=======
+/locadora-view-web/target/
+/locadora-negocio/target/
+/locadora-view-swing/target/
+/locadora-database-connection/target/
+/main/target/
+/locadora-database/target/
+>>>>>>> origin/team

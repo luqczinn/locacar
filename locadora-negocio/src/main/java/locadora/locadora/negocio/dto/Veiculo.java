@@ -18,10 +18,10 @@ public class Veiculo {
     private double kmRodados;
     private double valorAluguel;
     private String status;
-    private char tipo;
+    private String tipo;
     private String cambio;
 
-    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, char tipo, String cambio) {
+    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) {
         this.ano = ano;
         this.placa = placa;
         this.marca = marca;
@@ -66,7 +66,7 @@ public class Veiculo {
         return status;
     }
 
-    public char getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
