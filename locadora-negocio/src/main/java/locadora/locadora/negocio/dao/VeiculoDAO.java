@@ -12,7 +12,7 @@ import java.util.List;
 
 public class VeiculoDAO {
 
-    public static List<Veiculo> consultarPorAno(int ano) {
+    public static List<Veiculo> consultarPorAno(int ano) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -25,7 +25,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorMarca(String marca) {
+    public static List<Veiculo> consultarPorMarca(String marca) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -38,7 +38,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorMotor(String motor) {
+    public static List<Veiculo> consultarPorMotor(String motor) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -51,7 +51,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorModelo(String modelo) {
+    public static List<Veiculo> consultarPorModelo(String modelo) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -64,7 +64,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorKm(int kmRodados) {
+    public static List<Veiculo> consultarPorKm(int kmRodados) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -77,7 +77,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) {
+    public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -90,7 +90,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorStatus(String status) {
+    public static List<Veiculo> consultarPorStatus(String status) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -103,7 +103,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo consultarPorPlaca(String placa) {
+    public static Veiculo consultarPorPlaca(String placa) throws SQLException {
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
                 if (v.getPlaca().equals(placa)) {
@@ -114,7 +114,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorTipo(String tipo) {
+    public static List<Veiculo> consultarPorTipo(String tipo) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -127,7 +127,7 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> consultarPorCambio(String cambio) {
+    public static List<Veiculo> consultarPorCambio(String cambio) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
@@ -147,21 +147,26 @@ public class VeiculoDAO {
             Statement statement = com.createStatement();
             String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"',"+cambio+"',"+valorAluguel+",'"+status+"')";
             statement.executeUpdate(sql);
+            Conexao.closeConnection();
             return v;
         }
         return null;
     }
 
-    public static Veiculo removerVeiculoBD(String placa) {
+    public static Veiculo removerVeiculoBD(String placa) throws SQLException {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
-            // apagar veiculo do banco de dados (REALIZADO FUTURAMENTE)
+            Connection com = Conexao.getConnection();
+            Statement statement = com.createStatement();
+            String sql = "DELETE FROM veiculos WHERE placaCarro='"+placa+"'";
+            statement.executeUpdate(sql);
+            Conexao.closeConnection();
             return v;
         }
         return null;
     }
 
-    public static String statusVeiculoBD(String placa) {
+    public static String statusVeiculoBD(String placa) throws SQLException {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
             return v.getStatus();
@@ -169,11 +174,30 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static List<Veiculo> listarVeiculosBD() {
-        /* PARTE DO BANCO DE DADOS (RETORNA LISTA DOS VEICULOS) if (contatoList.isEmpty() != true) {
-            return contatoList;
+    public static List<Veiculo> listarVeiculosBD() throws SQLException {
+        Connection com = Conexao.getConnection();
+        Statement statement = com.createStatement();
+        String sql = "SELECT * FROM veiculos";
+        ResultSet rs = statement.executeQuery(sql);
+        List<Veiculo> listaVeiculos = new ArrayList<>();
+        while (rs.next()) {
+            int ano = Integer.valueOf(rs.getString("ano"));
+            String placa = rs.getString("placaCarro");
+            String marca = rs.getString("marca");
+            String tipoMotor = rs.getString("tipoMotor");
+            String modeloCarro = rs.getString("modelo");
+            double kmRodados = rs.getDouble("km");
+            String tipo = rs.getString("fim");
+            String cambio = rs.getString("cambio");
+            double valorAluguel = rs.getDouble("valorDiaria");
+            String status = rs.getString("status");
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            listaVeiculos.add(v);
         }
-         */
+        Conexao.closeConnection();
+        if (listaVeiculos.isEmpty() != true) {
+            return listaVeiculos;
+        }
         return null;
     }
 
