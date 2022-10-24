@@ -11,11 +11,6 @@
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>locadora-database-connection</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
             <artifactId>locadora-database</artifactId>
             <version>${project.version}</version>
         </dependency>
