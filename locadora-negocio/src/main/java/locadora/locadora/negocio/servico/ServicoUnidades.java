@@ -23,12 +23,12 @@ public class ServicoUnidades {
     private ServicoUnidades() {
     }
 
-    public static Unidades consultarPorEndereco(String logradouro, Integer numero, String cidade, String estado, Integer cep) throws negocioException, SQLException {
+    public static Unidades consultarPorEndereco(String logradouro, String numero, String cidade, String estado, String cep) throws negocioException, SQLException {
 
         if (logradouro.isEmpty()) {
             throw new negocioException(319, "Insira o logradouro da unidade!");
         }
-        if (numero == 0) {
+        if (numero.isEmpty()) {
             throw new negocioException(319, "Insira o número da unidade!");
         }
         if (cidade.isEmpty()) {
@@ -37,21 +37,23 @@ public class ServicoUnidades {
         if (estado.isEmpty()) {
             throw new negocioException(319, "Insira o estado da unidade!");
         }
-        if (cep == 0) {
+        if (cep.isEmpty()) {
             throw new negocioException(319, "Insira o cep da unidade!");
         }
 
-        return UnidadesDAO.consultarPorEndereco(logradouro, numero, cidade, estado, cep);
+        return UnidadesDAO.consultarPorEndereco(logradouro, Integer.valueOf(numero), cidade, estado, Integer.valueOf(cep));
     }
 
-    public static Unidades consultarPorCep(Integer cep) throws negocioException, SQLException {
+    public static Unidades consultarPorCep(String cep) throws negocioException, SQLException {
 
-        if (cep < 0) //futura verificaçao 
+        if (cep.isEmpty()) //futura verificaçao 
         {
             throw new negocioException(319, "Insira o CEP da unidade!");
         }
-
-        return UnidadesDAO.consultarPorCep(cep);
+        if(String.valueOf(cep).length() != 11)
+            throw new negocioException(315, "O CEP não está correto!");
+        
+        return UnidadesDAO.consultarPorCep(Integer.valueOf(cep));
     }
     
     public static List<Unidades> consultarPorEstado(String estado) throws negocioException, SQLException {
@@ -75,14 +77,14 @@ public class ServicoUnidades {
     }
 
 
-    public static Unidades inserirUnidadeBD(String logradouro, String referencia, Integer cep, String estado, String cidade, Integer numero, String complemento, Integer estoque, String gerente) throws negocioException, SQLException {
+    public static Unidades inserirUnidadeBD(String logradouro, String referencia, String cep, String estado, String cidade, String numero, String complemento, String estoque, String gerente) throws negocioException, SQLException {
         if (logradouro.isEmpty()) {
             throw new negocioException(319, "O logradouro é obrigatório.");
         }
         if (referencia.isEmpty()) {
             throw new negocioException(319, "A referência da unidade é obrigatório.");
         }
-        if (cep < 0) {
+        if (cep.isEmpty()) {
             throw new negocioException(319, "O CEP é obrigatório.");
         }
         if (estado.isEmpty()) {
@@ -91,20 +93,20 @@ public class ServicoUnidades {
         if (cidade.isEmpty()) {
             throw new negocioException(319, "A cidade da unidade é obrigatória.");
         }
-        if (numero < 0) {
+        if (numero.isEmpty()) {
             throw new negocioException(319, "O número é obrigatório.");
         }
         if (complemento.isEmpty()) {
             throw new negocioException(319, "O complemento é obrigatório.");
         }
-        if (estoque < 0) {
+        if (estoque.isEmpty()) {
             throw new negocioException(319, "O estoque é obrigatório.");
         }
         if (gerente.isEmpty()) {
             throw new negocioException(319, "O gerente é obrigatório.");
         }
-
-        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente);
+        
+        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, Integer.valueOf(cep), estado, cidade, Integer.valueOf(numero), complemento, Integer.valueOf(estoque), gerente);
     }
 
     public static Unidades removerUnidadePorCEP(Integer cep) throws negocioException, SQLException {
