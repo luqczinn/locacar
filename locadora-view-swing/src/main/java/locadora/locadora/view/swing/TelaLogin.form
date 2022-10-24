@@ -62,9 +62,9 @@
                               <Component id="jLabel2" min="-2" pref="92" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="inserirSenha" pref="105" max="32767" attributes="0"/>
-                              <Component id="inserirUsuario" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="inserirUsuario" min="-2" pref="105" max="-2" attributes="0"/>
+                              <Component id="inserirSenha" min="-2" pref="105" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -132,8 +132,6 @@
             <Property name="text" type="java.lang.String" value="Senha:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JPasswordField" name="inserirSenha">
-        </Component>
         <Component class="javax.swing.JButton" name="btnEntrar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Entrar"/>
@@ -145,6 +143,11 @@
         <Component class="javax.swing.JTextField" name="inserirUsuario">
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirUsuarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JTextField" name="inserirSenha">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inserirSenhaActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

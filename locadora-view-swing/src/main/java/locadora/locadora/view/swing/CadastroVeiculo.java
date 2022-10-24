@@ -347,7 +347,6 @@ public class CadastroVeiculo extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
-        Controle.abrirHome();
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
@@ -356,8 +355,7 @@ public class CadastroVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxStatusActionPerformed
 
     private void btnCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadastrarMouseClicked
-        // TODO add your handling code here
-        Controle.abrirHome();
+        // TODO add your handling code here;
         this.dispose();
     }//GEN-LAST:event_btnCadastrarMouseClicked
 

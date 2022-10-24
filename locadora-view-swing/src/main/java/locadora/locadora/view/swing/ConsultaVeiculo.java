@@ -12,11 +12,8 @@ import javax.swing.table.DefaultTableModel;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoVeiculo;
 import locadora.locadora.negocio.dto.Veiculo; 
-<<<<<<< HEAD
 import locadora.locadora.negocio.dao.VeiculoDAO; 
-=======
 import javax.swing.JOptionPane;
->>>>>>> origin/team
 /**
  *
  * @author Aluno
@@ -403,7 +400,6 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        Controle.abrirHome();
         this.dispose(); 
     }//GEN-LAST:event_jButton4ActionPerformed
 

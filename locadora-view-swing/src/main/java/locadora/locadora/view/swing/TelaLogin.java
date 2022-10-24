@@ -5,9 +5,11 @@
  */
 package locadora.locadora.view.swing;
 
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.persistenciaException;
@@ -37,9 +39,9 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        inserirSenha = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
         inserirUsuario = new javax.swing.JTextField();
+        inserirSenha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +69,12 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
 
+        inserirSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inserirSenhaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -79,9 +87,9 @@ public class TelaLogin extends javax.swing.JFrame {
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inserirSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                            .addComponent(inserirUsuario)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inserirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inserirSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(101, 101, 101)
                         .addComponent(jLabel3))
@@ -139,19 +147,24 @@ public class TelaLogin extends javax.swing.JFrame {
         
         try {
             //chamando função para funcionar
-            ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+            Usuario user = ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+            Controle.abrirHome(user);
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setVisible(false);
-        Controle.abrirHome();
-                 
+        this.setVisible(false);               
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirUsuarioActionPerformed
+
+    private void inserirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inserirSenhaActionPerformed
     
     public static void main (String args[]) {
         
@@ -159,7 +172,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JPasswordField inserirSenha;
+    private javax.swing.JTextField inserirSenha;
     private javax.swing.JTextField inserirUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

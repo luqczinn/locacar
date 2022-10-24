@@ -198,7 +198,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="codigoReservaLabel6" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox2" pref="165" max="32767" attributes="0"/>
+                              <Component id="combo_unidade_reserva" pref="165" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
                               <Component id="codigoReservaLabel2" min="-2" pref="70" max="-2" attributes="0"/>
@@ -247,7 +247,7 @@
                           <Component id="codigoReservaLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="textCodigoReserva" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="combo_unidade_reserva" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -401,6 +401,9 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="textCodigoReserva">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReservaActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
@@ -440,7 +443,7 @@
                 <Property name="text" type="java.lang.String" value="Unidade:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox2">
+            <Component class="javax.swing.JComboBox" name="combo_unidade_reserva">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -475,7 +478,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="codigoReservaLabel4" min="-2" pref="56" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jComboBox1" max="32767" attributes="0"/>
+                              <Component id="combo_veiculo_reservas" max="32767" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
@@ -531,7 +534,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="codigoReservaLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jComboBox1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="combo_veiculo_reservas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -577,7 +580,7 @@
                 <Property name="text" type="java.lang.String" value="Ve&#xed;culo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="jComboBox1">
+            <Component class="javax.swing.JComboBox" name="combo_veiculo_reservas">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="4">
@@ -691,7 +694,7 @@
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="textCodigoReserva1" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="txt_DataColeta_reservas" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -705,7 +708,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="textCodigoReserva2" min="-2" pref="90" max="-2" attributes="0"/>
+                          <Component id="txt_DataEntrega_reservas" min="-2" pref="90" max="-2" attributes="0"/>
                           <Component id="textCodigoReserva3" min="-2" pref="90" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -718,9 +721,9 @@
                       <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="codigoReservaLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_DataColeta_reservas" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="txt_DataEntrega_reservas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -767,9 +770,9 @@
                 <Property name="text" type="java.lang.String" value="Valor da reserva:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva1">
+            <Component class="javax.swing.JTextField" name="txt_DataColeta_reservas">
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva2">
+            <Component class="javax.swing.JTextField" name="txt_DataEntrega_reservas">
             </Component>
             <Component class="javax.swing.JTextField" name="textCodigoReserva3">
               <Properties>

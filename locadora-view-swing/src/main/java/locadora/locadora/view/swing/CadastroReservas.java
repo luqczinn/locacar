@@ -4,6 +4,10 @@
  */
 package locadora.locadora.view.swing;
 
+import java.sql.SQLException;
+import locadora.locadora.negocio.dao.ReservasDAO;
+import locadora.locadora.negocio.dto.Reservas;
+
 /**
  *
  * @author gugup
@@ -13,10 +17,24 @@ public class CadastroReservas extends javax.swing.JDialog {
     /**
      * Creates new form CadastroReservas
      */
-    public CadastroReservas(java.awt.Frame parent, boolean modal) {
+    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
+        String modo = ConsultarReservas.getVariavelB();
+        int x = ConsultarReservas.getVariavelA();
+        if (ConsultarReservas.getVariavelB().equals("Editar")) {
+            Reservas R = ReservasDAO.listarReservasBD().get(x);
+            textCodigoReserva.setText(Integer.toString(R.getCodigo()));
+            combo_unidade_reserva.setSelectedItem(R.getUnidade());
+            comb_rs_cliente.setSelectedItem(R.getCliente());
+            comb_rs_vendedor.setSelectedItem(R.getVendedor());
+            combo_veiculo_reservas.setSelectedItem(R.getVeiculo());
+            txt_DataColeta_reservas.setText(R.getInicio());
+            txt_DataEntrega_reservas.setText(R.getFim());
+        }
     }
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -57,10 +75,10 @@ public class CadastroReservas extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         telefone_vendedor = new javax.swing.JTextField();
         codigoReservaLabel6 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        combo_unidade_reserva = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         codigoReservaLabel4 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        combo_veiculo_reservas = new javax.swing.JComboBox<>();
         telefone_cliente1 = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         email_cliente1 = new javax.swing.JTextField();
@@ -80,8 +98,8 @@ public class CadastroReservas extends javax.swing.JDialog {
         codigoReservaLabel3 = new javax.swing.JLabel();
         codigoReservaLabel7 = new javax.swing.JLabel();
         codigoReservaLabel8 = new javax.swing.JLabel();
-        textCodigoReserva1 = new javax.swing.JTextField();
-        textCodigoReserva2 = new javax.swing.JTextField();
+        txt_DataColeta_reservas = new javax.swing.JTextField();
+        txt_DataEntrega_reservas = new javax.swing.JTextField();
         textCodigoReserva3 = new javax.swing.JTextField();
         textCodigoReserva4 = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
@@ -145,6 +163,12 @@ public class CadastroReservas extends javax.swing.JDialog {
 
         comb_rs_cliente.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        textCodigoReserva.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textCodigoReservaActionPerformed(evt);
+            }
+        });
+
         jLabel6.setText("Nome completo:");
 
         nome_vendedor.setEditable(false);
@@ -160,7 +184,7 @@ public class CadastroReservas extends javax.swing.JDialog {
         codigoReservaLabel6.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel6.setText("Unidade:");
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_unidade_reserva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -196,7 +220,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(codigoReservaLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox2, 0, 165, Short.MAX_VALUE))
+                        .addComponent(combo_unidade_reserva, 0, 165, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(codigoReservaLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -232,7 +256,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel1)
                     .addComponent(textCodigoReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel6)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_unidade_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel)
@@ -275,7 +299,7 @@ public class CadastroReservas extends javax.swing.JDialog {
         codigoReservaLabel4.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel4.setText("Veículo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_veiculo_reservas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         telefone_cliente1.setEditable(false);
         telefone_cliente1.addActionListener(new java.awt.event.ActionListener() {
@@ -325,7 +349,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(codigoReservaLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(combo_veiculo_reservas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -366,7 +390,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(combo_veiculo_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -424,7 +448,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(textCodigoReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txt_DataColeta_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(textCodigoReserva4)
@@ -434,7 +458,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textCodigoReserva2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_DataEntrega_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textCodigoReserva3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -444,9 +468,9 @@ public class CadastroReservas extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel5)
-                    .addComponent(textCodigoReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_DataColeta_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel3)
-                    .addComponent(textCodigoReserva2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_DataEntrega_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel7)
@@ -563,6 +587,10 @@ public class CadastroReservas extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void textCodigoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReservaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textCodigoReservaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codigoReservaLabel;
     private javax.swing.JLabel codigoReservaLabel1;
@@ -575,6 +603,8 @@ public class CadastroReservas extends javax.swing.JDialog {
     private javax.swing.JLabel codigoReservaLabel8;
     private javax.swing.JComboBox<String> comb_rs_cliente;
     private javax.swing.JComboBox<String> comb_rs_vendedor;
+    private javax.swing.JComboBox<String> combo_unidade_reserva;
+    private javax.swing.JComboBox<String> combo_veiculo_reservas;
     private javax.swing.JTextField cpf_cliente;
     private javax.swing.JTextField cpf_cliente1;
     private javax.swing.JTextField cpf_cliente2;
@@ -586,8 +616,6 @@ public class CadastroReservas extends javax.swing.JDialog {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -621,9 +649,9 @@ public class CadastroReservas extends javax.swing.JDialog {
     private javax.swing.JTextField telefone_cliente2;
     private javax.swing.JTextField telefone_vendedor;
     private javax.swing.JTextField textCodigoReserva;
-    private javax.swing.JTextField textCodigoReserva1;
-    private javax.swing.JTextField textCodigoReserva2;
     private javax.swing.JTextField textCodigoReserva3;
     private javax.swing.JTextField textCodigoReserva4;
+    private javax.swing.JTextField txt_DataColeta_reservas;
+    private javax.swing.JTextField txt_DataEntrega_reservas;
     // End of variables declaration//GEN-END:variables
 }

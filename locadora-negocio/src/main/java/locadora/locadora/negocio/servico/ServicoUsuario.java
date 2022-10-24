@@ -5,6 +5,7 @@
  */
 package locadora.locadora.negocio.servico;
 
+import java.sql.SQLException;
 import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
@@ -18,7 +19,7 @@ public class ServicoUsuario {
     
     private ServicoUsuario() {}
     
-    public static String logarUsuario(String username, String senha)throws negocioException{
+    public static Usuario logarUsuario(String username, String senha)throws negocioException, SQLException{
         if(username.isEmpty()){
             throw new negocioException(319, "Insira o username!");
         }
