@@ -4,6 +4,7 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import locadora.locadora.negocio.dao.ReservasDAO;
 import locadora.locadora.negocio.dto.Reservas;
@@ -17,9 +18,11 @@ public class CadastroReservas extends javax.swing.JDialog {
     /**
      * Creates new form CadastroReservas
      */
-    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException {
+    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException {       
         super(parent, modal);
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));        
         String modo = ConsultarReservas.getVariavelB();
         int x = ConsultarReservas.getVariavelA();
         if (ConsultarReservas.getVariavelB().equals("Editar")) {
@@ -554,14 +557,14 @@ public class CadastroReservas extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(222, 222, 222))
+                .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(74, 74, 74))
+                .addGap(0, 0, 0))
         );
 
         pack();

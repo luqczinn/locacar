@@ -17,19 +17,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Usuario;
+
 /**
  *
  * @author Aluno
  */
-public class UsuarioDAO{
-    
-    public static void cadastrarFuncionario(){}
-    public static void removerFuncionario(){}
-    public static void contagemFuncionarios(){}
-    public static int numeroFuncionarios(){return 0;}
-    
-    public static Usuario procurarPorUsername(String username) throws SQLException{
-        System.out.println("Antes conetion");
+public class UsuarioDAO {
+
+    public static void cadastrarFuncionario() {
+    }
+
+    public static void removerFuncionario() {
+    }
+
+    public static void contagemFuncionarios() {
+    }
+
+    public static int numeroFuncionarios() {
+        return 0;
+    }
+
+    public static Usuario procurarPorUsername(String username) throws SQLException {
         Connection com = Conexao.getConnection();
         Statement statement = com.createStatement();
         String sql = "SELECT * FROM funcionarios";
@@ -49,7 +57,7 @@ public class UsuarioDAO{
             String usuario = rs.getString("usuario");
             String senha = rs.getString("senha");
             String unidade = rs.getString("unidade");
-            
+
             Usuario u = new Usuario(nome, cpf, rg, nascimento, cnis, salario, cargo, endereco, telefone, email, usuario, senha, unidade);
             listaUsuarios.add(u);
             System.out.println(nome + cpf + rg + nascimento + usuario + senha);
@@ -57,8 +65,14 @@ public class UsuarioDAO{
         rs.close();
         statement.close();
         Conexao.closeConnection();
-        System.out.println("Depois conection");
-       
+        //inserção para realizar testes
+        Usuario t = new Usuario("Jose Vendedor", "123", "123", "123", "123", "123", "Vendedor", "123", "123", "123", "infVendedor", "2022", "01");
+        Usuario t2 = new Usuario("Pedro Gerente", "123", "123", "123", "123", "123", "Gerente", "123", "123", "123", "infGerente", "2022", "01");
+        Usuario t3 = new Usuario("João Diretor", "123", "123", "123", "123", "123", "Diretor", "123", "123", "123", "infDiretor", "2022", "01");
+        listaUsuarios.add(t);
+        listaUsuarios.add(t2);
+        listaUsuarios.add(t3);
+        
         if (listaUsuarios != null) {
             for (Usuario u : listaUsuarios) {
                 if (u.getUsername().equals(username)) {
@@ -67,24 +81,24 @@ public class UsuarioDAO{
             }
         }
         return null;
-    } 
-    
-    public static Usuario logarUsuario(String username, String senha)throws persistenciaException, SQLException{
+    }
+
+    public static Usuario logarUsuario(String username, String senha) throws persistenciaException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
         Usuario usuario = procurarPorUsername(username);
-        
+
         if (usuario == null) {
             throw new persistenciaException("Username de usuário não encontrado!");
         }
+        //if (usuario.getSenha().equals(criptografarSenha(senha))) {
         if (usuario.getSenha().equals(senha)) {
             Usuario className = usuario;
-            System.out.println("Bancou aq");
             return className;
         } else {
             throw new persistenciaException("Senha incorreta!");
         }
     }
-    
-    public static String criptografarSenha(String senha)throws UnsupportedEncodingException, NoSuchAlgorithmException{
+
+    public static String criptografarSenha(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
         byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
 

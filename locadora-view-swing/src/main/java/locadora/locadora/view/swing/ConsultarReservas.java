@@ -4,6 +4,7 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +28,8 @@ public class ConsultarReservas extends javax.swing.JDialog {
     public ConsultarReservas(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));   
         modo = "Navegar";
         LoadTableContent();
     }

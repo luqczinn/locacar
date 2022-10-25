@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package locadora.locadora.view.swing;
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,13 +14,15 @@ import locadora.locadora.negocio.excessoes.negocioException;
  *
  * @author Aluno
  */
-public class CadastroVeiculo extends javax.swing.JFrame {
+public class CadastroVeiculo extends javax.swing.JDialog {
 
     /**
      * Creates new form CadastroVeiculo
      */
     public CadastroVeiculo() {
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
     }
 
     /**
@@ -57,7 +60,8 @@ public class CadastroVeiculo extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro de veículos");
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");

@@ -18,12 +18,7 @@ import java.util.List;
  *
  * @author Aluno
  */
-public class ServicoVeiculo {
-
-    public static void inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modelo, String quilometragem, String status, char tipoDeCarro, String cambio) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+public class ServicoVeiculo {    
     private ServicoVeiculo(){ }
     
     public static List<Veiculo> consultarPorAno(String ano) throws negocioException, SQLException{

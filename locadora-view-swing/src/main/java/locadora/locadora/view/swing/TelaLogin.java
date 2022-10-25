@@ -5,6 +5,7 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,7 @@ import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.persistenciaException;
+
 /**
  *
  * @author Aluno
@@ -24,6 +26,8 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
     }
 
     /**
@@ -143,8 +147,8 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         //se nenhum dos campos de senha tiverem vazios//
         String insereUsuario = inserirUsuario.getText();
-        String insereSenha = inserirSenha.getText(); 
-        
+        String insereSenha = inserirSenha.getText();
+
         try {
             //chamando função para funcionar
             Usuario user = ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
@@ -155,7 +159,7 @@ public class TelaLogin extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setVisible(false);               
+        this.setVisible(false);
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
@@ -165,9 +169,9 @@ public class TelaLogin extends javax.swing.JFrame {
     private void inserirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirSenhaActionPerformed
-    
-    public static void main (String args[]) {
-        
+
+    public static void main(String args[]) {
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
