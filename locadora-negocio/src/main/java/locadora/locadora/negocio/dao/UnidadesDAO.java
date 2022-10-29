@@ -76,10 +76,12 @@ public class UnidadesDAO {
         if (consultarPorCep(cep) == null | listarUnidadesBD() == null) {
             String endereco = logradouro + ", " + String.valueOf(numero) + " - " + cidade + " - " + estado + ", " + String.valueOf(cep);
             Unidades u = new Unidades(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente, endereco);
-            Connection com = Conexao.getConnection();
-            Statement statement = com.createStatement();
             String sql = "INSERT INTO unidades VALUES("+estado+",'"+cidade+"','"+logradouro+"','"+numero+"','"+cep+"',"+complemento+",'"+referencia+"',"+estoque+"','"+gerente+"')";
-            statement.executeUpdate(sql);
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
             return u;
         }
         return null;
@@ -98,10 +100,10 @@ public class UnidadesDAO {
     }
 
     public static List<Unidades> listarUnidadesBD() throws SQLException {
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
         String sql = "SELECT * FROM unidades";
-        ResultSet rs = statement.executeQuery(sql);
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
         List<Unidades> listaUnidades = new ArrayList<>();
         while (rs.next()) {
             String estado = (rs.getString("estado"));
