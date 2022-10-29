@@ -64,7 +64,6 @@ public class UsuarioDAO {
         }
         rs.close();
         statement.close();
-        Conexao.closeConnection();
         //inserção para realizar testes
         Usuario t = new Usuario("Jose Vendedor", "123", "123", "123", "123", "123", "Vendedor", "123", "123", "123", "infVendedor", "2022", "01");
         Usuario t2 = new Usuario("Pedro Gerente", "123", "123", "123", "123", "123", "Gerente", "123", "123", "123", "infGerente", "2022", "01");

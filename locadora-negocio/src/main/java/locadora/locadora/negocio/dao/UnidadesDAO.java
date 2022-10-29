@@ -80,7 +80,6 @@ public class UnidadesDAO {
             Statement statement = com.createStatement();
             String sql = "INSERT INTO unidades VALUES("+estado+",'"+cidade+"','"+logradouro+"','"+numero+"','"+cep+"',"+complemento+",'"+referencia+"',"+estoque+"','"+gerente+"')";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return u;
         }
         return null;
@@ -93,7 +92,6 @@ public class UnidadesDAO {
             Statement statement = com.createStatement();
             String sql = "DELETE FROM unidades WHERE cep='"+cep+"'";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return u;
         }
         return null;
@@ -119,7 +117,6 @@ public class UnidadesDAO {
             Unidades u = new Unidades(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente, endereco);
             listaUnidades.add(u);
         }
-        Conexao.closeConnection();
         if (listaUnidades.isEmpty() != true) {
             return listaUnidades;
         }

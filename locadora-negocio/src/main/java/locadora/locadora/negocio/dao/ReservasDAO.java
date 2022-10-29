@@ -40,7 +40,6 @@ public class ReservasDAO {
             Statement statement = com.createStatement();
             String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return reserva;
         }
         return null;
@@ -65,7 +64,6 @@ public class ReservasDAO {
             Reservas r = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
             listaReservas.add(r);
         }
-        Conexao.closeConnection();
         if (listaReservas.isEmpty() != true) {
             return listaReservas;
         }
@@ -79,7 +77,6 @@ public class ReservasDAO {
             Statement statement = com.createStatement();
             String sql = "DELETE FROM reservas WHERE codigo='"+codigo+"'";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return r;
         }
         return null;

@@ -6,6 +6,8 @@
 package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -156,7 +158,7 @@ public class TelaLogin extends javax.swing.JFrame {
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
