@@ -489,6 +489,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        this.dispose(); 
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void anoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoCarroActionPerformed

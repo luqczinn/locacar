@@ -108,5 +108,5 @@ public class UsuarioDAO {
         String senhahex = hexString.toString();
         return senhahex;
     }
-
+     
 }
