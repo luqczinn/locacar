@@ -294,7 +294,11 @@ public class CadastroUnidades extends javax.swing.JFrame {
         String estoque = jTextField7.getText();
         String gerente = jTextField8.getText();
         try{
-            ServicoUnidades.inserirUnidadeBD(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente);
+            if(jComboBox1.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(rootPane, "Selecione um Estado", "Erro ao cadastrar unidade", JOptionPane.ERROR_MESSAGE);
+            }else{
+                ServicoUnidades.inserirUnidadeBD(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente);
+            }
         }catch(negocioException | SQLException ex){
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar unidade", JOptionPane.ERROR_MESSAGE);
         }
