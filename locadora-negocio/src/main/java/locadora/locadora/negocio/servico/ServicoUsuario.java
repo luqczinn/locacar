@@ -34,4 +34,12 @@ public class ServicoUsuario {
             throw new negocioException(315, ex.getMessage());
         }
     }
+    public static Usuario consultarPorUsername(String username) throws negocioException, SQLException {
+
+        if (username.isEmpty()) {
+            throw new negocioException(319, "Insira o username do funcionário!");
+        }
+
+        return UsuarioDAO.procurarPorUsername(username);
+    }
 }
