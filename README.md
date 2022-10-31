@@ -42,9 +42,4 @@ representada.
 
 
 
-Sprint | Aula | Requsitos
---------- | ------ | ----------------------------------------------
-Sprint 1| RF001 |
-Sprint 1 | RF002 |
-Sprint 1 | RF003 |
-Sprint 1 | RF004 |
+![image](https://user-images.githubusercontent.com/82380592/198911067-c16e01c5-1891-4cc8-88c2-d3b48253f9dc.png)
