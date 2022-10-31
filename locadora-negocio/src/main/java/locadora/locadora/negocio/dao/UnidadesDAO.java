@@ -76,7 +76,7 @@ public class UnidadesDAO {
         if (consultarPorCep(cep) == null | listarUnidadesBD() == null) {
             String endereco = logradouro + ", " + String.valueOf(numero) + " - " + cidade + " - " + estado + ", " + String.valueOf(cep);
             Unidades u = new Unidades(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente, endereco);
-            String sql = "INSERT INTO unidades VALUES("+estado+",'"+cidade+"','"+logradouro+"','"+numero+"','"+cep+"',"+complemento+",'"+referencia+"',"+estoque+"','"+gerente+"')";
+            String sql = "INSERT INTO unidades VALUES('"+estado+"','"+cidade+"','"+logradouro+"','"+numero+"','"+cep+"','"+complemento+"','"+referencia+"',"+estoque+",'"+gerente+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
             pstmt.execute();
@@ -109,7 +109,7 @@ public class UnidadesDAO {
             String estado = (rs.getString("estado"));
             String cidade = rs.getString("cidade");
             String logradouro = rs.getString("logradouro");
-            int numero = Integer.valueOf(rs.getString("numero"));
+            int numero = rs.getInt("numero");
             int cep = Integer.valueOf(rs.getString("cep"));
             String complemento = rs.getString("complemento");
             String referencia = rs.getString("referencia");
