@@ -84,7 +84,7 @@
       <Properties>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-            <TitledBorder title="Reserva"/>
+            <TitledBorder title="Funcion&#xe1;rios"/>
           </Border>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
@@ -111,7 +111,7 @@
                   <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
                   <Component id="jButton6" min="-2" pref="110" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                  <Component id="botaoCadastrarFunc" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -120,14 +120,14 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="8" max="32767" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jButton6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="jButton9" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="botaoCadastrarFunc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
@@ -139,7 +139,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Dados da reserva"/>
+                <TitledBorder title="Dados do Funcion&#xe1;rio"/>
               </Border>
             </Property>
           </Properties>
@@ -158,27 +158,37 @@
                           <Component id="codigoReservaLabel9" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel10" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel12" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="codigoReservaLabel14" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Component id="codigoReservaLabel16" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textCodigoReserva1" pref="144" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva2" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva6" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva8" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="codigoReservaLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel11" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel13" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="textCodigoReserva5" pref="140" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva7" max="32767" attributes="0"/>
-                          <Component id="textCodigoReserva9" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="getNome" pref="144" max="32767" attributes="0"/>
+                                  <Component id="getCpf" max="32767" attributes="0"/>
+                                  <Component id="getEmail" max="32767" attributes="0"/>
+                                  <Component id="getUsername" max="32767" attributes="0"/>
+                                  <Component id="getData" max="32767" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="codigoReservaLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel11" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel13" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel15" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="getRg" pref="140" max="32767" attributes="0"/>
+                                  <Component id="getSobrenome" max="32767" attributes="0"/>
+                                  <Component id="getTel" max="32767" attributes="0"/>
+                                  <Component id="getSenha" max="32767" attributes="0"/>
+                                  <Component id="getUnidade" alignment="0" max="32767" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Component id="getEndereco" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -190,34 +200,56 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="codigoReservaLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getSobrenome" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="codigoReservaLabel" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva5" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getRg" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="codigoReservaLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getTel" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="codigoReservaLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva8" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="textCodigoReserva9" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace pref="38" max="32767" attributes="0"/>
-                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="getUnidade" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="getSenha" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="codigoReservaLabel14" min="-2" max="-2" attributes="0"/>
+                                  <Component id="getData" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="codigoReservaLabel12" min="-2" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="3" attributes="0">
+                                      <Component id="getUsername" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="codigoReservaLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="11" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="codigoReservaLabel16" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="getEndereco" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -239,9 +271,9 @@
                 <Property name="text" type="java.lang.String" value="RG:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva">
+            <Component class="javax.swing.JTextField" name="getSobrenome">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReservaActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getSobrenomeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel6">
@@ -252,14 +284,14 @@
                 <Property name="text" type="java.lang.String" value="Sobrenome:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva1">
+            <Component class="javax.swing.JTextField" name="getNome">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva1ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getNomeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva2">
+            <Component class="javax.swing.JTextField" name="getCpf">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva2ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getCpfActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel9">
@@ -270,9 +302,9 @@
                 <Property name="text" type="java.lang.String" value="CPF:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva5">
+            <Component class="javax.swing.JTextField" name="getRg">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva5ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getRgActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel10">
@@ -283,9 +315,9 @@
                 <Property name="text" type="java.lang.String" value="E-mail:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva6">
+            <Component class="javax.swing.JTextField" name="getEmail">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva6ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getEmailActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel11">
@@ -296,9 +328,9 @@
                 <Property name="text" type="java.lang.String" value="Telefone:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva7">
+            <Component class="javax.swing.JTextField" name="getTel">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva7ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getTelActionPerformed"/>
               </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel4">
@@ -321,8 +353,8 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_DataColeta_reservas1" min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="txt_DataColeta_reservas" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="getContaBancaria" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="getSalario" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -331,8 +363,8 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="txt_DataEntrega_reservas" min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="txt_DataEntrega_reservas1" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="getPix" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="getCargo" min="-2" pref="90" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="86" max="32767" attributes="0"/>
                       </Group>
@@ -344,18 +376,18 @@
                           <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="codigoReservaLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_DataColeta_reservas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="getSalario" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="codigoReservaLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_DataEntrega_reservas" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="getPix" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="codigoReservaLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="codigoReservaLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_DataColeta_reservas1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txt_DataEntrega_reservas1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="getContaBancaria" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="getCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="23" max="32767" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -393,13 +425,13 @@
                     <Property name="text" type="java.lang.String" value="Cargo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_DataColeta_reservas">
+                <Component class="javax.swing.JTextField" name="getSalario">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_DataEntrega_reservas">
+                <Component class="javax.swing.JTextField" name="getPix">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_DataColeta_reservas1">
+                <Component class="javax.swing.JTextField" name="getContaBancaria">
                 </Component>
-                <Component class="javax.swing.JTextField" name="txt_DataEntrega_reservas1">
+                <Component class="javax.swing.JTextField" name="getCargo">
                 </Component>
               </SubComponents>
             </Container>
@@ -411,9 +443,9 @@
                 <Property name="text" type="java.lang.String" value="Username:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva8">
+            <Component class="javax.swing.JTextField" name="getUsername">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva8ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getUsernameActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel13">
@@ -421,12 +453,48 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Amiri" size="14" style="1"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Unidade:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="getSenha">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getSenhaActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="codigoReservaLabel14">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Amiri" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Data de nascimento:"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="getData">
+            </Component>
+            <Component class="javax.swing.JLabel" name="codigoReservaLabel15">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Amiri" size="14" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Senha:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="textCodigoReserva9">
+            <Component class="javax.swing.JTextField" name="getUnidade">
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="textCodigoReserva9ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getUnidadeActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JLabel" name="codigoReservaLabel16">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Amiri" size="14" style="1"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Endere&#xe7;o:"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JTextField" name="getEndereco">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getEnderecoActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -441,7 +509,7 @@
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
-        <Component class="javax.swing.JButton" name="jButton9">
+        <Component class="javax.swing.JButton" name="botaoCadastrarFunc">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="1"/>
@@ -449,7 +517,7 @@
             <Property name="text" type="java.lang.String" value="Cadastrar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton9ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCadastrarFuncActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton6">

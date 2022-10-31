@@ -188,10 +188,10 @@ public class VeiculoDAO {
             String tipoMotor = rs.getString("tipoMotor");
             String modeloCarro = rs.getString("modelo");
             double kmRodados = rs.getDouble("km");
-            String tipo = rs.getString("fim");
+            String tipo = rs.getString("tipoDeCarro");
             String cambio = rs.getString("cambio");
             double valorAluguel = rs.getDouble("valorDiaria");
-            String status = rs.getString("status");
+            String status = rs.getString("situacao");
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
             listaVeiculos.add(v);
         }

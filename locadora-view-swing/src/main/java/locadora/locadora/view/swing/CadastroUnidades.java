@@ -132,8 +132,13 @@ public class CadastroUnidades extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         jLabel2.setText("Estado:");
 
+<<<<<<< HEAD (b0e964b) - VCorreção de código + t
         txt_estado_CadUn.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AC", "AL", "AP", "AM", "BA", "CE", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO", "DF" }));
         txt_estado_CadUn.addActionListener(new java.awt.event.ActionListener() {
+=======
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecionar", "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PO", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+>>>>>>> origin/production (c6dd6b1) - Merge pull
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_estado_CadUnActionPerformed(evt);
             }
@@ -296,8 +301,6 @@ public class CadastroUnidades extends javax.swing.JFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(58, 58, 58)
                         .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(52, 52, 52))
             .addGroup(layout.createSequentialGroup()
                 .addGap(282, 282, 282)
@@ -339,27 +342,23 @@ public class CadastroUnidades extends javax.swing.JFrame {
 
     private void txt_complemento_CadUnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_complemento_CadUnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_complemento_CadUnActionPerformed
+<<<<<<< HEAD (b0e964b) - VCorreção de código + t
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)))
+=======
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+>>>>>>> origin/production (c6dd6b1) - Merge pull
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        String estado = txt_estado_CadUn.getSelectedItem().toString();
-        String cidade = txt_cidade_CadUn.getText();
-        String logradouro = txt_logradouro_CadUn.getText();
-        String numero = txt_numero_CadUn.getText();
-        String cep = txt_cep_CadUn.getText();
-        String complemento = txt_complemento_CadUn.getText();
-        String matricula = txt_matricula_CadUn.getText();
-        String estoque = txt_estoque_CadUn.getText();
-        String gerente = txt_combo_Gerente.getSelectedItem().toString();
-
-        try {
-            //adicionar na lista de carros
-            ServicoUnidades.inserirUnidadeBD(logradouro, complemento, cep, estado, cidade, numero, complemento, estoque, gerente);
-        } catch (negocioException | SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
-            Logger.getLogger(CadastroUnidades.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.dispose();
+<<<<<<< HEAD (b0e964b) - VCorreção de código + t
+    }//GEN-LAST:event_txt_complemento_CadUnActionPerformed
+=======
+    }//GEN-LAST:event_jTextField5ActionPerformed
+>>>>>>> origin/production (c6dd6b1) - Merge pull
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void txt_combo_GerenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_combo_GerenteActionPerformed
@@ -398,3 +397,42 @@ public class CadastroUnidades extends javax.swing.JFrame {
     private javax.swing.JTextField txt_numero_CadUn;
     // End of variables declaration//GEN-END:variables
 }
+<<<<<<< HEAD (b0e964b) - VCorreção de código + t
+        String estado = txt_estado_CadUn.getSelectedItem().toString();
+        String cidade = txt_cidade_CadUn.getText();
+        String logradouro = txt_logradouro_CadUn.getText();
+        String numero = txt_numero_CadUn.getText();
+        String cep = txt_cep_CadUn.getText();
+        String complemento = txt_complemento_CadUn.getText();
+        String matricula = txt_matricula_CadUn.getText();
+        String estoque = txt_estoque_CadUn.getText();
+        String gerente = txt_combo_Gerente.getSelectedItem().toString();
+
+        try {
+            //adicionar na lista de carros
+            ServicoUnidades.inserirUnidadeBD(logradouro, complemento, cep, estado, cidade, numero, complemento, estoque, gerente);
+        } catch (negocioException | SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(CadastroUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.dispose();
+=======
+        String logradouro = jTextField2.getText();
+        String referencia = jTextField6.getText();
+        String cep = jTextField4.getText();
+        String estado = (String)jComboBox1.getSelectedItem();
+        String cidade = jTextField1.getText();
+        String numero = jTextField3.getText();
+        String complemento = jTextField5.getText();
+        String estoque = jTextField7.getText();
+        String gerente = jTextField8.getText();
+        try{
+            if(jComboBox1.getSelectedIndex() == 0){
+                JOptionPane.showMessageDialog(rootPane, "Selecione um Estado", "Erro ao cadastrar unidade", JOptionPane.ERROR_MESSAGE);
+            }else{
+                ServicoUnidades.inserirUnidadeBD(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente);
+            }
+        }catch(negocioException | SQLException ex){
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar unidade", JOptionPane.ERROR_MESSAGE);
+        }
+>>>>>>> origin/production (c6dd6b1) - Merge pull
