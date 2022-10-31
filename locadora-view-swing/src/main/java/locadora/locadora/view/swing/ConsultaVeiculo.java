@@ -30,7 +30,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
-        //ListarTabela(); 
+        ListarTabela(); 
     }
     
     public void ListarTabela() throws negocioException, SQLException {
@@ -45,9 +45,9 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         for (int i = 0; i < ServicoVeiculo.listarVeiculos().size(); i++) {
             tabela.addRow(new Object[]{ServicoVeiculo.listarVeiculos().get(i).getAno(), 
                 ServicoVeiculo.listarVeiculos().get(i).getPlaca(), ServicoVeiculo.listarVeiculos().get(i).getMarca(), 
-                ServicoVeiculo.listarVeiculos().get(i).getTipoMotor()+ ": " + ServicoVeiculo.listarVeiculos().get(i).getModeloCarro(), 
-                ServicoVeiculo.listarVeiculos().get(i).getKmRodados()+ ": " + ServicoVeiculo.listarVeiculos().get(i).getStatus(), 
-                ServicoVeiculo.listarVeiculos().get(i).getTipo()+ ": " + ServicoVeiculo.listarVeiculos().get(i).getCambio()});
+                ServicoVeiculo.listarVeiculos().get(i).getTipoMotor(), ServicoVeiculo.listarVeiculos().get(i).getModeloCarro(), 
+                ServicoVeiculo.listarVeiculos().get(i).getKmRodados(), ServicoVeiculo.listarVeiculos().get(i).getValorAluguel(),ServicoVeiculo.listarVeiculos().get(i).getStatus(), 
+                ServicoVeiculo.listarVeiculos().get(i).getTipo(), ServicoVeiculo.listarVeiculos().get(i).getCambio()});
         } 
         jTable1.setModel(tabela); 
     };
@@ -106,6 +106,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setFocusCycleRoot(false);
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -149,7 +150,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {}
+
             },
             new String [] {
 
@@ -185,6 +186,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel14.setText("KM Rodados:");
 
         anoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Ano", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", " " }));
+        anoCarro.setEnabled(false);
         anoCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 anoCarroActionPerformed(evt);
@@ -192,10 +194,14 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         });
 
         placaCarro.setEditable(false);
+        placaCarro.setEnabled(false);
+        placaCarro.setFocusable(false);
 
         modeloCarro.setEditable(false);
+        modeloCarro.setEnabled(false);
 
         marcaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Marca", "AUDI", "BMW", "CITROEN", "FIAT", "FORD", "HONDA", "HYUNDAI", "JEEP", "KIA", "MERCEDES-BENZ", "MITSUBISHI", "PEUGEOT", "RENAULT", "TOYOTA", "VOLKSWAGEN", "VOLVO", " ", " " }));
+        marcaCarro.setEnabled(false);
         marcaCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 marcaCarroActionPerformed(evt);
@@ -203,8 +209,10 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         });
 
         tipoDeMotor.setEditable(false);
+        tipoDeMotor.setEnabled(false);
 
         quilometragemRodada.setEditable(false);
+        quilometragemRodada.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -269,6 +277,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel19.setText("Valor Diária:");
 
         tipoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Modelo", "A", "B", "C", "D", " ", " " }));
+        tipoCarro.setEnabled(false);
         tipoCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tipoCarroActionPerformed(evt);
@@ -276,6 +285,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         });
 
         cambioCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cambio", "Manual", "Automatico", "Misto" }));
+        cambioCarro.setEnabled(false);
         cambioCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cambioCarroActionPerformed(evt);
@@ -288,6 +298,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        valorAluguel.setEnabled(false);
         valorAluguel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 valorAluguelActionPerformed(evt);
@@ -298,6 +309,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel21.setText("Status:");
 
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Status", "Alugado", "Livre", "Em Manutenção", "Ultrapassado", " " }));
+        cbxStatus.setEnabled(false);
         cbxStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxStatusActionPerformed(evt);
@@ -356,43 +368,45 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(241, 241, 241)
+                .addGap(380, 380, 380)
                 .addComponent(jLabel1)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(67, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEditar)
-                        .addGap(215, 215, 215)
+                        .addGap(247, 247, 247)
                         .addComponent(btnSalvar)
-                        .addGap(176, 176, 176)
-                        .addComponent(btnExcluir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnExcluir)
+                        .addGap(202, 202, 202)
+                        .addComponent(jButton4)
+                        .addGap(30, 30, 30))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(142, 142, 142)
                             .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(64, 64, 64)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(30, 30, 30))
+                            .addContainerGap())
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(30, 30, 30)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(43, 43, 43)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar)
                     .addComponent(btnSalvar)
                     .addComponent(btnExcluir)
                     .addComponent(jButton4))
@@ -410,29 +424,49 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
         //libera os campos de veiculo para fazer a alteração
-        anoCarro.setEditable(true);
-        placaCarro.setEditable(true);
-        marcaCarro.setEditable(true);
-        modeloCarro.setEditable(true);
-        tipoDeMotor.setEditable(true);
-        quilometragemRodada.setEditable(true);
-        tipoCarro.setEditable(true);
-        cambioCarro.setEditable(true);
-        valorAluguel.setEditable(true);
-        cbxStatus.setEditable(true);
+        anoCarro.setEnabled(true);
+        placaCarro.setEnabled(true);
+        marcaCarro.setEnabled(true);
+        modeloCarro.setEnabled(true);
+        tipoDeMotor.setEnabled(true);
+        quilometragemRodada.setEnabled(true);
+        tipoCarro.setEnabled(true);
+        cambioCarro.setEnabled(true);
+        valorAluguel.setEnabled(true);
+        cbxStatus.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        //excluir o veiculo
-        //de acordo c a linha selecionada exclui do bd o veiculo
+        int x = jTable1.getSelectedRow();
+        Veiculo v = null;
         
+        try {
+            v = VeiculoDAO.listarVeiculosBD().get(x); 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        try {
+            VeiculoDAO.removerVeiculoBD(v.getPlaca()); 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        }
+
+        try {
+            ListarTabela();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        } catch (negocioException ex) {
+            Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         //pegar novos valores do cadastro
-        /*
-        int ano = (int) anoCarro.getSelectedItem();
+        
+        String ano = (String) anoCarro.getSelectedItem();
         String placa = placaCarro.getText();
         String marca = (String) marcaCarro.getSelectedItem();
         String modelo = modeloCarro.getText();
@@ -454,7 +488,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void anoCarroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anoCarroActionPerformed
@@ -482,24 +516,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_cbxStatusActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-        //ao clicar na tabela pegar a linha selecionada
-        int linha = jTable1.getSelectedRow();
-        
-        DefaultTableModel tabela = (DefaultTableModel) jTable1.getModel();
-        
-        //olha qual linha foi selecionada
-        if (tabela.getRowCount() > 0 && linha >= 0) {
-            try { 
-                ServicoVeiculo.listarVeiculos().get(linha);
-            } catch (negocioException ex) {
-                Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } 
+
     }//GEN-LAST:event_jTable1MouseClicked
-    
     
     
 
