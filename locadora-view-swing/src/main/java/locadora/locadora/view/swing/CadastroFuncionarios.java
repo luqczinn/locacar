@@ -6,6 +6,7 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.Date;
 import locadora.locadora.negocio.dao.ReservasDAO;
 import locadora.locadora.negocio.dto.Reservas;
 
@@ -29,9 +30,9 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         
         if (ConsultarReservas.getVariavelB().equals("Editar")) {
             Reservas R = ReservasDAO.listarReservasBD().get(x);
-            textCodigoReserva.setText(Integer.toString(R.getCodigo()));
-            txt_DataColeta_reservas.setText(R.getInicio());
-            txt_DataEntrega_reservas.setText(R.getFim());
+            getSobrenome.setText(Integer.toString(R.getCodigo()));
+            getSalario.setText(R.getInicio());
+            getPix.setText(R.getFim());
         }
     }
     
@@ -55,32 +56,38 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         codigoReservaLabel1 = new javax.swing.JLabel();
         codigoReservaLabel = new javax.swing.JLabel();
-        textCodigoReserva = new javax.swing.JTextField();
+        getSobrenome = new javax.swing.JTextField();
         codigoReservaLabel6 = new javax.swing.JLabel();
-        textCodigoReserva1 = new javax.swing.JTextField();
-        textCodigoReserva2 = new javax.swing.JTextField();
+        getNome = new javax.swing.JTextField();
+        getCpf = new javax.swing.JTextField();
         codigoReservaLabel9 = new javax.swing.JLabel();
-        textCodigoReserva5 = new javax.swing.JTextField();
+        getRg = new javax.swing.JTextField();
         codigoReservaLabel10 = new javax.swing.JLabel();
-        textCodigoReserva6 = new javax.swing.JTextField();
+        getEmail = new javax.swing.JTextField();
         codigoReservaLabel11 = new javax.swing.JLabel();
-        textCodigoReserva7 = new javax.swing.JTextField();
+        getTel = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         codigoReservaLabel5 = new javax.swing.JLabel();
         codigoReservaLabel3 = new javax.swing.JLabel();
         codigoReservaLabel7 = new javax.swing.JLabel();
         codigoReservaLabel8 = new javax.swing.JLabel();
-        txt_DataColeta_reservas = new javax.swing.JTextField();
-        txt_DataEntrega_reservas = new javax.swing.JTextField();
-        txt_DataColeta_reservas1 = new javax.swing.JTextField();
-        txt_DataEntrega_reservas1 = new javax.swing.JTextField();
+        getSalario = new javax.swing.JTextField();
+        getPix = new javax.swing.JTextField();
+        getContaBancaria = new javax.swing.JTextField();
+        getCargo = new javax.swing.JTextField();
         codigoReservaLabel12 = new javax.swing.JLabel();
-        textCodigoReserva8 = new javax.swing.JTextField();
+        getUsername = new javax.swing.JTextField();
         codigoReservaLabel13 = new javax.swing.JLabel();
-        textCodigoReserva9 = new javax.swing.JTextField();
+        getSenha = new javax.swing.JTextField();
+        codigoReservaLabel14 = new javax.swing.JLabel();
+        getData = new com.toedter.calendar.JDateChooser();
+        codigoReservaLabel15 = new javax.swing.JLabel();
+        getUnidade = new javax.swing.JTextField();
+        codigoReservaLabel16 = new javax.swing.JLabel();
+        getEndereco = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton9 = new javax.swing.JButton();
+        botaoCadastrarFunc = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
 
         jLabel8.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
@@ -102,10 +109,10 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reserva"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionários"));
         jPanel1.setToolTipText("");
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da reserva"));
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados do Funcionário"));
 
         codigoReservaLabel1.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel1.setText("Nome:");
@@ -113,51 +120,51 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         codigoReservaLabel.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel.setText("RG:");
 
-        textCodigoReserva.addActionListener(new java.awt.event.ActionListener() {
+        getSobrenome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReservaActionPerformed(evt);
+                getSobrenomeActionPerformed(evt);
             }
         });
 
         codigoReservaLabel6.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel6.setText("Sobrenome:");
 
-        textCodigoReserva1.addActionListener(new java.awt.event.ActionListener() {
+        getNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva1ActionPerformed(evt);
+                getNomeActionPerformed(evt);
             }
         });
 
-        textCodigoReserva2.addActionListener(new java.awt.event.ActionListener() {
+        getCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva2ActionPerformed(evt);
+                getCpfActionPerformed(evt);
             }
         });
 
         codigoReservaLabel9.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel9.setText("CPF:");
 
-        textCodigoReserva5.addActionListener(new java.awt.event.ActionListener() {
+        getRg.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva5ActionPerformed(evt);
+                getRgActionPerformed(evt);
             }
         });
 
         codigoReservaLabel10.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel10.setText("E-mail:");
 
-        textCodigoReserva6.addActionListener(new java.awt.event.ActionListener() {
+        getEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva6ActionPerformed(evt);
+                getEmailActionPerformed(evt);
             }
         });
 
         codigoReservaLabel11.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel11.setText("Telefone:");
 
-        textCodigoReserva7.addActionListener(new java.awt.event.ActionListener() {
+        getTel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva7ActionPerformed(evt);
+                getTelActionPerformed(evt);
             }
         });
 
@@ -186,16 +193,16 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_DataColeta_reservas1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_DataColeta_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(getContaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(codigoReservaLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txt_DataEntrega_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_DataEntrega_reservas1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(getPix, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(86, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -204,33 +211,54 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel5)
-                    .addComponent(txt_DataColeta_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel3)
-                    .addComponent(txt_DataEntrega_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(getPix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel7)
                     .addComponent(codigoReservaLabel8)
-                    .addComponent(txt_DataColeta_reservas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txt_DataEntrega_reservas1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(getContaBancaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         codigoReservaLabel12.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel12.setText("Username:");
 
-        textCodigoReserva8.addActionListener(new java.awt.event.ActionListener() {
+        getUsername.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva8ActionPerformed(evt);
+                getUsernameActionPerformed(evt);
             }
         });
 
         codigoReservaLabel13.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
-        codigoReservaLabel13.setText("Senha:");
+        codigoReservaLabel13.setText("Unidade:");
 
-        textCodigoReserva9.addActionListener(new java.awt.event.ActionListener() {
+        getSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textCodigoReserva9ActionPerformed(evt);
+                getSenhaActionPerformed(evt);
+            }
+        });
+
+        codigoReservaLabel14.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        codigoReservaLabel14.setText("Data de nascimento:");
+
+        codigoReservaLabel15.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        codigoReservaLabel15.setText("Senha:");
+
+        getUnidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getUnidadeActionPerformed(evt);
+            }
+        });
+
+        codigoReservaLabel16.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        codigoReservaLabel16.setText("Endereço:");
+
+        getEndereco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                getEnderecoActionPerformed(evt);
             }
         });
 
@@ -245,25 +273,33 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codigoReservaLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codigoReservaLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(codigoReservaLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textCodigoReserva1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addComponent(textCodigoReserva2)
-                    .addComponent(textCodigoReserva6)
-                    .addComponent(textCodigoReserva8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(codigoReservaLabel6)
-                    .addComponent(codigoReservaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(textCodigoReserva5, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(textCodigoReserva)
-                    .addComponent(textCodigoReserva7)
-                    .addComponent(textCodigoReserva9))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(getNome, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(getCpf)
+                            .addComponent(getEmail)
+                            .addComponent(getUsername)
+                            .addComponent(getData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigoReservaLabel6)
+                            .addComponent(codigoReservaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigoReservaLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigoReservaLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigoReservaLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(getRg, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(getSobrenome)
+                            .addComponent(getTel)
+                            .addComponent(getSenha)
+                            .addComponent(getUnidade)))
+                    .addComponent(getEndereco))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -272,40 +308,55 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel1)
-                    .addComponent(textCodigoReserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel6)
-                    .addComponent(textCodigoReserva1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(getNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel)
-                    .addComponent(textCodigoReserva2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textCodigoReserva5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getRg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel10)
-                    .addComponent(textCodigoReserva6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(getEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel11)
-                    .addComponent(textCodigoReserva7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(getTel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(getUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(codigoReservaLabel13))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(getSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigoReservaLabel14)
+                            .addComponent(getData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(codigoReservaLabel12)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(getUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(codigoReservaLabel15)))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoReservaLabel12)
-                    .addComponent(textCodigoReserva8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel13)
-                    .addComponent(textCodigoReserva9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(codigoReservaLabel16)
+                    .addComponent(getEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
         jLabel17.setText("CADASTRAR FUNCIONÁRIO");
 
-        jButton9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jButton9.setText("Cadastrar");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
+        botaoCadastrarFunc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botaoCadastrarFunc.setText("Cadastrar");
+        botaoCadastrarFunc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+                botaoCadastrarFuncActionPerformed(evt);
             }
         });
 
@@ -334,21 +385,21 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addGap(244, 244, 244)
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton9)
+                .addComponent(botaoCadastrarFunc)
                 .addGap(302, 302, 302))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel17)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(botaoCadastrarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18))
         );
 
@@ -384,60 +435,101 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    private void botaoCadastrarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFuncActionPerformed
+        String nome, cpf, email, username, endereco, sobrenome, rg, tel, unidade, senha, salario, conta, pix, cargo;
+        Date data;
+        nome = getNome.getText();
+        email = getEmail.getText();
+        username = getUsername.getText();
+        endereco = getEndereco.getText();
+        sobrenome = getSobrenome.getText();
+        rg = getRg.getText();
+        tel = getTel.getText();
+        unidade = getUnidade.getText();
+        senha = getSenha.getText();
+        salario = getSalario.getText();
+        conta = getContaBancaria.getText();
+        pix = getPix.getText();
+        cargo = getCargo.getText();
+        data = getData.getDate();
+    }//GEN-LAST:event_botaoCadastrarFuncActionPerformed
 
-    private void textCodigoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReservaActionPerformed
+    private void getSobrenomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSobrenomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReservaActionPerformed
+    }//GEN-LAST:event_getSobrenomeActionPerformed
 
-    private void textCodigoReserva1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva1ActionPerformed
+    private void getNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva1ActionPerformed
+    }//GEN-LAST:event_getNomeActionPerformed
 
-    private void textCodigoReserva2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva2ActionPerformed
+    private void getCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getCpfActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva2ActionPerformed
+    }//GEN-LAST:event_getCpfActionPerformed
 
-    private void textCodigoReserva5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva5ActionPerformed
+    private void getRgActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getRgActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva5ActionPerformed
+    }//GEN-LAST:event_getRgActionPerformed
 
-    private void textCodigoReserva6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva6ActionPerformed
+    private void getEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva6ActionPerformed
+    }//GEN-LAST:event_getEmailActionPerformed
 
-    private void textCodigoReserva7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva7ActionPerformed
+    private void getTelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getTelActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva7ActionPerformed
+    }//GEN-LAST:event_getTelActionPerformed
 
-    private void textCodigoReserva8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva8ActionPerformed
+    private void getUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUsernameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva8ActionPerformed
+    }//GEN-LAST:event_getUsernameActionPerformed
 
-    private void textCodigoReserva9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReserva9ActionPerformed
+    private void getSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSenhaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_textCodigoReserva9ActionPerformed
+    }//GEN-LAST:event_getSenhaActionPerformed
+
+    private void getUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUnidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_getUnidadeActionPerformed
+
+    private void getEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getEnderecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_getEnderecoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botaoCadastrarFunc;
     private javax.swing.JLabel codigoReservaLabel;
     private javax.swing.JLabel codigoReservaLabel1;
     private javax.swing.JLabel codigoReservaLabel10;
     private javax.swing.JLabel codigoReservaLabel11;
     private javax.swing.JLabel codigoReservaLabel12;
     private javax.swing.JLabel codigoReservaLabel13;
+    private javax.swing.JLabel codigoReservaLabel14;
+    private javax.swing.JLabel codigoReservaLabel15;
+    private javax.swing.JLabel codigoReservaLabel16;
     private javax.swing.JLabel codigoReservaLabel3;
     private javax.swing.JLabel codigoReservaLabel5;
     private javax.swing.JLabel codigoReservaLabel6;
     private javax.swing.JLabel codigoReservaLabel7;
     private javax.swing.JLabel codigoReservaLabel8;
     private javax.swing.JLabel codigoReservaLabel9;
+    private javax.swing.JTextField getCargo;
+    private javax.swing.JTextField getContaBancaria;
+    private javax.swing.JTextField getCpf;
+    private com.toedter.calendar.JDateChooser getData;
+    private javax.swing.JTextField getEmail;
+    private javax.swing.JTextField getEndereco;
+    private javax.swing.JTextField getNome;
+    private javax.swing.JTextField getPix;
+    private javax.swing.JTextField getRg;
+    private javax.swing.JTextField getSalario;
+    private javax.swing.JTextField getSenha;
+    private javax.swing.JTextField getSobrenome;
+    private javax.swing.JTextField getTel;
+    private javax.swing.JTextField getUnidade;
+    private javax.swing.JTextField getUsername;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -445,17 +537,5 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField textCodigoReserva;
-    private javax.swing.JTextField textCodigoReserva1;
-    private javax.swing.JTextField textCodigoReserva2;
-    private javax.swing.JTextField textCodigoReserva5;
-    private javax.swing.JTextField textCodigoReserva6;
-    private javax.swing.JTextField textCodigoReserva7;
-    private javax.swing.JTextField textCodigoReserva8;
-    private javax.swing.JTextField textCodigoReserva9;
-    private javax.swing.JTextField txt_DataColeta_reservas;
-    private javax.swing.JTextField txt_DataColeta_reservas1;
-    private javax.swing.JTextField txt_DataEntrega_reservas;
-    private javax.swing.JTextField txt_DataEntrega_reservas1;
     // End of variables declaration//GEN-END:variables
 }
