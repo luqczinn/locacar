@@ -232,6 +232,11 @@ public class Home extends javax.swing.JFrame {
         adicionarVendedores.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedores"));
 
         jButton5.setText("Adicionar vendedor");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Listar vendedores");
 
@@ -524,6 +529,10 @@ public class Home extends javax.swing.JFrame {
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         Controle.abrirConsultaUnidades();
     }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

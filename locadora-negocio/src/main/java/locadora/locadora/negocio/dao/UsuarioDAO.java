@@ -18,9 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Usuario;
-import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.negocioException;
-import static locadora.locadora.negocio.servico.ServicoUsuario.consultarPorUsername;
 
 /**
  *

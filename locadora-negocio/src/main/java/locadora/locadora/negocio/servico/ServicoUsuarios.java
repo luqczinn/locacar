@@ -34,12 +34,121 @@ public class ServicoUsuarios {
             throw new negocioException(315, ex.getMessage());
         }
     }
-    public static Usuario consultarPorUsername(String username) throws negocioException, SQLException {
+    
+    public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, Double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+        if(nome.isEmpty()){
+            throw new negocioException(319, "Insira o nome!");
+        }
+        if(cpf.isEmpty()){
+            throw new negocioException(319, "Insira o cpf!");
+        }
+        if(rg.isEmpty()){
+            throw new negocioException(319, "Insira o rg!");
+        }
+        if(nascimento.isEmpty()){
+            throw new negocioException(319, "Insira a data de nascimento!");
+        }
+        if(cnis.isEmpty()){
+            throw new negocioException(319, "Insira o cnis!");
+        }
+        if(salario == null){
+            throw new negocioException(319, "Insira o salario!");
+        }
+        if(cargo.isEmpty()){
+            throw new negocioException(319, "Insira o cargo!");
+        }
+        if(endereco.isEmpty()){
+            throw new negocioException(319, "Insira o endereco!");
+        }
+        if(telefone.isEmpty()){
+            throw new negocioException(319, "Insira o telefone!");
+        }
+        if(email.isEmpty()){
+            throw new negocioException(319, "Insira o email!");
+        }
+        if(usuario.isEmpty()){
+            throw new negocioException(319, "Insira o telefone!");
+        }
+        if(senha.isEmpty()){
+            throw new negocioException(319, "Insira a senha!");
+        }
+        if(unidade.isEmpty()){
+            throw new negocioException(319, "Insira a unidade!");
+        }
+        try{
+            UsuarioDAO.cadastrarFuncionario(nome, cpf, rg, nascimento, cnis, salario, cargo, endereco, telefone, email, usuario, senha, unidade);
+        }catch(negocioException | SQLException ex){
+            throw new negocioException(315, ex.getMessage());
+        }
+    }
+    
+    public Usuario removerFuncionario(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+        if(username.isEmpty()){
+            throw new negocioException(319, "Insira um username!");
+        }
+        try{
+            UsuarioDAO.removerFuncionario(username);
+        }catch(negocioException | SQLException ex){
+            throw new negocioException(315, ex.getMessage());
+        }
+    }
+    
+    public Usuario removerCliente(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+        if(username.isEmpty()){
+            throw new negocioException(319, "Insira um username!");
+        }
+        try{
+            UsuarioDAO.removerCliente(username);
+        }catch(negocioException | SQLException ex){
+            throw new negocioException(315, ex.getMessage());
+        }
+    }
+
+    public static void cadastrarCliente(String nome, String nascimento, String cpf, String rg, String endereco, String telefone, String email, String usuario, String senha)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+        if(nome.isEmpty()){
+            throw new negocioException(319, "Insira o nome!");
+        }
+        if(nascimento.isEmpty()){
+            throw new negocioException(319, "Insira a data de nascimento!");
+        }
+        if(cpf.isEmpty()){
+            throw new negocioException(319, "Insira o cpf!");
+        }
+        if(rg.isEmpty()){
+            throw new negocioException(319, "Insira o rg!");
+        }
+        if(endereco.isEmpty()){
+            throw new negocioException(319, "Insira o endereço!");
+        }
+        if(telefone.isEmpty()){
+            throw new negocioException(319, "Insira o telefone!");
+        }
+        if(email.isEmpty()){
+            throw new negocioException(319, "Insira o email!");
+        }
+        if(usuario.isEmpty()){
+            throw new negocioException(319, "Insira o usuário!");
+        }
+        if(senha.isEmpty()){
+            throw new negocioException(319, "Insira a senha!");
+        }
+        try{
+            UsuarioDAO.cadastrarCliente(nome, nascimento, cpf, rg, endereco, telefone, email, usuario, senha);
+        }catch(negocioException | SQLException ex){
+            throw new negocioException(315, ex.getMessage());
+        }
+    }
+    
+    
+    public static Usuario consultarPorUsername(String username) throws negocioException{
 
         if (username.isEmpty()) {
             throw new negocioException(319, "Insira o username do funcionário!");
         }
-
-        return UsuarioDAO.procurarPorUsername(username);
+        try{
+            return UsuarioDAO.procurarPorUsername(username);
+        }catch(SQLException){
+            throw new negocioException(315, ex.getMessage);
+        }
     }
 }

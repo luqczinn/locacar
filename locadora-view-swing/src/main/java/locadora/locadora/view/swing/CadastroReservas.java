@@ -37,9 +37,15 @@ public class CadastroReservas extends javax.swing.JDialog {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
-        String modo = ConsultarReservas.getVariavelB();
-        int x = ConsultarReservas.getVariavelA();
-        if (ConsultarReservas.getVariavelB().equals("Editar")) {
+        String modo = "";
+        if (ConsultarReservas.getVariavelB() != null) {
+            modo = ConsultarReservas.getVariavelB();
+        }
+        int x = 0;
+        if (ConsultarReservas.getVariavelA() == 0) {
+            x = ConsultarReservas.getVariavelA();
+        }
+        if (modo.equals("Editar")) {
             Reservas R = ReservasDAO.listarReservasBD().get(x);
             textCodigoReserva.setText(Integer.toString(R.getCodigo()));
             combo_unidade_reserva.setSelectedItem(R.getUnidade());
@@ -53,11 +59,13 @@ public class CadastroReservas extends javax.swing.JDialog {
     }
 
     public void LoadCombos() throws SQLException, negocioException {
-        if (ServicoReservas.listarReservas().isEmpty()) {
-            textCodigoReserva.setText("0001");
-        } else {
-            int mat = ServicoReservas.listarReservas().size() + 1;
-            textCodigoReserva.setText(Integer.toString(mat));
+        if (ServicoReservas.listarReservas() != null) {
+            if (ServicoReservas.listarReservas().isEmpty()) {
+                textCodigoReserva.setText("0001");
+            } else {
+                int mat = ServicoReservas.listarReservas().size() + 1;
+                textCodigoReserva.setText(Integer.toString(mat));
+            }
         }
         for (int i = 0; i < UsuarioDAO.listarUsuariosBD().size(); i++) {
             String nome = UsuarioDAO.listarUsuariosBD().get(i).getNome();
@@ -65,13 +73,14 @@ public class CadastroReservas extends javax.swing.JDialog {
             String gerente = nome + " | " + cargo + ".";
             comb_rs_vendedor.addItem(gerente);
         }
-
-        if (!UnidadesDAO.listarUnidadesBD().isEmpty()) {
-            for (int j = 0; j < UnidadesDAO.listarUnidadesBD().size(); j++) {
-                String matricula = UnidadesDAO.listarUnidadesBD().get(j).getNumReferencia();
-                String cidade = UnidadesDAO.listarUnidadesBD().get(j).getCidade();
-                String unidade = matricula + " | " + cidade + ".";
-                combo_unidade_reserva.addItem(unidade);
+        if (UnidadesDAO.listarUnidadesBD() != null) {
+            if (!UnidadesDAO.listarUnidadesBD().isEmpty()) {
+                for (int j = 0; j < UnidadesDAO.listarUnidadesBD().size(); j++) {
+                    String matricula = UnidadesDAO.listarUnidadesBD().get(j).getNumReferencia();
+                    String cidade = UnidadesDAO.listarUnidadesBD().get(j).getCidade();
+                    String unidade = matricula + " | " + cidade + ".";
+                    combo_unidade_reserva.addItem(unidade);
+                }
             }
         }
         if (!VeiculoDAO.listarVeiculosBD().isEmpty()) {
@@ -210,11 +219,12 @@ public class CadastroReservas extends javax.swing.JDialog {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(codigoReservaLabel1)
-                    .addComponent(codigoReservaLabel6)
-                    .addComponent(combo_unidade_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(textCodigoReserva))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textCodigoReserva, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(codigoReservaLabel1)
+                        .addComponent(codigoReservaLabel6)
+                        .addComponent(combo_unidade_reserva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel)
@@ -363,6 +373,12 @@ public class CadastroReservas extends javax.swing.JDialog {
         codigoReservaLabel8.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel8.setText("Valor da reserva:");
 
+        txt_DataEntrega_reservas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_DataEntrega_reservasFocusLost(evt);
+            }
+        });
+
         valorTotaltxt.setEditable(false);
 
         valorDiaria.setEditable(false);
@@ -407,7 +423,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel7)
                     .addComponent(valorDiaria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel8)
-                    .addComponent(valorTotaltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(valorTotaltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
@@ -570,41 +586,47 @@ public class CadastroReservas extends javax.swing.JDialog {
             txt_tipo_carro.setText(tipo);
             txt_km_carro.setText(km);
             txt_ano_carro.setText(ano);
-            String dataDeColeta = txt_DataColeta_reservas.getText();
-            String dataDeEntrega = txt_DataEntrega_reservas.getText();
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            df.setLenient(false);
-            Date d1 = null;
-            try {
-                d1 = df.parse(dataDeColeta);
-            } catch (ParseException ex) {
-                Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println(d1);
-            Date d2 = null;
-            try {
-                d2 = df.parse(dataDeEntrega);
-            } catch (ParseException ex) {
-                Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            System.out.println(d2);
-            long dt = (d2.getTime() - d1.getTime());
-            long dias = dt / 86400000L;
-            int diasInt = (int) dias;
-            double diaria;
-            try {
-                diaria = ServicoVeiculo.consultarPorPlaca(placa).getValorAluguel();
-                double valorTotal = diaria * diasInt;
-                valorDiaria.setText(Double.toString(diaria));
-                valorTotaltxt.setText(Double.toString(valorTotal));
-            } catch (negocioException | SQLException ex) {
-                Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
-            }
         } catch (negocioException | SQLException ex) {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }//GEN-LAST:event_combo_veiculo_reservasFocusLost
+
+    private void txt_DataEntrega_reservasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_DataEntrega_reservasFocusLost
+        String veiculo = combo_veiculo_reservas.getSelectedItem().toString();
+        int pos = veiculo.indexOf(" |");
+        String placa = veiculo.substring(0, pos);
+        String dataDeColeta = txt_DataColeta_reservas.getText();
+        String dataDeEntrega = txt_DataEntrega_reservas.getText();
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        df.setLenient(false);
+        Date d1 = null;
+        try {
+            d1 = df.parse(dataDeColeta);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(d1);
+        Date d2 = null;
+        try {
+            d2 = df.parse(dataDeEntrega);
+        } catch (ParseException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(d2);
+        long dt = (d2.getTime() - d1.getTime());
+        long dias = dt / 86400000L;
+        int diasInt = (int) dias;
+        double diaria;
+        try {
+            diaria = ServicoVeiculo.consultarPorPlaca(placa).getValorAluguel();
+            double valorTotal = diaria * diasInt;
+            valorDiaria.setText(Double.toString(diaria));
+            valorTotaltxt.setText(Double.toString(valorTotal));
+        } catch (negocioException | SQLException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_txt_DataEntrega_reservasFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codigoReservaLabel;

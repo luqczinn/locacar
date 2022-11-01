@@ -5,6 +5,7 @@
 package locadora.locadora.negocio.servico;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,28 +29,24 @@ public class ServicoLog {
         //insere no bd qual foi o usuario logado de acordo c o username 
         LocalDateTime dataHora = LocalDateTime.now();
         DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String sql = "INSERT INTO log (funcionario, cargo, horaLogin) values ("
-                + usuario.getNome() + ", "
-                + usuario.getCargo() + ", "
-                + dataHora.format(dataFormatada) + ");";
+        String data = dataHora.format(dataFormatada); 
+        String sql = "INSERT INTO log VALUES ('"
+                + usuario.getNome() + "', '"
+                + usuario.getCargo() + "', '"
+                + data + "')";
         Connection com = null;
-        Statement statement = null;
-        ResultSet rs = null;
+        PreparedStatement pstmt = null;
         try {
             com = Conexao.getConnection();
-            statement = com.createStatement();
-            rs = statement.executeQuery(sql);
+            pstmt = com.prepareStatement(sql);
         } catch (NumberFormatException | SQLException erro) {
             throw new Exception(erro.getMessage());
         } finally {
             if (com != null) {
                 com.close();
             }
-            if (rs != null) {
-                rs.close();
-            }
-            if (statement != null) {
-                statement.close();
+            if (pstmt != null) {
+                pstmt.close();
             }
         }
     }
@@ -62,13 +59,13 @@ public class ServicoLog {
                 + "lg.data = CURDATE();";*/
         String sql = "SELECT * FROM log ORDER BY horaLogin desc LIMIT 10";
         Connection com = null;
-        Statement statement = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<Usuario> lista = new ArrayList<>();
         try {
             com = Conexao.getConnection();
-            statement = com.createStatement();
-            rs = statement.executeQuery(sql);
+            pstmt = com.prepareStatement(sql);
+            rs = pstmt.executeQuery(sql);
             while (rs.next()) {
                 lista.add(new Usuario(
                         rs.getString("funcionario"),
@@ -84,8 +81,8 @@ public class ServicoLog {
             if (rs != null) {
                 rs.close();
             }
-            if (statement != null) {
-                statement.close();
+            if (pstmt != null) {
+                pstmt.close();
             }
         }
     }
@@ -95,18 +92,18 @@ public class ServicoLog {
         //insere no bd qual foi o veiculo e qual a ação que sofreu
         LocalDateTime dataHora = LocalDateTime.now();
         DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String sql = "INSERT INTO logs (acao, descricao, usuario, dataHora) values ("
+        String sql = "INSERT INTO logs VALUES ("
                 + acao + ", "
                 + descricao + ", "
                 + usuario + ","
                 + dataHora.format(dataFormatada) + ");";
         Connection com = null;
-        Statement statement = null;
+        PreparedStatement pstmt = null;
         ResultSet rs = null;
         try {
             com = Conexao.getConnection();
-            statement = com.createStatement();
-            rs = statement.executeQuery(sql);
+            pstmt = com.prepareStatement(sql);;
+            rs = pstmt.executeQuery(sql);
         } catch (Exception erro) {
             throw new Exception(erro.getMessage());
         } finally {
@@ -118,8 +115,8 @@ public class ServicoLog {
                 if (rs != null) {
                     rs.close();
                 }
-                if (statement != null) {
-                    statement.close();
+                if (pstmt != null) {
+                    pstmt.close();
                 }
             } catch (Exception erro) {
                 throw new Exception(erro.getMessage());
