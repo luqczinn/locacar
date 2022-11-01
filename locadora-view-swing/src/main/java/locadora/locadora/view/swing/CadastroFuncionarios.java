@@ -475,7 +475,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         cargo = (String)getCargo.getSelectedItem();
         data = getData.getDate();
         String dataString = dateFormat.format(data);
-
+        
             try {
                 ServicoUsuarios.cadastrarFuncionario(nome, cpf, rg, dataString, cnis, salarioDouble, cargo, endereco, tel, email, username, senha, unidade);
             } catch (negocioException ex) {
@@ -515,7 +515,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     }//GEN-LAST:event_getTelActionPerformed
 
     private void getUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUsernameActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here
     }//GEN-LAST:event_getUsernameActionPerformed
 
     private void getSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSenhaActionPerformed
