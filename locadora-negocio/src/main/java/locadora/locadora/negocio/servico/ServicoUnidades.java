@@ -117,7 +117,7 @@ public class ServicoUnidades {
         return UnidadesDAO.removerUnidadeBD(cep);
     }
 
-    public static List<Unidades> listarVeiculos() throws negocioException, SQLException {
+    public static List<Unidades> listarUnidades() throws negocioException, SQLException {
         if (UnidadesDAO.listarUnidadesBD() == null) {
             throw new negocioException(315, "Não existem unidades cadastrados!");
         }

@@ -17,9 +17,9 @@ import locadora.locadora.negocio.excessoes.persistenciaException;
  *
  * @author PC-
  */
-public class ServicoUsuario {
+public class ServicoUsuarios {
     
-    private ServicoUsuario() {}
+    private ServicoUsuarios() {}
     
     public static Usuario logarUsuario(String username, String senha)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
         if(username.isEmpty()){
