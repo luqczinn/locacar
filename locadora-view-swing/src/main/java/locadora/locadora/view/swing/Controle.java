@@ -297,6 +297,8 @@ public class Controle {
                     dialog.setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (negocioException ex) {
+                    Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });

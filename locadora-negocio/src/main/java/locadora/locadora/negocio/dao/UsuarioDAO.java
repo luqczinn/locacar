@@ -18,9 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Usuario;
-import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.negocioException;
-import static locadora.locadora.negocio.servico.ServicoUsuario.consultarPorUsername;
 
 /**
  *
@@ -29,7 +27,7 @@ import static locadora.locadora.negocio.servico.ServicoUsuario.consultarPorUsern
 public class UsuarioDAO {
 
     public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade) throws negocioException, SQLException {
-        if (consultarPorUsername(usuario) == null | listarUsuariosBD() == null) {
+        if (procurarPorUsername(usuario) == null | listarUsuariosBD() == null) {
             String sql = "INSERT INTO veiculos VALUES('"+nome+"','"+cpf+"','"+rg+"','"+nascimento+"','"+cnis+"',"+salario+",'"+cargo+"','"+endereco+"','"+telefone+",'"+email+"','"+usuario+"'+'"+senha+"','"+unidade+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
@@ -40,8 +38,8 @@ public class UsuarioDAO {
     }
 
     public static void removerFuncionario(String username) throws SQLException, negocioException {
-        if (consultarPorUsername(username) != null) {
-            Usuario u = consultarPorUsername(username);
+        if (procurarPorUsername(username) != null) {
+            Usuario u = procurarPorUsername(username);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM funcionarios WHERE usuario='"+username+"'";
