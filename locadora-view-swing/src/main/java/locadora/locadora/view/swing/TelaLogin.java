@@ -16,7 +16,7 @@ import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUsuario;
 import locadora.locadora.negocio.excessoes.persistenciaException;
-
+import locadora.locadora.negocio.servico.ServicoLog;
 /**
  *
  * @author Aluno
@@ -154,11 +154,14 @@ public class TelaLogin extends javax.swing.JFrame {
         try {
             //chamando função para funcionar
             Usuario user = ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+            ServicoLog.registrarLogUsuario(user);
             Controle.abrirHome(user);
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);

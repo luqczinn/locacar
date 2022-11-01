@@ -4,72 +4,126 @@
  */
 package locadora.locadora.negocio.servico;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import locadora.locadora.database.Conexao;
+import locadora.locadora.negocio.dto.Usuario;
+
 /**
  *
  * @author Aluno
  */
 public class ServicoLog {
+
     //registrar o log de usuarios
-    public static void registrarLogUsuario() {
+    public static void registrarLogUsuario(Usuario usuario) throws Exception {
         //insere no bd qual foi o usuario logado de acordo c o username 
+        LocalDateTime dataHora = LocalDateTime.now();
+        DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String sql = "INSERT INTO log (funcionario, cargo, horaLogin) values ("
+                + usuario.getNome() + ", "
+                + usuario.getCargo() + ", "
+                + dataHora.format(dataFormatada) + ");";
+        Connection com = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            com = Conexao.getConnection();
+            statement = com.createStatement();
+            rs = statement.executeQuery(sql);
+        } catch (NumberFormatException | SQLException erro) {
+            throw new Exception(erro.getMessage());
+        } finally {
+            if (com != null) {
+                com.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
     }
-    
+
     //função para pegar ultimos usuarios logados
-    public static void usuariosLogados() {
+    public static List<Usuario> usuariosLogados() throws Exception {
         //pega no bd qual foi o usuario logado
-        //SELECT
-        //pega o usernamee a hora
+        /*String sql = "SELECT func.* FROM Funcionarios as func, "
+                + "log as lg WHERE lg.username = func.usuario AND "
+                + "lg.data = CURDATE();";*/
+        String sql = "SELECT * FROM log ORDER BY horaLogin desc LIMIT 10";
+        Connection com = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        List<Usuario> lista = new ArrayList<>();
+        try {
+            com = Conexao.getConnection();
+            statement = com.createStatement();
+            rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                lista.add(new Usuario(
+                        rs.getString("funcionario"),
+                        rs.getString("cargo")));
+            }
+            return lista;
+        } catch (NumberFormatException | SQLException erro) {
+            throw new Exception(erro.getMessage());
+        } finally {
+            if (com != null) {
+                com.close();
+            }
+            if (rs != null) {
+                rs.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+        }
     }
-    
+
     //registrar log de cadastro ou exclusao de veiculo
-    public static void registraLogVeiculo() {
+    public static void registrarLogs(String acao, String descricao, String usuario) throws Exception {
         //insere no bd qual foi o veiculo e qual a ação que sofreu
-        //INSERT INTO
-        //registra o veiculo e a data que sofreu as alteracoes
-    }
-    
-    //pegar as logs de veiculo
-    public static void veiculosLog() {
-        //pega no bd o veiculo e a ação
-        //SELECT
-    }
-    
-    //registrar log de cadastro ou exclusao de unidades
-    public static void registarLogUnidades() {
-        //insere no bd qual foi a unidade e qual a ação que sofreu
-        //INSERT INTO
-        //insere a unidade e a data
-    }
-    
-    //pegar as logs de unidade
-    public static void unidadesLog() {
-        //pega no bd a unidade e a ação
-        //SELECT
-    }
-    
-    //registrar log de cadastro ou exclusao de funcionarios
-    public static void registrarLogFuncionarios(){
-        //insere no bd qual foi o funcionario e qual a ação que sofreu
-        //INSERT INTO
-        //registra o funcionario e a data que sofreu as alteracoes
-    }
-    
-    //pegar as logs de funcionario
-    public static void funcionariosLog(){
-        //pega no bd o funcionario e a ação
-        //SELECT
-    }
-    
-    //registrar log de cadastro ou exclusao de reservas
-    public static void registrarLogReservas(){
-        //insere no bd qual foi a reserva e qual a ação que sofreu
-        //INSERT INTO
-        //registra a reserva e a data que sofreu as alteracoes
-    }
-    
-    //pegar as logs de reservas
-    public static void reservasLog(){
-        //pega no bd a reserva e a ação
-        //SELECT
+        LocalDateTime dataHora = LocalDateTime.now();
+        DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String sql = "INSERT INTO logs (acao, descricao, usuario, dataHora) values ("
+                + acao + ", "
+                + descricao + ", "
+                + usuario + ","
+                + dataHora.format(dataFormatada) + ");";
+        Connection com = null;
+        Statement statement = null;
+        ResultSet rs = null;
+        try {
+            com = Conexao.getConnection();
+            statement = com.createStatement();
+            rs = statement.executeQuery(sql);
+        } catch (Exception erro) {
+            throw new Exception(erro.getMessage());
+        } finally {
+            try {
+
+                if (com != null) {
+                    com.close();
+                }
+                if (rs != null) {
+                    rs.close();
+                }
+                if (statement != null) {
+                    statement.close();
+                }
+            } catch (Exception erro) {
+                throw new Exception(erro.getMessage());
+            }
+        }
     }
 }

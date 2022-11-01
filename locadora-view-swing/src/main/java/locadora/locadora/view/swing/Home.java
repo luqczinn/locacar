@@ -9,13 +9,15 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
-
+import locadora.locadora.negocio.servico.ServicoLog; 
 /**
  *
  * @author gugup
@@ -34,6 +36,7 @@ public class Home extends javax.swing.JFrame {
         adicionarVendedores.setVisible(false);
         adicionarGerentes.setVisible(false);
         adicionarUnidades.setVisible(false);
+        
         Date dataAtual = new Date();
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         String dataFormatada = dateFormat.format(dataAtual);
@@ -62,6 +65,21 @@ public class Home extends javax.swing.JFrame {
             }
         }
     }
+    
+    public void ListarUsuariosLogados() throws negocioException, SQLException, Exception, Exception {
+        DefaultTableModel tabela
+                    = (DefaultTableModel) jTable1.getModel();
+        
+        List<Usuario> lista = ServicoLog.usuariosLogados();
+        
+        for (Usuario item : lista) {
+            Object[] linha = {
+                item.getNome(), item.getCargo()
+            };
+            tabela.addRow(linha);
+        }
+        jTable1.setModel(tabela); 
+    };
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
