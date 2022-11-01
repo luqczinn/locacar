@@ -29,7 +29,7 @@ public class ServicoUsuarios {
             throw new negocioException(319, "Insira a senha!");
         }
         try{
-            return UsuarioDAO.logarUsuario(username, senha);
+            return UsuarioDAO.logarUsuarioFuncionario(username, senha);
         }catch(persistenciaException ex){
             throw new negocioException(315, ex.getMessage());
         }
@@ -82,7 +82,7 @@ public class ServicoUsuarios {
         }
     }
     
-    public Usuario removerFuncionario(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+    public void removerFuncionario(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
         if(username.isEmpty()){
             throw new negocioException(319, "Insira um username!");
         }
@@ -93,7 +93,7 @@ public class ServicoUsuarios {
         }
     }
     
-    public Usuario removerCliente(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
+    public void removerCliente(String username)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
         if(username.isEmpty()){
             throw new negocioException(319, "Insira um username!");
         }
@@ -146,9 +146,9 @@ public class ServicoUsuarios {
             throw new negocioException(319, "Insira o username do funcionário!");
         }
         try{
-            return UsuarioDAO.procurarPorUsername(username);
-        }catch(SQLException){
-            throw new negocioException(315, ex.getMessage);
+            return UsuarioDAO.procurarPorUsernameFuncionario(username);
+        }catch(SQLException ex){
+            throw new negocioException(315, ex.getMessage());
         }
     }
 }
