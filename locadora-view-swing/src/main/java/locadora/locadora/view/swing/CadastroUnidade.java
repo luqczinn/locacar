@@ -46,10 +46,10 @@ public class CadastroUnidade extends javax.swing.JFrame {
     }
 
     public void LoadCombos() throws SQLException {
-        for (int i = 0; i < UsuarioDAO.listarUsuariosBD().size(); i++) {
-            if (UsuarioDAO.listarUsuariosBD().get(i).getCargo().equals("Gerente")) {
-                String nome = UsuarioDAO.listarUsuariosBD().get(i).getNome();
-                String cpf = UsuarioDAO.listarUsuariosBD().get(i).getCpf();
+        for (int i = 0; i < UsuarioDAO.listarFuncionariosBD().size(); i++) {
+            if (UsuarioDAO.listarFuncionariosBD().get(i).getCargo().equals("Gerente")) {
+                String nome = UsuarioDAO.listarFuncionariosBD().get(i).getNome();
+                String cpf = UsuarioDAO.listarFuncionariosBD().get(i).getCpf();
                 String gerente = nome + " | " + cpf + ".";
                 combo_gerentes_unidade.addItem(gerente);
             }

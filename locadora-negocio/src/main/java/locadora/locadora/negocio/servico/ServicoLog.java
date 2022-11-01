@@ -29,26 +29,17 @@ public class ServicoLog {
         //insere no bd qual foi o usuario logado de acordo c o username 
         LocalDateTime dataHora = LocalDateTime.now();
         DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String data = dataHora.format(dataFormatada); 
+        String data = dataHora.format(dataFormatada);
         String sql = "INSERT INTO log VALUES ('"
                 + usuario.getNome() + "', '"
                 + usuario.getCargo() + "', '"
                 + data + "')";
-        Connection com = null;
-        PreparedStatement pstmt = null;
-        try {
-            com = Conexao.getConnection();
-            pstmt = com.prepareStatement(sql);
-        } catch (NumberFormatException | SQLException erro) {
-            throw new Exception(erro.getMessage());
-        } finally {
-            if (com != null) {
-                com.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-        }
+        System.out.println(usuario.getNome()+ "/ "+ usuario.getCargo() + "logou no sistema às: "+data +".");
+        Connection com = Conexao.getConnection();
+        PreparedStatement pstmt = com.prepareStatement(sql);
+        pstmt.execute();
+        com.close();
+        pstmt.close();
     }
 
     //função para pegar ultimos usuarios logados

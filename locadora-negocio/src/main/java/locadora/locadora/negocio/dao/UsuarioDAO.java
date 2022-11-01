@@ -26,8 +26,8 @@ import locadora.locadora.negocio.excessoes.negocioException;
  */
 public class UsuarioDAO {
 
-    public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade) throws negocioException, SQLException {
-        if (consultarPorUsernameFuncionario(usuario) == null | listarUsuariosBD() == null) {
+    public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade) throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (procurarPorUsernameFuncionario(usuario) == null | listarFuncionariosBD() == null) {
             String sql = "INSERT INTO funcionarios VALUES('"+nome+"','"+cpf+"','"+rg+"','"+nascimento+"','"+cnis+"',"+salario+",'"+cargo+"','"+endereco+"','"+telefone+",'"+email+"','"+usuario+"'+'"+criptografarSenha(senha)+"','"+unidade+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
@@ -39,8 +39,8 @@ public class UsuarioDAO {
     
 
     public static void removerFuncionario(String username) throws SQLException, negocioException {
-        if (consultarPorUsernameFuncionario(username) != null) {
-            Usuario u = consultarPorUsername(username);
+        if (procurarPorUsernameFuncionario(username) != null) {
+            Usuario u = procurarPorUsernameFuncionario(username);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM funcionarios WHERE usuario='"+username+"'";
@@ -48,8 +48,8 @@ public class UsuarioDAO {
         }
     }
     
-    public static void cadastrarCliente(String nome, String nascimento, String cpf, String rg, String endereco, String telefone, String email, String usuario, String senha) throws negocioException, SQLException {
-        if (consultarPorUsernameCliente(usuario) == null | listarUsuariosBD() == null) {
+    public static void cadastrarCliente(String nome, String nascimento, String cpf, String rg, String endereco, String telefone, String email, String usuario, String senha) throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (procurarPorUsernameFuncionario(usuario) == null | listarFuncionariosBD() == null) {
             String sql = "INSERT INTO clientes VALUES('"+nome+"','"+nascimento+"','"+cpf+"','"+rg+"','"+endereco+"',"+telefone+",'"+email+"','"+usuario+"','"+criptografarSenha(senha)+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
@@ -60,8 +60,8 @@ public class UsuarioDAO {
     }
     
     public static void removerCliente(String username) throws SQLException, negocioException {
-        if (consultarPorUsernameCliente(username) != null) {
-            Usuario u = consultarPorUsername(username);
+        if (procurarPorUsernameFuncionario(username) != null) {
+            Usuario u = procurarPorUsernameFuncionario(username);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM clientes WHERE usuario='"+username+"'";
@@ -83,7 +83,7 @@ public class UsuarioDAO {
     }
     
     public static Usuario procurarPorUsernameCliente(String username) throws SQLException {
-        List<Usuario> listaClientes = listarClientesBD();
+        List<Usuario> listaClientes = listarFuncionariosBD();
         
         if (listaClientes != null) {
             for (Usuario u : listaClientes) {
@@ -163,7 +163,7 @@ public class UsuarioDAO {
         }
         return null;
     }
-    public void List<Usuario> listarClientesBD() throws SQLException {
+    /*public void List<Usuario> listarClientesBD() throws SQLException {
         List<Usuario> listaUsuarios = new ArrayList<>();
         String sql = "SELECT * FROM clientes";
         Connection com = Conexao.getConnection();
@@ -188,5 +188,5 @@ public class UsuarioDAO {
             return listaUsuarios;
         }
         return null;
-    }
+    }*/
 }

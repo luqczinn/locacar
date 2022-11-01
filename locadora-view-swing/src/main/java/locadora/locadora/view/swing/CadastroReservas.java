@@ -67,9 +67,9 @@ public class CadastroReservas extends javax.swing.JDialog {
                 textCodigoReserva.setText(Integer.toString(mat));
             }
         }
-        for (int i = 0; i < UsuarioDAO.listarUsuariosBD().size(); i++) {
-            String nome = UsuarioDAO.listarUsuariosBD().get(i).getNome();
-            String cargo = UsuarioDAO.listarUsuariosBD().get(i).getCargo();
+        for (int i = 0; i < UsuarioDAO.listarFuncionariosBD().size(); i++) {
+            String nome = UsuarioDAO.listarFuncionariosBD().get(i).getNome();
+            String cargo = UsuarioDAO.listarFuncionariosBD().get(i).getCargo();
             String gerente = nome + " | " + cargo + ".";
             comb_rs_vendedor.addItem(gerente);
         }
