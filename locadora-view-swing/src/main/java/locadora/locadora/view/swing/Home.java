@@ -27,8 +27,11 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Hme
      */
+    static Usuario user;
+    
     public Home(Usuario user) {
         initComponents();
+        this.user = user;
         String cargo = user.getCargo();
         String nome = user.getNome();
         labelNome.setText(nome);
@@ -259,7 +262,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(adicionarVendedoresLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton5)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarVendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarVendedoresLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -270,6 +273,11 @@ public class Home extends javax.swing.JFrame {
         adicionarGerentes.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerentes"));
 
         jButton9.setText("Adicionar gerentes");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Listar gerentes");
 
@@ -292,7 +300,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(adicionarGerentesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton9)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarGerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarGerentesLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -335,7 +343,7 @@ public class Home extends javax.swing.JFrame {
             .addGroup(adicionarUnidadesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton13)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarUnidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarUnidadesLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -531,8 +539,12 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        Controle.abrirCadastroFuncionario(user);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Controle.abrirCadastroFuncionario(user);
+    }//GEN-LAST:event_jButton9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
