@@ -5,22 +5,32 @@
 package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import locadora.locadora.negocio.dao.ReservasDAO;
 import locadora.locadora.negocio.dao.UnidadesDAO;
 import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dao.VeiculoDAO;
+import locadora.locadora.negocio.dto.Cliente;
 import locadora.locadora.negocio.dto.Reservas;
+import locadora.locadora.negocio.dto.Unidades;
+import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.dto.Veiculo;
 import locadora.locadora.negocio.excessoes.negocioException;
+import locadora.locadora.negocio.servico.ServicoClientes;
+import static locadora.locadora.negocio.servico.ServicoClientes.cadastrarCliente;
 import locadora.locadora.negocio.servico.ServicoReservas;
 import locadora.locadora.negocio.servico.ServicoUnidades;
+import locadora.locadora.negocio.servico.ServicoUsuarios;
 import locadora.locadora.negocio.servico.ServicoVeiculo;
 
 /**
@@ -32,7 +42,8 @@ public class CadastroReservas extends javax.swing.JDialog {
     /**
      * Creates new form CadastroReservas
      */
-    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException, negocioException {
+    List<Reservas> listaReservas = ServicoReservas.listarReservas();
+    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
         super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
@@ -46,7 +57,7 @@ public class CadastroReservas extends javax.swing.JDialog {
             x = ConsultarReservas.getVariavelA();
         }
         if (modo.equals("Editar")) {
-            Reservas R = ReservasDAO.listarReservasBD().get(x);
+            Reservas R = listaReservas.get(x);
             textCodigoReserva.setText(Integer.toString(R.getCodigo()));
             combo_unidade_reserva.setSelectedItem(R.getUnidade());
             comb_rs_cliente.setSelectedItem(R.getCliente());
@@ -58,35 +69,45 @@ public class CadastroReservas extends javax.swing.JDialog {
         LoadCombos();
     }
 
-    public void LoadCombos() throws SQLException, negocioException {
-        if (ServicoReservas.listarReservas() != null) {
-            if (ServicoReservas.listarReservas().isEmpty()) {
+    public void LoadCombos() throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (listaReservas != null) {
+            if (listaReservas.isEmpty()) {
                 textCodigoReserva.setText("0001");
             } else {
-                int mat = ServicoReservas.listarReservas().size() + 1;
+                int mat = listaReservas.size() + 1;
                 textCodigoReserva.setText(Integer.toString(mat));
             }
         }
-        for (int i = 0; i < UsuarioDAO.listarFuncionariosBD().size(); i++) {
-            String nome = UsuarioDAO.listarFuncionariosBD().get(i).getNome();
-            String cargo = UsuarioDAO.listarFuncionariosBD().get(i).getCargo();
-            String gerente = nome + " | " + cargo + ".";
+        List<Usuario> listaUsuarios = ServicoUsuarios.listarUsuarios();
+        for (int i = 0; i <  listaUsuarios.size(); i++) {
+            String nome =  listaUsuarios.get(i).getNome();
+            String cargo =  listaUsuarios.get(i).getCargo();
+            String gerente = nome + "  |  " + cargo + ".";
             comb_rs_vendedor.addItem(gerente);
         }
-        if (UnidadesDAO.listarUnidadesBD() != null) {
-            if (!UnidadesDAO.listarUnidadesBD().isEmpty()) {
-                for (int j = 0; j < UnidadesDAO.listarUnidadesBD().size(); j++) {
-                    String matricula = UnidadesDAO.listarUnidadesBD().get(j).getNumReferencia();
-                    String cidade = UnidadesDAO.listarUnidadesBD().get(j).getCidade();
+        List<Cliente> listaClientes = ServicoClientes.listarClientes();
+        for (int i = 0; i <  listaClientes.size(); i++) {
+            String nome =  listaClientes.get(i).getNome();
+            String cpf =  listaClientes.get(i).getCpf();
+            String cliente = nome + "  |  " + cpf + ".";
+            comb_rs_cliente.addItem(cliente);
+        }
+        List<Unidades> listaUnidades = UnidadesDAO.listarUnidadesBD();
+        if (listaUnidades != null) {
+            if (!listaUnidades.isEmpty()) {
+                for (int j = 0; j < listaUnidades.size(); j++) {
+                    String matricula = listaUnidades.get(j).getNumReferencia();
+                    String cidade = listaUnidades.get(j).getCidade();
                     String unidade = matricula + " | " + cidade + ".";
                     combo_unidade_reserva.addItem(unidade);
                 }
             }
         }
-        if (!VeiculoDAO.listarVeiculosBD().isEmpty()) {
-            for (int z = 0; z < VeiculoDAO.listarVeiculosBD().size(); z++) {
-                String placa = VeiculoDAO.listarVeiculosBD().get(z).getPlaca();
-                String modelo = VeiculoDAO.listarVeiculosBD().get(z).getModeloCarro();
+        List<Veiculo> listaVeiculos = VeiculoDAO.listarVeiculosBD();
+        if (!listaVeiculos.isEmpty()) {
+            for (int z = 0; z < listaVeiculos.size(); z++) {
+                String placa = listaVeiculos.get(z).getPlaca();
+                String modelo = listaVeiculos.get(z).getModeloCarro();
                 String carro = placa + " | " + modelo + ".";
                 combo_veiculo_reservas.addItem(carro);
             }
@@ -117,6 +138,7 @@ public class CadastroReservas extends javax.swing.JDialog {
         textCodigoReserva = new javax.swing.JTextField();
         codigoReservaLabel6 = new javax.swing.JLabel();
         combo_unidade_reserva = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         codigoReservaLabel4 = new javax.swing.JLabel();
         combo_veiculo_reservas = new javax.swing.JComboBox<>();
@@ -190,6 +212,18 @@ public class CadastroReservas extends javax.swing.JDialog {
         codigoReservaLabel6.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel6.setText("Unidade:");
 
+        jButton1.setText("+");
+        jButton1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jButton1FocusLost(evt);
+            }
+        });
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -200,7 +234,9 @@ public class CadastroReservas extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(codigoReservaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(comb_rs_cliente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(comb_rs_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(codigoReservaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,7 +264,8 @@ public class CadastroReservas extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel)
-                    .addComponent(comb_rs_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comb_rs_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel2)
@@ -285,7 +322,7 @@ public class CadastroReservas extends javax.swing.JDialog {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(codigoReservaLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,7 +354,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                                     .addComponent(jLabel14))
                                 .addGap(20, 20, 20)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(txt_tipo_carro, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+                                    .addComponent(txt_tipo_carro)
                                     .addComponent(txt_marca_carro)))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
@@ -407,7 +444,7 @@ public class CadastroReservas extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_DataEntrega_reservas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(valorTotaltxt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,12 +501,11 @@ public class CadastroReservas extends javax.swing.JDialog {
                         .addGap(247, 247, 247))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,7 +597,9 @@ public class CadastroReservas extends javax.swing.JDialog {
         } catch (negocioException | SQLException ex) {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+String mensagem = "Reserva cadastrada com sucesso";
+        JOptionPane.showMessageDialog(null, mensagem);
+        this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void textCodigoReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textCodigoReservaActionPerformed
@@ -571,14 +609,15 @@ public class CadastroReservas extends javax.swing.JDialog {
     private void combo_veiculo_reservasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_combo_veiculo_reservasFocusLost
         try {
             String veiculo = combo_veiculo_reservas.getSelectedItem().toString();
-            int pos = veiculo.indexOf(" |");
+            int pos = veiculo.indexOf(" |");          
             String placa = veiculo.substring(0, pos);
-            String modelo = ServicoVeiculo.consultarPorPlaca(placa).getModeloCarro();
-            String cambio = ServicoVeiculo.consultarPorPlaca(placa).getMarca();
-            String km = Double.toString(ServicoVeiculo.consultarPorPlaca(placa).getKmRodados());
-            String marca = ServicoVeiculo.consultarPorPlaca(placa).getMarca();
-            String tipo = ServicoVeiculo.consultarPorPlaca(placa).getTipo();
-            String ano = Integer.toString(ServicoVeiculo.consultarPorPlaca(placa).getAno());
+            Veiculo veiculosPlaca = ServicoVeiculo.consultarPorPlaca(placa);
+            String modelo = veiculosPlaca.getModeloCarro();
+            String cambio = veiculosPlaca.getMarca();
+            String km = Double.toString(veiculosPlaca.getKmRodados());
+            String marca = veiculosPlaca.getMarca();
+            String tipo = veiculosPlaca.getTipo();
+            String ano = Integer.toString(veiculosPlaca.getAno());
             txt_modelo_carro.setText(modelo);
             txt_placa_carro.setText(placa);
             txt_marca_carro.setText(marca);
@@ -628,6 +667,18 @@ public class CadastroReservas extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_txt_DataEntrega_reservasFocusLost
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Controle.abrirCadastroCliente();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jButton1FocusLost
+        try {
+            LoadCombos();
+        } catch (SQLException | negocioException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1FocusLost
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codigoReservaLabel;
     private javax.swing.JLabel codigoReservaLabel1;
@@ -642,6 +693,7 @@ public class CadastroReservas extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> comb_rs_vendedor;
     private javax.swing.JComboBox<String> combo_unidade_reserva;
     private javax.swing.JComboBox<String> combo_veiculo_reservas;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;

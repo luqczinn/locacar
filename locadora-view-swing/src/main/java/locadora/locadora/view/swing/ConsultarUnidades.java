@@ -15,6 +15,7 @@ import locadora.locadora.negocio.dao.UnidadesDAO;
 import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Reservas;
 import locadora.locadora.negocio.dto.Unidades;
+import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.excessoes.persistenciaException;
 
 /**
@@ -244,13 +245,16 @@ public class ConsultarUnidades extends javax.swing.JDialog {
 
     private void btn_nova_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_unidadeActionPerformed
         modo = "Novo";
-        Controle.abrirCadastroUnidades();
+        try {
+            Controle.abrirCadastroUnidades();
+        } catch (SQLException | negocioException ex) {
+            Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setVariavelB(modo);
     }//GEN-LAST:event_btn_nova_unidadeActionPerformed
 
     private void btn_editar_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_unidadeActionPerformed
         int x = tlb_unidades.getSelectedRow();
-
         modo = "Editar";
         try {
             onOff();
@@ -258,16 +262,15 @@ public class ConsultarUnidades extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         setVariavelA(x);
-        Controle.abrirCadastroUnidades();
+        try {
+            Controle.abrirCadastroUnidades();
+        } catch (SQLException | negocioException ex) {
+            Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btn_editar_unidadeActionPerformed
 
     private void tlb_unidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_unidadesMouseClicked
         int x = tlb_unidades.getSelectedRow();
-        try {
-            Unidades U = UnidadesDAO.listarUnidadesBD().get(x);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
-        }
         setVariavelA(x);
         modo = "Selecao";
         try {

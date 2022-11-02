@@ -11,12 +11,15 @@ import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import locadora.locadora.negocio.dao.ReservasDAO;
-import locadora.locadora.negocio.dto.Reservas;
+import javax.swing.JOptionPane;
+import locadora.locadora.negocio.dao.UnidadesDAO;
+import locadora.locadora.negocio.dto.Unidades;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
+import locadora.locadora.negocio.servico.ServicoUnidades;
 import locadora.locadora.negocio.servico.ServicoUsuarios;
 
 /**
@@ -28,30 +31,32 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     /**
      * Creates new form CadastroReservas
      */
-    public CadastroFuncionarios(Usuario usuario) throws SQLException {       
+    public CadastroFuncionarios(Usuario usuario) throws SQLException, negocioException {       
         initComponents();
         
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         
-        String modo = ConsultarReservas.getVariavelB();
-        int x = ConsultarReservas.getVariavelA();
-        
-        if (ConsultarReservas.getVariavelB().equals("Editar")) {
-            Reservas R = ReservasDAO.listarReservasBD().get(x);
-            getSobrenome.setText(Integer.toString(R.getCodigo()));
-            getSalario.setText(R.getInicio());
-            getPix.setText(R.getFim());
-        }
-        
         String cargo = usuario.getCargo();
-        
-        if(cargo == "gerente"){
-            getCargo.addItem("Funcionário");
+       
+        if(cargo.equals("Gerente")){
+            getCargo.addItem("Vendedor");
         }
-        if(cargo == "diretor"){
-            getCargo.addItem("Funcionário");
+        if(cargo.equals ("Diretor")){
+            getCargo.addItem("Vendedor");
             getCargo.addItem("Gerente");
+            getCargo.addItem("Diretor");
+        }
+        List<Unidades> listaUnidades = ServicoUnidades.listarUnidades();
+        if (listaUnidades != null) {
+            if (!listaUnidades.isEmpty()) {
+                for (int j = 0; j < listaUnidades.size(); j++) {
+                    String matricula = listaUnidades.get(j).getNumReferencia();
+                    String cidade = listaUnidades.get(j).getCidade();
+                    String unidade = matricula + " | " + cidade + ".";
+                    unidades_list.addItem(unidade);
+                }
+            }
         }
     }
     
@@ -87,11 +92,9 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         getTel = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         codigoReservaLabel5 = new javax.swing.JLabel();
-        codigoReservaLabel3 = new javax.swing.JLabel();
         codigoReservaLabel7 = new javax.swing.JLabel();
         codigoReservaLabel8 = new javax.swing.JLabel();
         getSalario = new javax.swing.JTextField();
-        getPix = new javax.swing.JTextField();
         getCnis = new javax.swing.JTextField();
         getCargo = new javax.swing.JComboBox<>();
         codigoReservaLabel12 = new javax.swing.JLabel();
@@ -99,11 +102,11 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         codigoReservaLabel13 = new javax.swing.JLabel();
         getSenha = new javax.swing.JTextField();
         codigoReservaLabel14 = new javax.swing.JLabel();
-        getData = new com.toedter.calendar.JDateChooser();
         codigoReservaLabel15 = new javax.swing.JLabel();
-        getUnidade = new javax.swing.JTextField();
         codigoReservaLabel16 = new javax.swing.JLabel();
         getEndereco = new javax.swing.JTextField();
+        unidades_list = new javax.swing.JComboBox<>();
+        data_Nascimento = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botaoCadastrarFunc = new javax.swing.JButton();
@@ -192,9 +195,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         codigoReservaLabel5.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel5.setText("Salário:");
 
-        codigoReservaLabel3.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
-        codigoReservaLabel3.setText("PIX:");
-
         codigoReservaLabel7.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel7.setText("CNIS:");
 
@@ -213,16 +213,13 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(getCnis, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(codigoReservaLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(getPix, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(getCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -231,14 +228,12 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel5)
                     .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel3)
-                    .addComponent(getPix, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(codigoReservaLabel8)
+                    .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel7)
-                    .addComponent(codigoReservaLabel8)
-                    .addComponent(getCnis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(getCnis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -266,18 +261,24 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         codigoReservaLabel15.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel15.setText("Senha:");
 
-        getUnidade.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                getUnidadeActionPerformed(evt);
-            }
-        });
-
         codigoReservaLabel16.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel16.setText("Endereço:");
 
         getEndereco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 getEnderecoActionPerformed(evt);
+            }
+        });
+
+        unidades_list.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidades_listActionPerformed(evt);
+            }
+        });
+
+        data_Nascimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                data_NascimentoActionPerformed(evt);
             }
         });
 
@@ -292,18 +293,19 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                     .addComponent(codigoReservaLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(codigoReservaLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(codigoReservaLabel16, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(codigoReservaLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
+                    .addComponent(codigoReservaLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(getNome, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                            .addComponent(getNome, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                             .addComponent(getCpf)
                             .addComponent(getEmail)
                             .addComponent(getUsername)
-                            .addComponent(getData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(data_Nascimento))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigoReservaLabel6)
@@ -313,11 +315,11 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                             .addComponent(codigoReservaLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(getRg, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                            .addComponent(getRg)
                             .addComponent(getSobrenome)
                             .addComponent(getTel)
                             .addComponent(getSenha)
-                            .addComponent(getUnidade)))
+                            .addComponent(unidades_list, 0, 140, Short.MAX_VALUE)))
                     .addComponent(getEndereco))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -346,14 +348,14 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(getUnidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codigoReservaLabel13))
+                            .addComponent(codigoReservaLabel13)
+                            .addComponent(unidades_list, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(getSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(codigoReservaLabel14)
-                            .addComponent(getData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(data_Nascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(codigoReservaLabel12)
@@ -368,7 +370,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel17.setText("CADASTRAR FUNCIONÁRIO");
 
         botaoCadastrarFunc.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -392,34 +394,41 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(207, Short.MAX_VALUE)
-                .addComponent(jLabel17)
-                .addGap(247, 247, 247))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(222, 222, 222)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(244, 244, 244)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(botaoCadastrarFunc)
-                .addGap(302, 302, 302))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addGap(134, 134, 134))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(botaoCadastrarFunc)
+                                .addGap(15, 15, 15))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel17)
+                .addContainerGap()
+                .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(43, 43, 43)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(botaoCadastrarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(98, 98, 98))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(botaoCadastrarFunc, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39))))
         );
 
         jPanel2.getAccessibleContext().setAccessibleName("Dados do funcionário");
@@ -430,15 +439,15 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Funcionário");
@@ -456,8 +465,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
 
     private void botaoCadastrarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFuncActionPerformed
         String nome, cpf, email, username, endereco, sobrenome, rg, tel, unidade, senha, salario, cnis, pix, cargo;
-        Date data;
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         nome = getNome.getText() + " " + getSobrenome.getText();
         cpf = getCpf.getText();
         email = getEmail.getText();
@@ -465,16 +472,14 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         endereco = getEndereco.getText();
         rg = getRg.getText();
         tel = getTel.getText();
-        unidade = getUnidade.getText();
+        unidade = unidades_list.getSelectedItem().toString();
         senha = getSenha.getText();
         salario = getSalario.getText();
         salario.replaceAll( "," , "." );
         Double salarioDouble = Double.parseDouble(salario);
         cnis = getCnis.getText();
-        pix = getPix.getText();
         cargo = (String)getCargo.getSelectedItem();
-        data = getData.getDate();
-        String dataString = dateFormat.format(data);
+        String dataString = data_Nascimento.getText();
         
             try {
                 ServicoUsuarios.cadastrarFuncionario(nome, cpf, rg, dataString, cnis, salarioDouble, cargo, endereco, tel, email, username, senha, unidade);
@@ -487,7 +492,9 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        String mensagem = "Funcionário cadastrado com sucesso";
+        JOptionPane.showMessageDialog(null, mensagem);
+        this.dispose();
     }//GEN-LAST:event_botaoCadastrarFuncActionPerformed
 
     private void getSobrenomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSobrenomeActionPerformed
@@ -522,13 +529,17 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_getSenhaActionPerformed
 
-    private void getUnidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getUnidadeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_getUnidadeActionPerformed
-
     private void getEnderecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getEnderecoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_getEnderecoActionPerformed
+
+    private void data_NascimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_data_NascimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_data_NascimentoActionPerformed
+
+    private void unidades_listActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidades_listActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unidades_listActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoCadastrarFunc;
@@ -541,26 +552,23 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JLabel codigoReservaLabel14;
     private javax.swing.JLabel codigoReservaLabel15;
     private javax.swing.JLabel codigoReservaLabel16;
-    private javax.swing.JLabel codigoReservaLabel3;
     private javax.swing.JLabel codigoReservaLabel5;
     private javax.swing.JLabel codigoReservaLabel6;
     private javax.swing.JLabel codigoReservaLabel7;
     private javax.swing.JLabel codigoReservaLabel8;
     private javax.swing.JLabel codigoReservaLabel9;
+    private javax.swing.JTextField data_Nascimento;
     private javax.swing.JComboBox<String> getCargo;
     private javax.swing.JTextField getCnis;
     private javax.swing.JTextField getCpf;
-    private com.toedter.calendar.JDateChooser getData;
     private javax.swing.JTextField getEmail;
     private javax.swing.JTextField getEndereco;
     private javax.swing.JTextField getNome;
-    private javax.swing.JTextField getPix;
     private javax.swing.JTextField getRg;
     private javax.swing.JTextField getSalario;
     private javax.swing.JTextField getSenha;
     private javax.swing.JTextField getSobrenome;
     private javax.swing.JTextField getTel;
-    private javax.swing.JTextField getUnidade;
     private javax.swing.JTextField getUsername;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
@@ -573,5 +581,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTextField jTextField6;
+    private javax.swing.JComboBox<String> unidades_list;
     // End of variables declaration//GEN-END:variables
 }

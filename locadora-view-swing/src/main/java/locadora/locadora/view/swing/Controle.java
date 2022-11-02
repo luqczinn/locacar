@@ -4,6 +4,8 @@
  */
 package locadora.locadora.view.swing;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +54,7 @@ public class Controle {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        //
                     }
                 });
                 dialog.setVisible(true);
@@ -104,11 +106,16 @@ public class Controle {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            Home frame = new Home(user);
+            Home frame = null;
+            try {
+                frame = new Home(user);
+            } catch (Exception ex) {
+                Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
+            }
             frame.addWindowListener(new java.awt.event.WindowAdapter() {
                 @Override
                 public void windowClosing(java.awt.event.WindowEvent e) {
-                    System.exit(0);
+                    //
                 }
             });
             frame.setVisible(true);
@@ -116,40 +123,8 @@ public class Controle {
 
     }
 
-    public static void abrirCadastroUnidades() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroUnidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroUnidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroUnidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroUnidade.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    new CadastroUnidade().setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
+    public static void abrirCadastroUnidades() throws SQLException, negocioException {
+         new CadastroUnidade().setVisible(true);
     }
     
     public static void abrirCadastroFuncionario(Usuario usuario) {
@@ -183,6 +158,8 @@ public class Controle {
                     new CadastroFuncionarios(usuario).setVisible(true);
                 } catch (SQLException ex) {
                     Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (negocioException ex) {
+                    Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -288,7 +265,7 @@ public class Controle {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        //
                     }
                 });
                 dialog.setVisible(true);
@@ -297,11 +274,7 @@ public class Controle {
     }
 
     public static void abrirCadastroReservas() {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -336,6 +309,10 @@ public class Controle {
                 } catch (SQLException ex) {
                     Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (negocioException ex) {
+                    Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (UnsupportedEncodingException ex) {
+                    Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -373,7 +350,7 @@ public class Controle {
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
+                        //
                     }
                 });
                 dialog.setVisible(true);

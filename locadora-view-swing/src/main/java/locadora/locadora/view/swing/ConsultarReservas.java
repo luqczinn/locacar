@@ -29,17 +29,19 @@ public class ConsultarReservas extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
-                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));   
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         modo = "Navegar";
         LoadTableContent();
     }
 
     public void LoadTableContent() throws SQLException {
-        Object Colunas[] = {"Código", "Cliente", "Vendedor", "Veiculo", "Unidade", "Telefone", "Coleta", "Entrega", "Valor diário", "Valor total"};
+        Object Colunas[] = {"Código", "Cliente", "Vendedor", "Veiculo", "Unidade", "Coleta", "Entrega", "Valor diário", "Valor total"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
 
         for (int i = 0; i < ReservasDAO.listarReservasBD().size(); i++) {
-            modelo.addRow(new Object[]{ReservasDAO.listarReservasBD().get(i).getCodigo(), ReservasDAO.listarReservasBD().get(i).getCliente(), ReservasDAO.listarReservasBD().get(i).getVendedor(), ReservasDAO.listarReservasBD().get(i).getVeiculo(), ReservasDAO.listarReservasBD().get(i).getUnidade(), ReservasDAO.listarReservasBD().get(i).getInicio(), ReservasDAO.listarReservasBD().get(i).getFim(), ReservasDAO.listarReservasBD().get(i).getValorDiaria(), ReservasDAO.listarReservasBD().get(i).getValorReserva()});
+            modelo.addRow(new Object[]{ReservasDAO.listarReservasBD().get(i).getCodigo(), ReservasDAO.listarReservasBD().get(i).getCliente(), ReservasDAO.listarReservasBD().get(i).getVendedor(), ReservasDAO.listarReservasBD().get(i).getVeiculo(),
+                ReservasDAO.listarReservasBD().get(i).getUnidade(), ReservasDAO.listarReservasBD().get(i).getInicio(), ReservasDAO.listarReservasBD().get(i).getFim(), "R$ " + ReservasDAO.listarReservasBD().get(i).getValorDiaria(),
+                "R$ " + ReservasDAO.listarReservasBD().get(i).getValorReserva()});
         }
 
         tlb_reservas.setModel(modelo);
@@ -260,18 +262,14 @@ public class ConsultarReservas extends javax.swing.JDialog {
 
     private void tlb_reservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_reservasMouseClicked
         int x = tlb_reservas.getSelectedRow();
-        try {
-            Reservas R = ReservasDAO.listarReservasBD().get(x);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
-        }
         setVariavelA(x);
         modo = "Selecao";
         try {
             onOff();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(ConsultarReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
+
     }//GEN-LAST:event_tlb_reservasMouseClicked
     public static String b;
 

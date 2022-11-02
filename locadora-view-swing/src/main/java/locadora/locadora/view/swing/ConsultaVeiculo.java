@@ -7,6 +7,7 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -41,13 +42,13 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         
         DefaultTableModel tabela
                     = new DefaultTableModel(colunas, 0);
-        
-        for (int i = 0; i < ServicoVeiculo.listarVeiculos().size(); i++) {
-            tabela.addRow(new Object[]{ServicoVeiculo.listarVeiculos().get(i).getAno(), 
-                ServicoVeiculo.listarVeiculos().get(i).getPlaca(), ServicoVeiculo.listarVeiculos().get(i).getMarca(), 
-                ServicoVeiculo.listarVeiculos().get(i).getTipoMotor(), ServicoVeiculo.listarVeiculos().get(i).getModeloCarro(), 
-                ServicoVeiculo.listarVeiculos().get(i).getKmRodados(), ServicoVeiculo.listarVeiculos().get(i).getValorAluguel(),ServicoVeiculo.listarVeiculos().get(i).getStatus(), 
-                ServicoVeiculo.listarVeiculos().get(i).getTipo(), ServicoVeiculo.listarVeiculos().get(i).getCambio()});
+         List<Veiculo> listaVeiculos = ServicoVeiculo.listarVeiculos();
+        for (int i = 0; i < listaVeiculos.size(); i++) {
+            tabela.addRow(new Object[]{listaVeiculos.get(i).getAno(), 
+               listaVeiculos.get(i).getPlaca(), listaVeiculos.get(i).getMarca(), 
+                listaVeiculos.get(i).getTipoMotor(), listaVeiculos.get(i).getModeloCarro(), 
+                listaVeiculos.get(i).getKmRodados(), listaVeiculos.get(i).getValorAluguel(),listaVeiculos.get(i).getStatus(), 
+                listaVeiculos.get(i).getTipo(), listaVeiculos.get(i).getCambio()});
         } 
         jTable1.setModel(tabela); 
     };

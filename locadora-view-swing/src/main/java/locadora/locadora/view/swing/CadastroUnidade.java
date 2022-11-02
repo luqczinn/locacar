@@ -6,12 +6,14 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import locadora.locadora.negocio.dao.UnidadesDAO;
 import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Unidades;
+import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUnidades;
 
@@ -19,47 +21,57 @@ import locadora.locadora.negocio.servico.ServicoUnidades;
  *
  * @author gugup
  */
-public class CadastroUnidade extends javax.swing.JFrame {
+public class CadastroUnidade extends javax.swing.JDialog {
 
-    /**
-     * Creates new form CadastroUnidade
-     */
-    public CadastroUnidade() throws SQLException {
+    @Override
+    public void setDefaultCloseOperation(int operation) {
+        super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }
+    List<Unidades> listaUnidades = ServicoUnidades.listarUnidades();
+    public CadastroUnidade() throws SQLException, negocioException {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
-        String modo = ConsultarReservas.getVariavelB();
-        int x = ConsultarUnidades.getVariavelA();
-        LoadCombos();
-        if (ConsultarUnidades.getVariavelB().equals("Editar")) {
-            Unidades U = UnidadesDAO.listarUnidadesBD().get(x);
-            txt_estado_CadUn.setSelectedItem(U.getEstado());
-            txt_cidade_CadUn.setText(U.getCidade());
-            txt_logradouro_CadUn.setText(U.getLogradouro());
-            txt_numero_CadUn.setText(Integer.toString(U.getNumero()));
-            txt_cep_CadUn.setText(U.getCep());
-            txt_complemento_CadUn.setText(U.getComplemento());
-            txt_matricula_un.setText(U.getNumReferencia());
-            estoque_un.setText(Integer.toString(U.getEstoque()));
-            combo_gerentes_unidade.setSelectedItem(U.getGerente());
+        String modo = "";
+        int x = 0;
+        if (ConsultarReservas.getVariavelB() != null) {
+            modo = ConsultarReservas.getVariavelB();
+            if (modo.equals("Editar")) {
+                Unidades U = listaUnidades.get(x);
+                txt_estado_CadUn.setSelectedItem(U.getEstado());
+                txt_cidade_CadUn.setText(U.getCidade());
+                txt_logradouro_CadUn.setText(U.getLogradouro());
+                txt_numero_CadUn.setText(Integer.toString(U.getNumero()));
+                txt_cep_CadUn.setText(U.getCep());
+                txt_complemento_CadUn.setText(U.getComplemento());
+                txt_matricula_un.setText(U.getNumReferencia());
+                estoque_un.setText(Integer.toString(U.getEstoque()));
+                combo_gerentes_unidade.setSelectedItem(U.getGerente());
+            }
         }
+        modo = ConsultarReservas.getVariavelB();
+        if (ConsultarUnidades.getVariavelA() != 0) {
+            x = ConsultarUnidades.getVariavelA();
+        }
+        LoadCombos();
     }
 
-    public void LoadCombos() throws SQLException {
-        for (int i = 0; i < UsuarioDAO.listarFuncionariosBD().size(); i++) {
-            if (UsuarioDAO.listarFuncionariosBD().get(i).getCargo().equals("Gerente")) {
-                String nome = UsuarioDAO.listarFuncionariosBD().get(i).getNome();
-                String cpf = UsuarioDAO.listarFuncionariosBD().get(i).getCpf();
+    public void LoadCombos() throws SQLException, negocioException {
+        List<Usuario> listaUsuarios = UsuarioDAO.listarFuncionariosBD();
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            if (listaUsuarios.get(i).getCargo().equals("Gerente") ||listaUsuarios.get(i).getCargo().equals("Diretor") ) {
+                String nome = listaUsuarios.get(i).getNome();
+                String cpf = listaUsuarios.get(i).getCpf();
                 String gerente = nome + " | " + cpf + ".";
                 combo_gerentes_unidade.addItem(gerente);
             }
         }
-        if (!UnidadesDAO.listarUnidadesBD().isEmpty()) {
-            for (int j = 0; j < UnidadesDAO.listarUnidadesBD().size(); j++) {
-                if (Integer.valueOf(UnidadesDAO.listarUnidadesBD().get(j).getNumReferencia()) == 0) {
+        if (!listaUnidades.isEmpty()) {
+            for (int j = 0; j < listaUnidades.size(); j++) {
+                if (Integer.valueOf(listaUnidades.get(j).getNumReferencia()) == 0) {
                     txt_matricula_un.setText("0001");
                 } else {
-                    int matricula = Integer.valueOf(UnidadesDAO.listarUnidadesBD().get(j).getNumReferencia()) + 1;
+                    int matricula = Integer.valueOf(listaUnidades.get(j).getNumReferencia()) + 1;
                     txt_matricula_un.setText(Integer.toString(matricula));
                 }
             }
@@ -100,7 +112,7 @@ public class CadastroUnidade extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Unidades"));
 
@@ -306,7 +318,7 @@ public class CadastroUnidade extends javax.swing.JFrame {
 
         try {
             //adicionar na lista de carros
-            ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade,  numero, complemento,  estoque,  gerente);
+            ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente);
         } catch (negocioException | SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);

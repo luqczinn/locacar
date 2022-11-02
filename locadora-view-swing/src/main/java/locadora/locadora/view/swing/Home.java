@@ -15,6 +15,7 @@ import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import locadora.locadora.negocio.dto.Log;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoLog; 
@@ -29,7 +30,7 @@ public class Home extends javax.swing.JFrame {
      */
     static Usuario user;
     
-    public Home(Usuario user) {
+    public Home(Usuario user) throws Exception {
         initComponents();
         this.user = user;
         String cargo = user.getCargo();
@@ -47,6 +48,7 @@ public class Home extends javax.swing.JFrame {
         abrirHome(cargo);
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
+        ListarUsuariosLogados();
     }
 
     private void abrirHome(String cargo) {
@@ -70,18 +72,15 @@ public class Home extends javax.swing.JFrame {
     }
     
     public void ListarUsuariosLogados() throws negocioException, SQLException, Exception, Exception {
-        DefaultTableModel tabela
-                    = (DefaultTableModel) jTable1.getModel();
+        Object Colunas[] = {"Usuário", "Cargo", "Horário"};
+        DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
+     
+        List<Log> lista = ServicoLog.usuariosLogados();
         
-        List<Usuario> lista = ServicoLog.usuariosLogados();
-        
-        for (Usuario item : lista) {
-            Object[] linha = {
-                item.getNome(), item.getCargo()
-            };
-            tabela.addRow(linha);
+        for (int i = 0; i < lista.size(); i++) {
+            modelo.addRow(new Object[]{lista.get(i).getNome(),lista.get(i).getCargo(), lista.get(i).getHorario()});
         }
-        jTable1.setModel(tabela); 
+        tabela_logs.setModel(modelo);
     };
 
     @SuppressWarnings("unchecked")
@@ -113,7 +112,7 @@ public class Home extends javax.swing.JFrame {
         jButton14 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela_logs = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
@@ -375,7 +374,7 @@ public class Home extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Últimos usuários onlines"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_logs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -394,7 +393,7 @@ public class Home extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela_logs);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -540,6 +539,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         Controle.abrirCadastroFuncionario(user);
+        System.out.println(user.getCargo());
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -578,8 +578,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelNome;
     private javax.swing.JPanel painelVeiculos;
+    private javax.swing.JTable tabela_logs;
     // End of variables declaration//GEN-END:variables
 }

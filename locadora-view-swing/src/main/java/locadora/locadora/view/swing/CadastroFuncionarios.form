@@ -62,19 +62,19 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jPanel1" max="32767" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
+              <Component id="jPanel1" min="-2" pref="492" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -97,39 +97,53 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Component id="jSeparator1" max="32767" attributes="0"/>
-              <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="207" max="32767" attributes="0"/>
-                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="247" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="222" max="-2" attributes="0"/>
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="244" max="-2" attributes="0"/>
-                  <Component id="jButton6" min="-2" pref="110" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
-                  <Component id="botaoCadastrarFunc" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="302" max="-2" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jButton6" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="botaoCadastrarFunc" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                      </Group>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel17" min="-2" pref="52" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                      <Component id="botaoCadastrarFunc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="98" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="botaoCadastrarFunc" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                              <Component id="jButton6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -157,19 +171,21 @@
                           <Component id="codigoReservaLabel1" min="-2" pref="117" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel9" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
                           <Component id="codigoReservaLabel10" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel12" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel14" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
-                          <Component id="codigoReservaLabel16" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="codigoReservaLabel16" alignment="0" max="32767" attributes="0"/>
+                              <Component id="codigoReservaLabel12" alignment="0" pref="73" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="codigoReservaLabel14" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="getNome" pref="144" max="32767" attributes="0"/>
+                                  <Component id="getNome" pref="147" max="32767" attributes="0"/>
                                   <Component id="getCpf" max="32767" attributes="0"/>
                                   <Component id="getEmail" max="32767" attributes="0"/>
                                   <Component id="getUsername" max="32767" attributes="0"/>
-                                  <Component id="getData" max="32767" attributes="0"/>
+                                  <Component id="data_Nascimento" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -181,11 +197,11 @@
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="getRg" pref="140" max="32767" attributes="0"/>
+                                  <Component id="getRg" max="32767" attributes="0"/>
                                   <Component id="getSobrenome" max="32767" attributes="0"/>
                                   <Component id="getTel" max="32767" attributes="0"/>
                                   <Component id="getSenha" max="32767" attributes="0"/>
-                                  <Component id="getUnidade" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="unidades_list" alignment="0" pref="140" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="getEndereco" max="32767" attributes="0"/>
@@ -222,16 +238,16 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="getUnidade" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="codigoReservaLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="unidades_list" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="getSenha" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="codigoReservaLabel14" min="-2" max="-2" attributes="0"/>
-                                  <Component id="getData" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="codigoReservaLabel14" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="data_Nascimento" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
@@ -353,20 +369,16 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="getCnis" min="-2" pref="90" max="-2" attributes="0"/>
-                              <Component id="getSalario" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Component id="getCnis" alignment="0" min="-2" pref="90" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="getSalario" min="-2" pref="90" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="codigoReservaLabel8" min="-2" pref="108" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="getCargo" min="-2" pref="90" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="codigoReservaLabel3" max="32767" attributes="0"/>
-                              <Component id="codigoReservaLabel8" min="-2" pref="108" max="-2" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="getPix" pref="90" max="32767" attributes="0"/>
-                              <Component id="getCargo" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace pref="86" max="32767" attributes="0"/>
+                          <EmptySpace pref="91" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -377,15 +389,13 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="codigoReservaLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="getSalario" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="codigoReservaLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="getPix" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="codigoReservaLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="getCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="codigoReservaLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="codigoReservaLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="getCnis" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="getCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -399,14 +409,6 @@
                       <Font name="Amiri" size="14" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Sal&#xe1;rio:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JLabel" name="codigoReservaLabel3">
-                  <Properties>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Amiri" size="14" style="1"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="PIX:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="codigoReservaLabel7">
@@ -426,8 +428,6 @@
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="getSalario">
-                </Component>
-                <Component class="javax.swing.JTextField" name="getPix">
                 </Component>
                 <Component class="javax.swing.JTextField" name="getCnis">
                 </Component>
@@ -477,8 +477,6 @@
                 <Property name="text" type="java.lang.String" value="Data de nascimento:"/>
               </Properties>
             </Component>
-            <Component class="com.toedter.calendar.JDateChooser" name="getData">
-            </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel15">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -486,11 +484,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Senha:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="getUnidade">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getUnidadeActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="codigoReservaLabel16">
               <Properties>
@@ -505,12 +498,30 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="getEnderecoActionPerformed"/>
               </Events>
             </Component>
+            <Component class="javax.swing.JComboBox" name="unidades_list">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="0"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidades_listActionPerformed"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
+            <Component class="javax.swing.JTextField" name="data_Nascimento">
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="data_NascimentoActionPerformed"/>
+              </Events>
+            </Component>
           </SubComponents>
         </Container>
         <Component class="javax.swing.JLabel" name="jLabel17">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="48" style="0"/>
+              <Font name="Segoe UI" size="24" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="CADASTRAR FUNCION&#xc1;RIO"/>
           </Properties>

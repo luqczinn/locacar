@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import locadora.locadora.database.Conexao;
+import locadora.locadora.negocio.dto.Log;
 import locadora.locadora.negocio.dto.Usuario;
 
 /**
@@ -34,7 +35,7 @@ public class ServicoLog {
                 + usuario.getNome() + "', '"
                 + usuario.getCargo() + "', '"
                 + data + "')";
-        System.out.println(usuario.getNome()+ "/ "+ usuario.getCargo() + "logou no sistema às: "+data +".");
+        System.out.println(usuario.getNome() + "/ " + usuario.getCargo() + "logou no sistema às: " + data + ".");
         Connection com = Conexao.getConnection();
         PreparedStatement pstmt = com.prepareStatement(sql);
         pstmt.execute();
@@ -43,42 +44,28 @@ public class ServicoLog {
     }
 
     //função para pegar ultimos usuarios logados
-    public static List<Usuario> usuariosLogados() throws Exception {
-        //pega no bd qual foi o usuario logado
-        /*String sql = "SELECT func.* FROM Funcionarios as func, "
-                + "log as lg WHERE lg.username = func.usuario AND "
-                + "lg.data = CURDATE();";*/
+    public static List<Log> usuariosLogados() throws Exception {
         String sql = "SELECT * FROM log ORDER BY horaLogin desc LIMIT 10";
-        Connection com = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<Usuario> lista = new ArrayList<>();
-        try {
-            com = Conexao.getConnection();
-            pstmt = com.prepareStatement(sql);
-            rs = pstmt.executeQuery(sql);
-            while (rs.next()) {
-                lista.add(new Usuario(
-                        rs.getString("funcionario"),
-                        rs.getString("cargo")));
-            }
-            return lista;
-        } catch (NumberFormatException | SQLException erro) {
-            throw new Exception(erro.getMessage());
-        } finally {
-            if (com != null) {
-                com.close();
-            }
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
+        Connection com = Conexao.getConnection();
+        PreparedStatement pstmt = com.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery(sql);
+        List<Log> lista = new ArrayList<>();
+        while (rs.next()) {
+            String cargo = rs.getString("cargo");
+            String nome = rs.getString("funcionario");
+            String horario = rs.getString("horaLogin");
+            lista.add(new Log(nome, cargo, horario));
         }
+        com.close();
+        rs.close();
+        pstmt.close();
+        if (lista.isEmpty() != true) {
+            return lista;
+        }
+        return null;
     }
 
-    //registrar log de cadastro ou exclusao de veiculo
+//registrar log de cadastro ou exclusao de veiculo
     public static void registrarLogs(String acao, String descricao, String usuario) throws Exception {
         //insere no bd qual foi o veiculo e qual a ação que sofreu
         LocalDateTime dataHora = LocalDateTime.now();
