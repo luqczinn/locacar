@@ -11,40 +11,42 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import locadora.locadora.negocio.dao.ReservasDAO;
+import locadora.locadora.negocio.dao.UnidadesDAO;
+import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Reservas;
+import locadora.locadora.negocio.dto.Unidades;
+import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.excessoes.persistenciaException;
 
 /**
  *
  * @author gugup
  */
-public class ConsultarReservas extends javax.swing.JDialog {
+public class ConsultarUnidades extends javax.swing.JDialog {
 
     public String modo;
 
     /**
      * Creates new form ConsultarReservas
      */
-    public ConsultarReservas(java.awt.Frame parent, boolean modal) throws SQLException {
+    public ConsultarUnidades(java.awt.Frame parent, boolean modal) throws SQLException {
         super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
-                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));   
         modo = "Navegar";
         LoadTableContent();
     }
 
     public void LoadTableContent() throws SQLException {
-        Object Colunas[] = {"Código", "Cliente", "Vendedor", "Veiculo", "Unidade", "Coleta", "Entrega", "Valor diário", "Valor total"};
+        Object Colunas[] = {"Estado","Endereco", "Número Matrícula", "Capacidade Estoque", "Gerente responsável"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
 
-        for (int i = 0; i < ReservasDAO.listarReservasBD().size(); i++) {
-            modelo.addRow(new Object[]{ReservasDAO.listarReservasBD().get(i).getCodigo(), ReservasDAO.listarReservasBD().get(i).getCliente(), ReservasDAO.listarReservasBD().get(i).getVendedor(), ReservasDAO.listarReservasBD().get(i).getVeiculo(),
-                ReservasDAO.listarReservasBD().get(i).getUnidade(), ReservasDAO.listarReservasBD().get(i).getInicio(), ReservasDAO.listarReservasBD().get(i).getFim(), "R$ " + ReservasDAO.listarReservasBD().get(i).getValorDiaria(),
-                "R$ " + ReservasDAO.listarReservasBD().get(i).getValorReserva()});
+        for (int i = 0; i < UnidadesDAO.listarUnidadesBD().size(); i++) {
+            modelo.addRow(new Object[]{UnidadesDAO.listarUnidadesBD().get(i).getEstado(),UnidadesDAO.listarUnidadesBD().get(i).getLogradouro() +", "+UnidadesDAO.listarUnidadesBD().get(i).getNumero() +", "+UnidadesDAO.listarUnidadesBD().get(i).getCidade()+" - "+UnidadesDAO.listarUnidadesBD().get(i).getCep(),UnidadesDAO.listarUnidadesBD().get(i).getNumReferencia(),UnidadesDAO.listarUnidadesBD().get(i).getEstoque(),UnidadesDAO.listarUnidadesBD().get(i).getGerente()});
         }
 
-        tlb_reservas.setModel(modelo);
+        tlb_unidades.setModel(modelo);
 
     }
 
@@ -52,16 +54,16 @@ public class ConsultarReservas extends javax.swing.JDialog {
         switch (modo) {
 
             case "Navegar" -> {
-                btn_nova_reserva.setEnabled(true);
-                btn_editar_reserva.setEnabled(false);
-                btn_excluir_reserva.setEnabled(false);
+                btn_nova_unidade.setEnabled(true);
+                btn_editar_unidade.setEnabled(false);
+                btn_excluir_unidade.setEnabled(false);
                 setVariavelB(modo);
             }
             case "Novo" -> {
 
-                btn_nova_reserva.setEnabled(false);
-                btn_editar_reserva.setEnabled(false);
-                btn_excluir_reserva.setEnabled(false);
+                btn_nova_unidade.setEnabled(false);
+                btn_editar_unidade.setEnabled(false);
+                btn_excluir_unidade.setEnabled(false);
                 setVariavelB(modo);
 
                 LoadTableContent();
@@ -69,9 +71,9 @@ public class ConsultarReservas extends javax.swing.JDialog {
 
             case "Editar" -> {
 
-                btn_nova_reserva.setEnabled(true);
-                btn_editar_reserva.setEnabled(false);
-                btn_excluir_reserva.setEnabled(false);
+                btn_nova_unidade.setEnabled(true);
+                btn_editar_unidade.setEnabled(false);
+                btn_excluir_unidade.setEnabled(false);
                 setVariavelB(modo);
 
                 LoadTableContent();
@@ -79,18 +81,18 @@ public class ConsultarReservas extends javax.swing.JDialog {
 
             case "Excluir" -> {
 
-                btn_nova_reserva.setEnabled(true);
-                btn_editar_reserva.setEnabled(false);
-                btn_excluir_reserva.setEnabled(false);
+                btn_nova_unidade.setEnabled(true);
+                btn_editar_unidade.setEnabled(false);
+                btn_excluir_unidade.setEnabled(false);
                 setVariavelB(modo);
 
                 LoadTableContent();
             }
             case "Selecao" -> {
 
-                btn_nova_reserva.setEnabled(true);
-                btn_editar_reserva.setEnabled(true);
-                btn_excluir_reserva.setEnabled(true);
+                btn_nova_unidade.setEnabled(true);
+                btn_editar_unidade.setEnabled(true);
+                btn_excluir_unidade.setEnabled(true);
                 setVariavelB(modo);
             }
             default ->
@@ -109,16 +111,16 @@ public class ConsultarReservas extends javax.swing.JDialog {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tlb_reservas = new javax.swing.JTable();
-        btn_excluir_reserva = new javax.swing.JButton();
-        btn_nova_reserva = new javax.swing.JButton();
-        btn_editar_reserva = new javax.swing.JButton();
+        tlb_unidades = new javax.swing.JTable();
+        btn_excluir_unidade = new javax.swing.JButton();
+        btn_nova_unidade = new javax.swing.JButton();
+        btn_editar_unidade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidades"));
 
-        tlb_reservas.setModel(new javax.swing.table.DefaultTableModel(
+        tlb_unidades.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -129,31 +131,31 @@ public class ConsultarReservas extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tlb_reservas.addMouseListener(new java.awt.event.MouseAdapter() {
+        tlb_unidades.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tlb_reservasMouseClicked(evt);
+                tlb_unidadesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tlb_reservas);
+        jScrollPane1.setViewportView(tlb_unidades);
 
-        btn_excluir_reserva.setText("Excluir");
-        btn_excluir_reserva.addActionListener(new java.awt.event.ActionListener() {
+        btn_excluir_unidade.setText("Excluir");
+        btn_excluir_unidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_excluir_reservaActionPerformed(evt);
-            }
-        });
-
-        btn_nova_reserva.setText("Nova");
-        btn_nova_reserva.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_nova_reservaActionPerformed(evt);
+                btn_excluir_unidadeActionPerformed(evt);
             }
         });
 
-        btn_editar_reserva.setText("Editar");
-        btn_editar_reserva.addActionListener(new java.awt.event.ActionListener() {
+        btn_nova_unidade.setText("Nova");
+        btn_nova_unidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_editar_reservaActionPerformed(evt);
+                btn_nova_unidadeActionPerformed(evt);
+            }
+        });
+
+        btn_editar_unidade.setText("Editar");
+        btn_editar_unidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_editar_unidadeActionPerformed(evt);
             }
         });
 
@@ -167,29 +169,29 @@ public class ConsultarReservas extends javax.swing.JDialog {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btn_editar_reserva)
+                .addComponent(btn_editar_unidade)
                 .addGap(227, 227, 227)
-                .addComponent(btn_excluir_reserva)
+                .addComponent(btn_excluir_unidade)
                 .addGap(48, 48, 48))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(32, 32, 32)
-                    .addComponent(btn_nova_reserva)
+                    .addComponent(btn_nova_unidade)
                     .addContainerGap(609, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_excluir_reserva)
-                    .addComponent(btn_editar_reserva))
+                    .addComponent(btn_excluir_unidade)
+                    .addComponent(btn_editar_unidade))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                     .addContainerGap(340, Short.MAX_VALUE)
-                    .addComponent(btn_nova_reserva)
+                    .addComponent(btn_nova_unidade)
                     .addContainerGap()))
         );
 
@@ -213,16 +215,16 @@ public class ConsultarReservas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_excluir_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_reservaActionPerformed
-        int x = tlb_reservas.getSelectedRow();
-        Reservas R = null;
+    private void btn_excluir_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluir_unidadeActionPerformed
+        int x = tlb_unidades.getSelectedRow();
+        Unidades U = null;
         try {
-            R = ReservasDAO.listarReservasBD().get(x);
+            U = UnidadesDAO.listarUnidadesBD().get(x);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            ReservasDAO.removerReservaBD(R.getCodigo());
+            UnidadesDAO.removerUnidadeBD(U.getCep());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
@@ -239,17 +241,20 @@ public class ConsultarReservas extends javax.swing.JDialog {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_btn_excluir_reservaActionPerformed
+    }//GEN-LAST:event_btn_excluir_unidadeActionPerformed
 
-    private void btn_nova_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_reservaActionPerformed
+    private void btn_nova_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_unidadeActionPerformed
         modo = "Novo";
-        Controle.abrirCadastroVeiculos();
+        try {
+            Controle.abrirCadastroUnidades();
+        } catch (SQLException | negocioException ex) {
+            Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setVariavelB(modo);
-    }//GEN-LAST:event_btn_nova_reservaActionPerformed
+    }//GEN-LAST:event_btn_nova_unidadeActionPerformed
 
-    private void btn_editar_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_reservaActionPerformed
-        int x = tlb_reservas.getSelectedRow();
-
+    private void btn_editar_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_editar_unidadeActionPerformed
+        int x = tlb_unidades.getSelectedRow();
         modo = "Editar";
         try {
             onOff();
@@ -257,20 +262,23 @@ public class ConsultarReservas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         setVariavelA(x);
-        Controle.abrirCadastroReservas();
-    }//GEN-LAST:event_btn_editar_reservaActionPerformed
+        try {
+            Controle.abrirCadastroUnidades();
+        } catch (SQLException | negocioException ex) {
+            Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_editar_unidadeActionPerformed
 
-    private void tlb_reservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_reservasMouseClicked
-        int x = tlb_reservas.getSelectedRow();
+    private void tlb_unidadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_unidadesMouseClicked
+        int x = tlb_unidades.getSelectedRow();
         setVariavelA(x);
         modo = "Selecao";
         try {
             onOff();
         } catch (SQLException ex) {
-            Logger.getLogger(ConsultarReservas.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
-
-    }//GEN-LAST:event_tlb_reservasMouseClicked
+    }//GEN-LAST:event_tlb_unidadesMouseClicked
     public static String b;
 
     public void setVariavelB(String x) {
@@ -291,11 +299,11 @@ public class ConsultarReservas extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_editar_reserva;
-    private javax.swing.JButton btn_excluir_reserva;
-    private javax.swing.JButton btn_nova_reserva;
+    private javax.swing.JButton btn_editar_unidade;
+    private javax.swing.JButton btn_excluir_unidade;
+    private javax.swing.JButton btn_nova_unidade;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tlb_reservas;
+    private javax.swing.JTable tlb_unidades;
     // End of variables declaration//GEN-END:variables
 }

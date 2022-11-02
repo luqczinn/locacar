@@ -118,7 +118,7 @@ public class VeiculoDAO {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
-                if (v.getTipo() == tipo) {
+                if (v.getTipo().equals(tipo)) {
                     listaConsulta.add(v);
                 }
             }
@@ -143,11 +143,12 @@ public class VeiculoDAO {
     public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) throws SQLException {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"')";
             Connection com = Conexao.getConnection();
-            Statement statement = com.createStatement();
-            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"',"+cambio+"',"+valorAluguel+",'"+status+"')";
-            statement.executeUpdate(sql);
-            Conexao.closeConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
             return v;
         }
         return null;
@@ -160,7 +161,6 @@ public class VeiculoDAO {
             Statement statement = com.createStatement();
             String sql = "DELETE FROM veiculos WHERE placaCarro='"+placa+"'";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return v;
         }
         return null;
@@ -175,26 +175,26 @@ public class VeiculoDAO {
     }
 
     public static List<Veiculo> listarVeiculosBD() throws SQLException {
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
-        String sql = "SELECT * FROM veiculos";
-        ResultSet rs = statement.executeQuery(sql);
         List<Veiculo> listaVeiculos = new ArrayList<>();
+        String sql = "SELECT * FROM veiculos";
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
         while (rs.next()) {
-            int ano = Integer.valueOf(rs.getString("ano"));
+            int ano = (rs.getInt("ano"));
             String placa = rs.getString("placaCarro");
             String marca = rs.getString("marca");
             String tipoMotor = rs.getString("tipoMotor");
             String modeloCarro = rs.getString("modelo");
             double kmRodados = rs.getDouble("km");
-            String tipo = rs.getString("fim");
+            String tipo = rs.getString("tipoDeCarro");
             String cambio = rs.getString("cambio");
             double valorAluguel = rs.getDouble("valorDiaria");
-            String status = rs.getString("status");
+            String status = rs.getString("situacao");
             Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
             listaVeiculos.add(v);
         }
-        Conexao.closeConnection();
         if (listaVeiculos.isEmpty() != true) {
             return listaVeiculos;
         }

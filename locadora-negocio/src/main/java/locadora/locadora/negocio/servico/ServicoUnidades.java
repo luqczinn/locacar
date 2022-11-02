@@ -53,7 +53,7 @@ public class ServicoUnidades {
         if(String.valueOf(cep).length() != 11)
             throw new negocioException(315, "O CEP não está correto!");
         
-        return UnidadesDAO.consultarPorCep(Integer.valueOf(cep));
+        return UnidadesDAO.consultarPorCep(cep);
     }
     
     public static List<Unidades> consultarPorEstado(String estado) throws negocioException, SQLException {
@@ -106,18 +106,18 @@ public class ServicoUnidades {
             throw new negocioException(319, "O gerente é obrigatório.");
         }
         
-        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, Integer.valueOf(cep), estado, cidade, Integer.valueOf(numero), complemento, Integer.valueOf(estoque), gerente);
+        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, cep, estado, cidade, Integer.valueOf(numero), complemento, Integer.valueOf(estoque), gerente);
     }
 
-    public static Unidades removerUnidadePorCEP(Integer cep) throws negocioException, SQLException {
-        if (cep < 0) {
+    public static Unidades removerUnidadePorCEP(String cep) throws negocioException, SQLException {
+        if (cep.isEmpty()) {
             throw new negocioException(319, "Informe o CEP da unidade");
         }
 
         return UnidadesDAO.removerUnidadeBD(cep);
     }
 
-    public static List<Unidades> listarVeiculos() throws negocioException, SQLException {
+    public static List<Unidades> listarUnidades() throws negocioException, SQLException {
         if (UnidadesDAO.listarUnidadesBD() == null) {
             throw new negocioException(315, "Não existem unidades cadastrados!");
         }

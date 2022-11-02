@@ -56,9 +56,10 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         jLabel19 = new javax.swing.JLabel();
         tipoCarro = new javax.swing.JComboBox<>();
         cambioCarro = new javax.swing.JComboBox<>();
-        valorAluguel = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        diariaValor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de veículos");
@@ -198,17 +199,6 @@ public class CadastroVeiculo extends javax.swing.JDialog {
             }
         });
 
-        try {
-            valorAluguel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,00")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        valorAluguel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valorAluguelActionPerformed(evt);
-            }
-        });
-
         jLabel21.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         jLabel21.setText("Status:");
 
@@ -218,6 +208,8 @@ public class CadastroVeiculo extends javax.swing.JDialog {
                 cbxStatusActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("R$");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -229,13 +221,16 @@ public class CadastroVeiculo extends javax.swing.JDialog {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel19, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1))
                             .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tipoCarro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cambioCarro, 0, 196, Short.MAX_VALUE)
-                            .addComponent(valorAluguel)))
+                            .addComponent(diariaValor)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(69, 69, 69)
@@ -255,7 +250,8 @@ public class CadastroVeiculo extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel19)
-                    .addComponent(valorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(diariaValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
@@ -323,16 +319,16 @@ public class CadastroVeiculo extends javax.swing.JDialog {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         // TODO add your handling code here:
-        int ano = (int) anoCarro.getSelectedItem();
+        String ano =  anoCarro.getSelectedItem().toString();
         String placa = placaCarro.getText();
-        String marca = (String) marcaCarro.getSelectedItem();
+        String marca = marcaCarro.getSelectedItem().toString();
         String modelo = modeloCarro.getText();
         String tipoMotor = tipoDeMotor.getText();
         String quilometragem = quilometragemRodada.getText(); 
-        String tipoDeCarro = (String) tipoCarro.getSelectedItem();
-        String cambio = (String) cambioCarro.getSelectedItem();
-        String valorDiaria = (String) valorAluguel.getText();
-        String status = (String) cbxStatus.getSelectedItem(); 
+        String tipoDeCarro = tipoCarro.getSelectedItem().toString();
+        String cambio = cambioCarro.getSelectedItem().toString();
+        String valorDiaria = diariaValor.getText();
+        String status = cbxStatus.getSelectedItem().toString();
         
         try {
             //adicionar na lista de carros
@@ -344,10 +340,6 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void valorAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorAluguelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorAluguelActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
@@ -371,6 +363,8 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cambioCarro;
     private javax.swing.JComboBox<String> cbxStatus;
+    private javax.swing.JTextField diariaValor;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -390,6 +384,5 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     private javax.swing.JTextField quilometragemRodada;
     private javax.swing.JComboBox<String> tipoCarro;
     private javax.swing.JTextField tipoDeMotor;
-    private javax.swing.JFormattedTextField valorAluguel;
     // End of variables declaration//GEN-END:variables
 }

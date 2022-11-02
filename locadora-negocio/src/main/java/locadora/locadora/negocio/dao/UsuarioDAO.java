@@ -12,11 +12,12 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Usuario;
+import locadora.locadora.negocio.excessoes.negocioException;
 
 /**
  *
@@ -24,57 +25,34 @@ import locadora.locadora.negocio.dto.Usuario;
  */
 public class UsuarioDAO {
 
-    public static void cadastrarFuncionario() {
-    }
-
-    public static void removerFuncionario() {
-    }
-
-    public static void contagemFuncionarios() {
-    }
-
-    public static int numeroFuncionarios() {
-        return 0;
-    }
-
-    public static Usuario procurarPorUsername(String username) throws SQLException {
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
-        String sql = "SELECT * FROM funcionarios";
-        ResultSet rs = statement.executeQuery(sql);
-        List<Usuario> listaUsuarios = new ArrayList<>();
-        while (rs.next()) {
-            String nome = rs.getString("nome");
-            String cpf = rs.getString("cpf");
-            String rg = rs.getString("rg");
-            String nascimento = rs.getString("nascimento");
-            String cnis = rs.getString("cnis");
-            String salario = rs.getString("salario");
-            String cargo = rs.getString("cargo");
-            String endereco = rs.getString("endereco");
-            String telefone = rs.getString("telefone");
-            String email = rs.getString("email");
-            String usuario = rs.getString("usuario");
-            String senha = rs.getString("senha");
-            String unidade = rs.getString("unidade");
-
-            Usuario u = new Usuario(nome, cpf, rg, nascimento, cnis, salario, cargo, endereco, telefone, email, usuario, senha, unidade);
-            listaUsuarios.add(u);
-            System.out.println(nome + cpf + rg + nascimento + usuario + senha);
+    public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade) throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (procurarPorUsernameFuncionario(usuario) == null | listarFuncionariosBD() == null) {
+            String sql = "INSERT INTO funcionarios VALUES('" + nome + "','" + cpf + "','" + rg + "','" + nascimento + "','" + cnis + "'," + salario + ",'" + cargo + "','" + endereco + "','" + telefone + "','" + email + "','" + usuario + "','" + criptografarSenha(senha) + "','" + unidade + "')";
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
         }
-        rs.close();
-        statement.close();
-        Conexao.closeConnection();
-        //inserção para realizar testes
-        Usuario t = new Usuario("Jose Vendedor", "123", "123", "123", "123", "123", "Vendedor", "123", "123", "123", "infVendedor", "2022", "01");
-        Usuario t2 = new Usuario("Pedro Gerente", "123", "123", "123", "123", "123", "Gerente", "123", "123", "123", "infGerente", "2022", "01");
-        Usuario t3 = new Usuario("João Diretor", "123", "123", "123", "123", "123", "Diretor", "123", "123", "123", "infDiretor", "2022", "01");
-        listaUsuarios.add(t);
-        listaUsuarios.add(t2);
-        listaUsuarios.add(t3);
-        
-        if (listaUsuarios != null) {
-            for (Usuario u : listaUsuarios) {
+    }
+
+    public static void removerFuncionario(String username) throws SQLException, negocioException {
+        if (procurarPorUsernameFuncionario(username) != null) {
+            Usuario u = procurarPorUsernameFuncionario(username);
+            String sql = "DELETE FROM funcionarios WHERE usuario='" + username + "'";
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
+        }
+    }
+
+    public static Usuario procurarPorUsernameFuncionario(String username) throws SQLException {
+        List<Usuario> listaFuncionarios = listarFuncionariosBD();
+
+        if (listaFuncionarios != null) {
+            for (Usuario u : listaFuncionarios) {
                 if (u.getUsername().equals(username)) {
                     return u;
                 }
@@ -83,16 +61,14 @@ public class UsuarioDAO {
         return null;
     }
 
-    public static Usuario logarUsuario(String username, String senha) throws persistenciaException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        Usuario usuario = procurarPorUsername(username);
+    public static Usuario logarUsuarioFuncionario(String username, String senha) throws persistenciaException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        Usuario usuario = procurarPorUsernameFuncionario(username);
 
         if (usuario == null) {
             throw new persistenciaException("Username de usuário não encontrado!");
         }
-        //if (usuario.getSenha().equals(criptografarSenha(senha))) {
-        if (usuario.getSenha().equals(senha)) {
-            Usuario className = usuario;
-            return className;
+        if (usuario.getSenha().equals(criptografarSenha(senha))) {
+            return usuario;
         } else {
             throw new persistenciaException("Senha incorreta!");
         }
@@ -108,6 +84,37 @@ public class UsuarioDAO {
         }
         String senhahex = hexString.toString();
         return senhahex;
+    }
+
+    public static List<Usuario> listarFuncionariosBD() throws SQLException {
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        String sql = "SELECT * FROM funcionarios";
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            String nome = rs.getString("nome");
+            String cpf = rs.getString("cpf");
+            String rg = rs.getString("rg");
+            String nascimento = rs.getString("nascimento");
+            String cnis = rs.getString("cnis");
+            String salario = rs.getString("salario");
+            String cargo = rs.getString("cargo");
+            String endereco = rs.getString("endereco");
+            String telefone = rs.getString("telefone");
+            String email = rs.getString("email");
+            String usuario = rs.getString("usuario");
+            String senha = rs.getString("senha");
+            String unidade = rs.getString("unidade");
+            Usuario u = new Usuario(nome, cpf, rg, nascimento, cnis, salario, cargo, endereco, telefone, email, usuario, senha, unidade);
+            listaUsuarios.add(u);
+            System.out.println("Usuário adicionado");
+        }
+        if (listaUsuarios.isEmpty() != true) {
+            return listaUsuarios;
+        }
+        return null;
     }
 
 }

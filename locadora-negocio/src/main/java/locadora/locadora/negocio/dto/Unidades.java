@@ -7,7 +7,7 @@ package locadora.locadora.negocio.dto;
 public class Unidades {
     private String logradouro;
     private String numReferencia;
-    private Integer cep;
+    private String cep;
     private String estado;
     private String cidade;
     private Integer numero;
@@ -16,7 +16,7 @@ public class Unidades {
     private String gerente;
     private String endereco;
 
-    public Unidades(String logradouro, String numReferencia, Integer cep, String estado,
+    public Unidades(String logradouro, String numReferencia, String cep, String estado,
     String cidade, Integer numero, String complemento, Integer estoque, String gerente, String endereco) {
         this.logradouro = logradouro;
         this.numReferencia = numReferencia;
@@ -38,7 +38,7 @@ public class Unidades {
         return numReferencia;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 

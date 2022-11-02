@@ -29,7 +29,7 @@ public class ServicoUsuario {
             throw new negocioException(319, "Insira a senha!");
         }
         try{
-            return UsuarioDAO.logarUsuario(username, senha);
+            return UsuarioDAO.logarUsuarioFuncionario(username, senha);
         }catch(persistenciaException ex){
             throw new negocioException(315, ex.getMessage());
         }

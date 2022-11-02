@@ -101,7 +101,8 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorCambio(cambio);
     }
     
-    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio) throws negocioException, SQLException{
+    public static Veiculo inserirVeiculoBD(String anoS, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio) throws negocioException, SQLException{
+        int ano = Integer.parseInt(anoS);
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
         if (placa.isEmpty())

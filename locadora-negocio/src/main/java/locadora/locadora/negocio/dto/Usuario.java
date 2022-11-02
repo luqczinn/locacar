@@ -39,6 +39,11 @@ public class Usuario {
         this.senha = senha;
         this.unidade = unidade;
     }
+    
+    public Usuario(String nome, String cargo) {
+        this.nome = nome;
+        this.cargo = cargo;
+    }
 
     public String getNome() {
         return nome;
