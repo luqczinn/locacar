@@ -315,7 +315,18 @@ public class CadastroUnidade extends javax.swing.JDialog {
         String matricula = txt_matricula_un.getText();
         String estoque = estoque_un.getText();
         String gerente = combo_gerentes_unidade.getSelectedItem().toString();
-
+        if(ConsultarReservas.getVariavelB().equals("Editar")){
+            try {
+                ServicoUnidades.removerUnidadePorCEP(cep);
+            } catch (negocioException | SQLException ex) {
+                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente);
+            } catch (negocioException | SQLException ex) {
+                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         try {
             //adicionar na lista de carros
             ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente);
