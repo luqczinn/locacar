@@ -1,3 +1,11 @@
+    let calendarioRetirada = document.getElementById("dataRetirada");
+    calendarioRetirada.max = new Date().toISOString().split("T")[0];
+    
+function defineMinimoData (){
+    let calendarioEntrega = document.getElementById("dataEntrega");
+    calendarioEntrega.min = calendarioRetirada.value;
+}
+    
 function buscarReservasHome() {
     let selectLocalColeta = document.getElementById('unidadeRetirada');
     let localColeta = selectLocalColeta.options[selectLocalColeta.selectedIndex].text;
@@ -11,5 +19,7 @@ function buscarReservasHome() {
     let selectTipoVeiculo = document.getElementById('tipoVeiculo');
     let tipoVeiculo = selectTipoVeiculo.options[selectTipoVeiculo.selectedIndex].text;
 
+    if (localColeta == null || localEntrega == null || dataRetirada == null || dataEntrega == null || tipoVeiculo == null) {
 
+    }
 }

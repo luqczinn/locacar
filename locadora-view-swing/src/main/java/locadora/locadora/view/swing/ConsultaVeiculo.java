@@ -80,10 +80,10 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         anoCarro = new javax.swing.JComboBox<>();
         placaCarro = new javax.swing.JTextField();
-        modeloCarro = new javax.swing.JTextField();
         marcaCarro = new javax.swing.JComboBox<>();
         tipoDeMotor = new javax.swing.JTextField();
         quilometragemRodada = new javax.swing.JTextField();
+        modeloCarro1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
@@ -93,6 +93,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
         valorAluguel = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        imagemVeiculo = new javax.swing.JTextField();
         btnCancelar = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
@@ -200,8 +202,6 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         placaCarro.setEnabled(false);
         placaCarro.setFocusable(false);
 
-        modeloCarro.setEnabled(false);
-
         marcaCarro.setEditable(true);
         marcaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Marca", "AUDI", "BMW", "CITROEN", "FIAT", "FORD", "HONDA", "HYUNDAI", "JEEP", "KIA", "MERCEDES-BENZ", "MITSUBISHI", "PEUGEOT", "RENAULT", "TOYOTA", "VOLKSWAGEN", "VOLVO", " ", " " }));
         marcaCarro.setEnabled(false);
@@ -214,6 +214,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         tipoDeMotor.setEnabled(false);
 
         quilometragemRodada.setEnabled(false);
+
+        modeloCarro1.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -232,11 +234,15 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(anoCarro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(placaCarro)
-                    .addComponent(modeloCarro)
                     .addComponent(marcaCarro, 0, 196, Short.MAX_VALUE)
                     .addComponent(tipoDeMotor)
                     .addComponent(quilometragemRodada))
                 .addGap(22, 22, 22))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGap(131, 131, 131)
+                    .addComponent(modeloCarro1)
+                    .addGap(12, 12, 12)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -253,9 +259,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(marcaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(modeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jLabel12)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -264,6 +268,11 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(quilometragemRodada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                    .addContainerGap(121, Short.MAX_VALUE)
+                    .addComponent(modeloCarro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(67, 67, 67)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados para Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Amiri", 0, 16))); // NOI18N
@@ -310,30 +319,42 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         valorAluguel.setText("  ,00");
         valorAluguel.setEnabled(false);
 
+        jLabel22.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        jLabel22.setText("Status:");
+
+        imagemVeiculo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 95, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cambioCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(valorAluguel))))
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(imagemVeiculo))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cambioCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(valorAluguel))))))
                 .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
@@ -354,7 +375,14 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(imagemVeiculo)
+                        .addContainerGap())))
         );
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -409,7 +437,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
@@ -417,7 +445,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnCancelar)
                     .addComponent(jButton4))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -443,26 +471,28 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         anoCarro.setSelectedItem(v.getAno());
         placaCarro.setText(v.getPlaca());
         marcaCarro.setSelectedItem(v.getMarca());
-        modeloCarro.setText(v.getModeloCarro());
+        imagemVeiculo.setText(v.getModeloCarro());
         tipoDeMotor.setText(v.getTipoMotor());
         quilometragemRodada.setText(Double.toString(v.getKmRodados()));
         tipoCarro.setSelectedItem(v.getTipo());
         cambioCarro.setSelectedItem(v.getCambio());
         valorAluguel.setText(Double.toString(v.getValorAluguel()));
         cbxStatus.setSelectedItem(v.getStatus());
+        imagemVeiculo.setText(v.getImagem());
         
         //libera os campos de veiculo para fazer a alteração
         anoCarro.setEnabled(true);
         //placaCarro.setEnabled(true); 
         //obs: a placa do carro n pode ser alterada 
         marcaCarro.setEnabled(true);
-        modeloCarro.setEnabled(true);
+        imagemVeiculo.setEnabled(true);
         tipoDeMotor.setEnabled(true);
         quilometragemRodada.setEnabled(true);
         tipoCarro.setEnabled(true);
         cambioCarro.setEnabled(true);
         valorAluguel.setEnabled(true);
         cbxStatus.setEnabled(true);
+        imagemVeiculo.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -497,13 +527,14 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         String ano = anoCarro.getSelectedItem().toString();
         String placa = placaCarro.getText();
         String marca = marcaCarro.getSelectedItem().toString();
-        String modelo = modeloCarro.getText();
+        String modelo = imagemVeiculo.getText();
         String tipoMotor = tipoDeMotor.getText();
         String quilometragem = quilometragemRodada.getText(); 
         String tipoDeCarro = tipoCarro.getSelectedItem().toString();
         String cambio = cambioCarro.getSelectedItem().toString();
         String valorDiaria = valorAluguel.getText();
         String status = cbxStatus.getSelectedItem().toString(); 
+        String imagem = imagemVeiculo.getText();
         
         try {
             //adicionar na lista de carros
@@ -561,6 +592,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cambioCarro;
     private javax.swing.JComboBox<String> cbxStatus;
+    private javax.swing.JTextField imagemVeiculo;
     private javax.swing.JButton jButton4;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -573,6 +605,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
@@ -580,7 +613,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> marcaCarro;
-    private javax.swing.JTextField modeloCarro;
+    private javax.swing.JTextField modeloCarro1;
     private javax.swing.JTextField placaCarro;
     private javax.swing.JTextField quilometragemRodada;
     private javax.swing.JComboBox<String> tipoCarro;

@@ -140,10 +140,10 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) throws SQLException {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio, String imagem) throws SQLException {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
-            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"')";
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
+            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"','"+imagem+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
             pstmt.execute();
@@ -192,7 +192,8 @@ public class VeiculoDAO {
             String cambio = rs.getString("cambio");
             double valorAluguel = rs.getDouble("valorDiaria");
             String status = rs.getString("situacao");
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            String imagem = rs.getString("imagem");
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
             listaVeiculos.add(v);
         }
         if (listaVeiculos.isEmpty() != true) {

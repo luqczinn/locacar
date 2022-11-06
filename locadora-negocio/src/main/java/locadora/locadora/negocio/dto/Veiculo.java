@@ -20,8 +20,9 @@ public class Veiculo {
     private String status;
     private String tipo;
     private String cambio;
+    private String imagem;
 
-    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) {
+    public Veiculo(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio, String imagem) {
         this.ano = ano;
         this.placa = placa;
         this.marca = marca;
@@ -32,6 +33,7 @@ public class Veiculo {
         this.status = status;
         this.tipo = tipo;
         this.cambio = cambio;
+        this.imagem = imagem;
     }
 
     public int getAno() {
@@ -72,6 +74,9 @@ public class Veiculo {
 
     public String getCambio() {
         return cambio;
+    }
+    public String getImagem() {
+        return imagem;
     }
 
 }

@@ -1,10 +1,13 @@
-/********** Template CSS **********/
-
 :root {
     --primary: #F6E300;
-    --secondary: hsl(55, 100%, 48%);
+    --secondary: #1d7c42;
     --light: #F4F5F8;
     --dark: #1C1E32;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+    -webkit-appearance: none;
 }
 
 h1,
