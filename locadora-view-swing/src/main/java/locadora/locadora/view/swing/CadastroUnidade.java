@@ -22,14 +22,15 @@ import locadora.locadora.negocio.servico.ServicoUnidades;
  * @author gugup
  */
 public class CadastroUnidade extends javax.swing.JDialog {
-
+    String usuario = "";
     @Override
     public void setDefaultCloseOperation(int operation) {
         super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     List<Unidades> listaUnidades = ServicoUnidades.listarUnidades();
-    public CadastroUnidade() throws SQLException, negocioException {
+    public CadastroUnidade(String usuario) throws SQLException, negocioException {
         initComponents();
+        this.usuario = usuario;
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         String modo = "";
@@ -317,21 +318,27 @@ public class CadastroUnidade extends javax.swing.JDialog {
         String gerente = combo_gerentes_unidade.getSelectedItem().toString();
         if(ConsultarReservas.getVariavelB().equals("Editar")){
             try {
-                ServicoUnidades.removerUnidadePorCEP(cep);
+                ServicoUnidades.removerUnidadePorCEP(cep, usuario);
             } catch (negocioException | SQLException ex) {
+                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente);
+                ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente, usuario);
             } catch (negocioException | SQLException ex) {
+                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
                 Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         try {
             //adicionar na lista de carros
-            ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente);
+            ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente, usuario);
         } catch (negocioException | SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.dispose();

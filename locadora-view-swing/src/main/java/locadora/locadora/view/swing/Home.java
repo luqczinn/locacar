@@ -507,13 +507,14 @@ public class Home extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        Controle.abrirCadastroVeiculos();
+        String usuario = user.getNome() + " | " + user.getCpf() + ".";
+        Controle.abrirCadastroVeiculos(usuario);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         try {
-            // TODO add your handling code here:
-            Controle.abrirConsultaVeiculos();
+            String usuario = user.getNome() + " | " + user.getCpf() + ".";
+            Controle.abrirConsultaVeiculos(usuario);
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         } catch (negocioException ex) {
@@ -531,7 +532,8 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         try {
-            Controle.abrirCadastroUnidades();
+            String usuario = user.getNome() + " | " + user.getCpf() + ".";
+            Controle.abrirCadastroUnidades(usuario);
         } catch (SQLException ex) {
             Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
         } catch (negocioException ex) {
@@ -540,7 +542,8 @@ public class Home extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        Controle.abrirConsultaUnidades();
+        String usuario = user.getNome() + " | " + user.getCpf() + ".";
+        Controle.abrirConsultaUnidades(usuario);
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed

@@ -19,10 +19,12 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     /**
      * Creates new form CadastroVeiculo
      */
-    public CadastroVeiculo() {
+    String usuario = "";
+    public CadastroVeiculo(String user) {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
+        usuario = user;
     }
 
     /**
@@ -347,9 +349,11 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         try {
             //adicionar na lista de carros
             ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, modelo,
-                    quilometragem, valorDiaria, status, tipoDeCarro, cambio, imagem); 
+                    quilometragem, valorDiaria, status, tipoDeCarro, cambio, imagem, usuario); 
         } catch (negocioException | SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         

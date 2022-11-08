@@ -18,7 +18,7 @@ import locadora.locadora.negocio.excessoes.negocioException;
  */
 public class Controle {
 
-    public static void abrirConsultaUnidades(){
+    public static void abrirConsultaUnidades(String usuario){
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -47,7 +47,7 @@ public class Controle {
             public void run() {
                 ConsultarUnidades dialog = null;
                 try {
-                    dialog = new ConsultarUnidades(new javax.swing.JFrame(), true);
+                    dialog = new ConsultarUnidades(new javax.swing.JFrame(), true, usuario);
                 } catch (SQLException ex) {
                     Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -123,8 +123,8 @@ public class Controle {
 
     }
 
-    public static void abrirCadastroUnidades() throws SQLException, negocioException {
-         new CadastroUnidade().setVisible(true);
+    public static void abrirCadastroUnidades(String usuario) throws SQLException, negocioException {
+         new CadastroUnidade(usuario).setVisible(true);
     }
     
     public static void abrirCadastroFuncionario(Usuario usuario) {
@@ -167,7 +167,7 @@ public class Controle {
     
     
 
-    public static void abrirCadastroVeiculos() {
+    public static void abrirCadastroVeiculos(String usuario) {
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -187,7 +187,7 @@ public class Controle {
         }
 
         java.awt.EventQueue.invokeLater(() -> {
-            new CadastroVeiculo().setVisible(true);
+            new CadastroVeiculo(usuario).setVisible(true);
         });
     }
 
@@ -224,9 +224,9 @@ public class Controle {
         });
     }
 
-    public static void abrirConsultaVeiculos() throws SQLException, negocioException {
+    public static void abrirConsultaVeiculos(String usuario) throws SQLException, negocioException {
 
-        new ConsultaVeiculo().setVisible(true);
+        new ConsultaVeiculo(usuario).setVisible(true);
     }
 
     public static void abrirConsultaReservas() {

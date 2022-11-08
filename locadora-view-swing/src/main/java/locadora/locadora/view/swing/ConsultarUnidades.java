@@ -25,12 +25,14 @@ import locadora.locadora.negocio.excessoes.persistenciaException;
 public class ConsultarUnidades extends javax.swing.JDialog {
 
     public String modo;
+    String usuario;
 
     /**
      * Creates new form ConsultarReservas
      */
-    public ConsultarUnidades(java.awt.Frame parent, boolean modal) throws SQLException {
+    public ConsultarUnidades(java.awt.Frame parent, boolean modal, String usuario) throws SQLException {
         super(parent, modal);
+        this.usuario = usuario;
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));   
@@ -224,7 +226,7 @@ public class ConsultarUnidades extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            UnidadesDAO.removerUnidadeBD(U.getCep());
+            UnidadesDAO.removerUnidadeBD(U.getCep(), usuario);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
@@ -246,7 +248,7 @@ public class ConsultarUnidades extends javax.swing.JDialog {
     private void btn_nova_unidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_unidadeActionPerformed
         modo = "Novo";
         try {
-            Controle.abrirCadastroUnidades();
+            Controle.abrirCadastroUnidades(usuario);
         } catch (SQLException | negocioException ex) {
             Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -263,7 +265,7 @@ public class ConsultarUnidades extends javax.swing.JDialog {
         }
         setVariavelA(x);
         try {
-            Controle.abrirCadastroUnidades();
+            Controle.abrirCadastroUnidades(usuario);
         } catch (SQLException | negocioException ex) {
             Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
         }
