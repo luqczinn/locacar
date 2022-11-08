@@ -238,13 +238,9 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                     .addComponent(placaCarro)
                     .addComponent(marcaCarro, 0, 196, Short.MAX_VALUE)
                     .addComponent(tipoDeMotor)
-                    .addComponent(quilometragemRodada))
+                    .addComponent(quilometragemRodada)
+                    .addComponent(modeloCarro1))
                 .addGap(22, 22, 22))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(131, 131, 131)
-                    .addComponent(modeloCarro1)
-                    .addGap(12, 12, 12)))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,7 +257,9 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                     .addComponent(jLabel11)
                     .addComponent(marcaCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(modeloCarro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -270,11 +268,6 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(quilometragemRodada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                    .addContainerGap(121, Short.MAX_VALUE)
-                    .addComponent(modeloCarro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(67, 67, 67)))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dados para Cadastro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Amiri", 0, 16))); // NOI18N
@@ -481,6 +474,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         valorAluguel.setText(Double.toString(v.getValorAluguel()));
         cbxStatus.setSelectedItem(v.getStatus());
         imagemVeiculo.setText(v.getImagem());
+        modeloCarro1.setText(v.getModeloCarro());
         
         //libera os campos de veiculo para fazer a alteração
         anoCarro.setEnabled(true);
@@ -531,7 +525,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         String ano = anoCarro.getSelectedItem().toString();
         String placa = placaCarro.getText();
         String marca = marcaCarro.getSelectedItem().toString();
-        String modelo = imagemVeiculo.getText();
+        String modelo = modeloCarro1.getText();
         String tipoMotor = tipoDeMotor.getText();
         String quilometragem = quilometragemRodada.getText(); 
         String tipoDeCarro = tipoCarro.getSelectedItem().toString();

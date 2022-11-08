@@ -597,6 +597,7 @@ public class CadastroReservas extends javax.swing.JDialog {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
         double valorTotal = diaria * diasInt;
+        if(ConsultarReservas.getVariavelB() != null)
         if (ConsultarReservas.getVariavelB().equals("Editar")) {
             try {
                 ServicoReservas.removerReservaPorCodigo(Integer.valueOf(codReserva));

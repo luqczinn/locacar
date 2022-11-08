@@ -226,9 +226,11 @@ public class ConsultarUnidades extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         try {
-            UnidadesDAO.removerUnidadeBD(U.getCep(), usuario);
+                UnidadesDAO.removerUnidadeBD(U.getCep(), usuario);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultarUnidades.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {

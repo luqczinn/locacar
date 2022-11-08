@@ -70,35 +70,22 @@ public class ServicoLog {
         //insere no bd qual foi o veiculo e qual a ação que sofreu
         LocalDateTime dataHora = LocalDateTime.now();
         DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        String sql = "INSERT INTO logs VALUES ("
-                + acao + ", "
-                + descricao + ", "
-                + usuario + ","
-                + dataHora.format(dataFormatada) + ");";
-        Connection com = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        try {
-            com = Conexao.getConnection();
-            pstmt = com.prepareStatement(sql);;
-            rs = pstmt.executeQuery(sql);
-        } catch (Exception erro) {
-            throw new Exception(erro.getMessage());
-        } finally {
-            try {
-
-                if (com != null) {
-                    com.close();
-                }
-                if (rs != null) {
-                    rs.close();
-                }
-                if (pstmt != null) {
-                    pstmt.close();
-                }
-            } catch (Exception erro) {
-                throw new Exception(erro.getMessage());
-            }
+        Connection com = Conexao.getConnection();
+        String sql2 = "SELECT * FROM logs";
+        PreparedStatement stmt = com.prepareStatement(sql2);
+        ResultSet rs = stmt.executeQuery();
+        
+        int id=0;
+        while (rs.next()) {
+            id = rs.getInt("id");
         }
+        id++;
+        String sql = "INSERT INTO logs VALUES ("+id+",'" + acao + "', '" + descricao + "', '" + usuario + "','" + dataHora.format(dataFormatada).toString() + "')";
+        PreparedStatement pstmt = com.prepareStatement(sql);
+        pstmt.execute();
+        pstmt.close();
+        com.close();
+        System.out.println(usuario + "|" + acao + "|" + descricao + "| em" + dataHora.format(dataFormatada));
     }
 }
+
