@@ -77,7 +77,7 @@ public class ServicoUnidades {
     }
 
 
-    public static Unidades inserirUnidadeBD(String logradouro, String referencia, String cep, String estado, String cidade, String numero, String complemento, String estoque, String gerente) throws negocioException, SQLException {
+    public static Unidades inserirUnidadeBD(String logradouro, String referencia, String cep, String estado, String cidade, String numero, String complemento, String estoque, String gerente, String usuario) throws negocioException, SQLException, Exception {
         if (logradouro.isEmpty()) {
             throw new negocioException(319, "O logradouro é obrigatório.");
         }
@@ -106,15 +106,15 @@ public class ServicoUnidades {
             throw new negocioException(319, "O gerente é obrigatório.");
         }
         
-        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, cep, estado, cidade, Integer.valueOf(numero), complemento, Integer.valueOf(estoque), gerente);
+        return UnidadesDAO.cadastrarUnidadeBD(logradouro, referencia, cep, estado, cidade, Integer.valueOf(numero), complemento, Integer.valueOf(estoque), gerente, usuario);
     }
 
-    public static Unidades removerUnidadePorCEP(String cep) throws negocioException, SQLException {
+    public static Unidades removerUnidadePorCEP(String cep, String usuario) throws negocioException, SQLException, Exception {
         if (cep.isEmpty()) {
             throw new negocioException(319, "Informe o CEP da unidade");
         }
 
-        return UnidadesDAO.removerUnidadeBD(cep);
+        return UnidadesDAO.removerUnidadeBD(cep, usuario);
     }
 
     public static List<Unidades> listarUnidades() throws negocioException, SQLException {

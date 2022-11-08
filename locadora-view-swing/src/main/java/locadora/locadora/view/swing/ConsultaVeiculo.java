@@ -27,11 +27,13 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
      * Creates new form ControleVeiculo
      * @throws locadora.locadora.negocio.excessoes.negocioException
      */
-    public ConsultaVeiculo() throws negocioException, SQLException {
+    String usuario = "";
+    public ConsultaVeiculo(String usuario) throws negocioException, SQLException {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         ListarTabela(); 
+        this.usuario = usuario;
     }
     
     public void ListarTabela() throws negocioException, SQLException {
@@ -320,7 +322,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         valorAluguel.setEnabled(false);
 
         jLabel22.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
-        jLabel22.setText("Status:");
+        jLabel22.setText("Link da imagem:");
 
         imagemVeiculo.setEnabled(false);
 
@@ -506,9 +508,11 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         }
         
         try {
-            VeiculoDAO.removerVeiculoBD(v.getPlaca()); 
+            VeiculoDAO.removerVeiculoBD(v.getPlaca(), usuario); 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
@@ -538,16 +542,19 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         
         try {
             //adicionar na lista de carros
-            ServicoVeiculo.alterarVeiculoBD(ano, placa, marca, tipoMotor, 
+            ServicoVeiculo.removerVeiculoPorPlaca(placa, usuario);
+            ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, 
                     modelo,
                     quilometragem, valorDiaria, status, 
-                    tipoDeCarro, cambio); 
+                    tipoDeCarro, cambio, imagem, usuario); 
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         this.dispose(); 

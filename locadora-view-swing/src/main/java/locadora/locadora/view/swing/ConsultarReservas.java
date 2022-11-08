@@ -243,7 +243,7 @@ public class ConsultarReservas extends javax.swing.JDialog {
 
     private void btn_nova_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_reservaActionPerformed
         modo = "Novo";
-        Controle.abrirCadastroVeiculos();
+        Controle.abrirCadastroReservas();
         setVariavelB(modo);
     }//GEN-LAST:event_btn_nova_reservaActionPerformed
 

@@ -9,6 +9,7 @@ import java.util.List;
 import java.sql.*;
 import java.util.ArrayList;
 import locadora.locadora.database.Conexao;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 public class UnidadesDAO {
 
@@ -72,7 +73,7 @@ public class UnidadesDAO {
         return null;
     }
 
-    public static Unidades cadastrarUnidadeBD(String logradouro, String referencia, String cep, String estado, String cidade, Integer numero, String complemento, Integer estoque, String gerente) throws SQLException {
+    public static Unidades cadastrarUnidadeBD(String logradouro, String referencia, String cep, String estado, String cidade, Integer numero, String complemento, Integer estoque, String gerente, String usuario) throws SQLException, Exception {
         if (consultarPorCep(cep) == null | listarUnidadesBD() == null) {
             String endereco = logradouro + ", " + String.valueOf(numero) + " - " + cidade + " - " + estado + ", " + cep;
             Unidades u = new Unidades(logradouro, referencia, cep, estado, cidade, numero, complemento, estoque, gerente, endereco);
@@ -82,18 +83,24 @@ public class UnidadesDAO {
             pstmt.execute();
             pstmt.close();
             com.close();
+            String acao = "ADICAO";
+            String descricao = "UNIDADE@" + cep;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return u;
         }
         return null;
     }
 
-    public static Unidades removerUnidadeBD(String cep) throws SQLException {
+    public static Unidades removerUnidadeBD(String cep, String usuario) throws SQLException, Exception {
         if (consultarPorCep(cep) != null) {
             Unidades u = consultarPorCep(cep);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM unidades WHERE cep='"+cep+"'";
             statement.executeUpdate(sql);
+            String acao = "REMOCAO";
+            String descricao = "UNIDADE@" + cep;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return u;
         }
         return null;

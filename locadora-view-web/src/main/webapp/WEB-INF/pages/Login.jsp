@@ -71,6 +71,10 @@
             .ls-login-signup{
                 margin-top: 3%;
             }
+            .senhaIncorreta{
+                display:none;
+                color: red;
+            }
         </style>
     </head>
     <body>
@@ -87,8 +91,8 @@
                         <div class="navbar-nav ml-auto py-0">
                             <a href="index.html" class="nav-item nav-link">Home</a>
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
+                            <a href="service.html" class="nav-item nav-link">Serviï¿½os</a>
+                            <a href="service.html" class="nav-item nav-link">Veï¿½culos</a>
                             <a href="contact.html" class="nav-item nav-link">Contato</a>
                             <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
                         </div>
@@ -99,12 +103,12 @@
         <div class="parent-login">
             <div class="parent-inner">
                 <div class="box-login">
-                    <h1 class="ls-login-logo">Faça seu login!</h1>
+                    <h1 class="ls-login-logo">FaÃ§a seu login!</h1>
                     <form role="form" action="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/">
                         <fieldset>
                             <div class="form-group-ls-login-user">
-                                <label for="userLogin">Usuário</label>
-                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuário" placeholder="Usuário">
+                                <label for="userLogin">UsuÃ¡rio</label>
+                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuï¿½rio" placeholder="Usuï¿½rio">
                             </div>
 
                             <div class="form-group ls-login-password">
@@ -115,8 +119,9 @@
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
+                                <p class="senhaIncorreta">Senha ou usuÃ¡rio incorretos!</p>
                                 <a href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#" class="ls-login-forgot">Esqueci minha senha</a>
-                                <p class="txt-center ls-login-signup">Não possui um usuário na Locacar? <a class="ls-login-signup"href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#">Cadastre-se agora</a></p>
+                                <p class="txt-center ls-login-signup">NÃ£o possui um usuÃ¡rio na Locacar? <a class="ls-login-signup"href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#">Cadastre-se agora</a></p>
                             </div>
                         </fieldset>
                     </form>
@@ -125,8 +130,17 @@
                         String senha = request.getParameter("senha");
                     
                         if(user.isEmpty() && senha.isEmpty()){
+                            response.sendRedirect("Login.jsp");
+                        }
                             session.setAttribute("usuario", user);
                             session.setAttribute("senha", senha);
+                        if(ServicosUsuarios.logarUsuario(user, senha) == null){
+                            if(ServicosClientes.logarCliente(user, senha) == null)
+                                response.sendRedirect("Login.jsp");
+                            else
+                                Cliente cliente = ServicosClientes.logarCliente(user, senha);
+                        }
+                        else{
                             Usuario user = ServicoUsuarios.logarUsuario(user, senha);
                             ServicoLog.registrarLogUsuario(user);
                         
@@ -144,7 +158,6 @@
                                         response.sendRedirect("index.html");
                                     }
                                     default -> {
-                                        response.sendRedirect("index.html");
                                     }
                                 }
                         }
