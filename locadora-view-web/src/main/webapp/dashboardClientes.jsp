@@ -41,7 +41,7 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
+                            <a href="home.html" class="nav-item nav-link">Home</a>
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
                             <a href="service.html" class="nav-item nav-link">Serviços</a>
                             <a href="service.html" class="nav-item nav-link">Veículos</a>

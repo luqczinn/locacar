@@ -1,5 +1,19 @@
+<%-- 
+    Document   : index.jsp
+    Created on : 6 de nov. de 2022, 15:49:19
+    Author     : gugup
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import ="java.io.*"%>;
+<%@ page import ="java.io.File.*"%>;
+<%@ page import="java.sql.*"%>
+<%@ page import="javax.sql.*"%>
+<%@ page import ="java.util.ArrayList"%>
+<%@ page import ="java.util.List"%>
+<%@page import="locadora.locadora.negocio.dto.Unidades;"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="utf-8">
@@ -47,7 +61,7 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                     <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
+                        <a href="home.html" class="nav-item nav-link active">Home</a>
                         <a href="about.html" class="nav-item nav-link">Sobre</a>
                         <a href="service.html" class="nav-item nav-link">Serviços</a>
                         <a href="service.html" class="nav-item nav-link">Veículos</a>
@@ -66,28 +80,36 @@
         <div class="row mx-n2">
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <select id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;">
-                    <option selected>Local de retirada</option>
-                    <option value="1">Unidade tal</option>
-                    <option value="2">Unidade tal</option>
-                    <option value="3">Unidade tal</option>
+                    <%
+                        List<Unidades> listaUnidades = listarUnidades();
+                        for(Unidades u : listaUnidades){
+                        int contador = 0;
+                        contador+1;
+                        %>
+                        <option value="<%=contador%>"><=u.getNumReferencia()%> |<=u.getCidade()%></option>
+                        <%}%>
                 </select>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <select id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;">
-                    <option selected>Local de retorno</option>
-                    <option value="1">Unidade tal</option>
-                    <option value="2">Unidade tal</option>
-                    <option value="3">Unidade tal</option>
+                    <%
+                        List<Unidades> listaUnidades = listarUnidades();
+                        for(Unidades u : listaUnidades){
+                        int contador = 0;
+                        contador+1;
+                        %>
+                        <option value="<%=contador%>"><=u.getNumReferencia()%> |<=u.getCidade()%></option>
+                        <%}%>
                 </select>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <div class="date mb-3" id="date" data-target-input="nearest">
-                    <input type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
+                    <input onkeydown="return false" type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                 <div class="time mb-3" id="time" data-target-input="nearest">
-                    <input type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
+                    <input onclick="defineMinimoData()" onkeydown="return false" type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
                 </div>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -96,6 +118,7 @@
                     <option value="1">Tipo A</option>
                     <option value="2">Tipo B</option>
                     <option value="3">Tipo C</option>
+                    <option value="4">Tipo D</option>
                 </select>
             </div>
             <div class="col-xl-2 col-lg-4 col-md-6 px-2">
