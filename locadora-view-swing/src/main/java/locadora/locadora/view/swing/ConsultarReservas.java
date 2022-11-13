@@ -18,7 +18,7 @@ import locadora.locadora.negocio.excessoes.persistenciaException;
  *
  * @author gugup
  */
-public class ConsultarReservas extends javax.swing.JDialog {
+public class ConsultarReservas extends javax.swing.JFrame {
 
     public String modo;
 
@@ -26,7 +26,7 @@ public class ConsultarReservas extends javax.swing.JDialog {
      * Creates new form ConsultarReservas
      */
     public ConsultarReservas(java.awt.Frame parent, boolean modal) throws SQLException {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));

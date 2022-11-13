@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import locadora.locadora.negocio.dao.UnidadesDAO;
+import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Unidades;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
@@ -26,26 +27,53 @@ import locadora.locadora.negocio.servico.ServicoUsuarios;
  *
  * @author gugup
  */
-public class CadastroFuncionarios extends javax.swing.JDialog {
+public class CadastroFuncionarios extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroReservas
      */
-    public CadastroFuncionarios(Usuario usuario) throws SQLException, negocioException {       
+    String modo = "";
+    List<Usuario> listaUsuarios = ServicoUsuarios.listarUsuarios();
+
+    public CadastroFuncionarios(Usuario usuario) throws SQLException, negocioException {
         initComponents();
-        
+
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
-        
+
         String cargo = usuario.getCargo();
-       
-        if(cargo.equals("Gerente")){
+
+        if (cargo.equals("Gerente")) {
             getCargo.addItem("Vendedor");
         }
-        if(cargo.equals ("Diretor")){
+        if (cargo.equals("Diretor")) {
             getCargo.addItem("Vendedor");
             getCargo.addItem("Gerente");
             getCargo.addItem("Diretor");
+        }
+
+        if (ConsultaFuncionario.getVariavelB() != null) {
+            modo = ConsultaFuncionario.getVariavelB();
+        }
+        int x = 0;
+        if (ConsultaFuncionario.getVariavelA() == 0) {
+            x = ConsultaFuncionario.getVariavelA();
+        }
+        if (modo.equals("Editar")) {
+            Usuario U = listaUsuarios.get(x);
+            getNome.setText(U.getNome());
+            getCpf.setText(U.getCpf());
+            getEmail.setText(U.getEmail());
+            data_Nascimento.setText(U.getNascimento());
+            getUsername.setText(U.getUsername());
+            getEndereco.setText(U.getEndereco());
+            getRg.setText(U.getRg());
+            getTel.setText(U.getTelefone());
+            unidades_list.setSelectedItem(U.getUnidade());
+            getSenha.setText(U.getSenha());
+            getSalario.setText(U.getSalario());
+            getCnis.setText(U.getCnis());
+            getCargo.setSelectedItem(U.getCargo());
         }
         List<Unidades> listaUnidades = ServicoUnidades.listarUnidades();
         if (listaUnidades != null) {
@@ -59,8 +87,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             }
         }
     }
-    
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -80,8 +106,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         codigoReservaLabel1 = new javax.swing.JLabel();
         codigoReservaLabel = new javax.swing.JLabel();
-        getSobrenome = new javax.swing.JTextField();
-        codigoReservaLabel6 = new javax.swing.JLabel();
         getNome = new javax.swing.JTextField();
         getCpf = new javax.swing.JTextField();
         codigoReservaLabel9 = new javax.swing.JLabel();
@@ -141,15 +165,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
 
         codigoReservaLabel.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         codigoReservaLabel.setText("RG:");
-
-        getSobrenome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                getSobrenomeActionPerformed(evt);
-            }
-        });
-
-        codigoReservaLabel6.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
-        codigoReservaLabel6.setText("Sobrenome:");
 
         getNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,11 +230,11 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                     .addComponent(getCnis, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(getSalario, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                        .addGap(49, 49, 49)
+                        .addComponent(codigoReservaLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(getCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -298,25 +313,23 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                         .addComponent(codigoReservaLabel12, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE))
                     .addComponent(codigoReservaLabel14))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(getNome)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(getNome, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
-                            .addComponent(getCpf)
+                            .addComponent(getCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
                             .addComponent(getEmail)
                             .addComponent(getUsername)
                             .addComponent(data_Nascimento))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(codigoReservaLabel6)
                             .addComponent(codigoReservaLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(codigoReservaLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(codigoReservaLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(codigoReservaLabel15, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(33, 33, 33)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(getRg)
-                            .addComponent(getSobrenome)
                             .addComponent(getTel)
                             .addComponent(getSenha)
                             .addComponent(unidades_list, 0, 140, Short.MAX_VALUE)))
@@ -329,8 +342,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(codigoReservaLabel1)
-                    .addComponent(getSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(codigoReservaLabel6)
                     .addComponent(getNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -395,22 +406,17 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(134, 134, 134))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(botaoCadastrarFunc)
-                                .addGap(15, 15, 15))))))
+                        .addComponent(jLabel17)
+                        .addGap(134, 134, 134))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botaoCadastrarFunc)
+                        .addGap(21, 21, 21))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -440,7 +446,7 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,8 +470,8 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void botaoCadastrarFuncActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarFuncActionPerformed
-        String nome, cpf, email, username, endereco, sobrenome, rg, tel, unidade, senha, salario, cnis, pix, cargo;
-        nome = getNome.getText() + " " + getSobrenome.getText();
+        String nome, cpf, email, username, endereco, rg, tel, unidade, senha, salario, cnis, cargo;
+        nome = getNome.getText();
         cpf = getCpf.getText();
         email = getEmail.getText();
         username = getUsername.getText();
@@ -475,31 +481,35 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
         unidade = unidades_list.getSelectedItem().toString();
         senha = getSenha.getText();
         salario = getSalario.getText();
-        salario.replaceAll( "," , "." );
+        salario.replaceAll(",", ".");
         Double salarioDouble = Double.parseDouble(salario);
         cnis = getCnis.getText();
-        cargo = (String)getCargo.getSelectedItem();
+        cargo = (String) getCargo.getSelectedItem();
         String dataString = data_Nascimento.getText();
-        
+
+        if (modo.equals("Editar")) {
             try {
-                ServicoUsuarios.cadastrarFuncionario(nome, cpf, rg, dataString, cnis, salarioDouble, cargo, endereco, tel, email, username, senha, unidade);
-            } catch (negocioException ex) {
-                Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (NoSuchAlgorithmException ex) {
+                UsuarioDAO.removerFuncionario(username);
+            } catch (SQLException | negocioException ex) {
                 Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
             }
+            try {
+                ServicoUsuarios.cadastrarFuncionario(nome, cpf, rg, dataString, cnis, salarioDouble, cargo, endereco, tel, email, username, senha, unidade);
+            } catch (negocioException | SQLException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                ServicoUsuarios.cadastrarFuncionario(nome, cpf, rg, dataString, cnis, salarioDouble, cargo, endereco, tel, email, username, senha, unidade);
+            } catch (negocioException | SQLException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                Logger.getLogger(CadastroFuncionarios.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
         String mensagem = "Funcionário cadastrado com sucesso";
         JOptionPane.showMessageDialog(null, mensagem);
         this.dispose();
     }//GEN-LAST:event_botaoCadastrarFuncActionPerformed
-
-    private void getSobrenomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getSobrenomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_getSobrenomeActionPerformed
 
     private void getNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_getNomeActionPerformed
         // TODO add your handling code here:
@@ -553,7 +563,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JLabel codigoReservaLabel15;
     private javax.swing.JLabel codigoReservaLabel16;
     private javax.swing.JLabel codigoReservaLabel5;
-    private javax.swing.JLabel codigoReservaLabel6;
     private javax.swing.JLabel codigoReservaLabel7;
     private javax.swing.JLabel codigoReservaLabel8;
     private javax.swing.JLabel codigoReservaLabel9;
@@ -567,7 +576,6 @@ public class CadastroFuncionarios extends javax.swing.JDialog {
     private javax.swing.JTextField getRg;
     private javax.swing.JTextField getSalario;
     private javax.swing.JTextField getSenha;
-    private javax.swing.JTextField getSobrenome;
     private javax.swing.JTextField getTel;
     private javax.swing.JTextField getUsername;
     private javax.swing.JButton jButton5;

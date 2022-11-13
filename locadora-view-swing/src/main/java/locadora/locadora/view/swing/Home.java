@@ -19,6 +19,7 @@ import locadora.locadora.negocio.dto.Log;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoLog; 
+import static locadora.locadora.view.swing.Controle.abrirConsultaFuncionarios;
 /**
  *
  * @author gugup
@@ -241,6 +242,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         jButton7.setText("Listar vendedores");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adicionarVendedoresLayout = new javax.swing.GroupLayout(adicionarVendedores);
         adicionarVendedores.setLayout(adicionarVendedoresLayout);
@@ -279,6 +285,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         jButton10.setText("Listar gerentes");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adicionarGerentesLayout = new javax.swing.GroupLayout(adicionarGerentes);
         adicionarGerentes.setLayout(adicionarGerentesLayout);
@@ -543,7 +554,11 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
         String usuario = user.getNome() + " | " + user.getCpf() + ".";
-        Controle.abrirConsultaUnidades(usuario);
+        try {
+            Controle.abrirConsultaUnidades(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton14ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -554,6 +569,14 @@ public class Home extends javax.swing.JFrame {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         Controle.abrirCadastroFuncionario(user);
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        abrirConsultaFuncionarios(user);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        abrirConsultaFuncionarios(user);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

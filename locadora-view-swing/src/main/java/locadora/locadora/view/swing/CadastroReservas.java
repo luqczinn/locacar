@@ -37,7 +37,7 @@ import locadora.locadora.negocio.servico.ServicoVeiculo;
  *
  * @author gugup
  */
-public class CadastroReservas extends javax.swing.JDialog {
+public class CadastroReservas extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroReservas
@@ -45,7 +45,7 @@ public class CadastroReservas extends javax.swing.JDialog {
     List<Reservas> listaReservas = ServicoReservas.listarReservas();
 
     public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));

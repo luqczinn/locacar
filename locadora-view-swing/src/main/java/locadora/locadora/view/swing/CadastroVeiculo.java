@@ -356,7 +356,9 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         } catch (Exception ex) {
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        String mensagem = "Veículo cadastrado com sucesso";
+        JOptionPane.showMessageDialog(null, mensagem);
+        this.dispose();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
