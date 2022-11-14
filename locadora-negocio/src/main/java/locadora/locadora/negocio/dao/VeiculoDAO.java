@@ -9,6 +9,7 @@ import locadora.locadora.database.Conexao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 public class VeiculoDAO {
 
@@ -140,27 +141,33 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) throws SQLException {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio, String imagem, String usuario) throws SQLException, Exception {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
-            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"')";
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
+            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"','"+imagem+"')";
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
             pstmt.execute();
             pstmt.close();
             com.close();
+            String acao = "ADICAO";
+            String descricao = "VEICULO@" + placa;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return v;
         }
         return null;
     }
 
-    public static Veiculo removerVeiculoBD(String placa) throws SQLException {
+    public static Veiculo removerVeiculoBD(String placa, String usuario) throws SQLException, Exception {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM veiculos WHERE placaCarro='"+placa+"'";
             statement.executeUpdate(sql);
+            String acao = "REMOCAO";
+            String descricao = "VEICULO@" + placa;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return v;
         }
         return null;
@@ -192,7 +199,8 @@ public class VeiculoDAO {
             String cambio = rs.getString("cambio");
             double valorAluguel = rs.getDouble("valorDiaria");
             String status = rs.getString("situacao");
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            String imagem = rs.getString("imagem");
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
             listaVeiculos.add(v);
         }
         if (listaVeiculos.isEmpty() != true) {

@@ -27,11 +27,13 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
      * Creates new form ControleVeiculo
      * @throws locadora.locadora.negocio.excessoes.negocioException
      */
-    public ConsultaVeiculo() throws negocioException, SQLException {
+    String usuario = "";
+    public ConsultaVeiculo(String usuario) throws negocioException, SQLException {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         ListarTabela(); 
+        this.usuario = usuario;
     }
     
     public void ListarTabela() throws negocioException, SQLException {
@@ -51,6 +53,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 listaVeiculos.get(i).getTipo(), listaVeiculos.get(i).getCambio()});
         } 
         jTable1.setModel(tabela); 
+        //jTable1.setEnabled(false);
     };
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,19 +82,22 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel14 = new javax.swing.JLabel();
         anoCarro = new javax.swing.JComboBox<>();
         placaCarro = new javax.swing.JTextField();
-        modeloCarro = new javax.swing.JTextField();
         marcaCarro = new javax.swing.JComboBox<>();
         tipoDeMotor = new javax.swing.JTextField();
         quilometragemRodada = new javax.swing.JTextField();
+        modeloCarro1 = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         tipoCarro = new javax.swing.JComboBox<>();
         cambioCarro = new javax.swing.JComboBox<>();
-        valorAluguel = new javax.swing.JFormattedTextField();
         jLabel21 = new javax.swing.JLabel();
         cbxStatus = new javax.swing.JComboBox<>();
+        valorAluguel = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        imagemVeiculo = new javax.swing.JTextField();
+        btnCancelar = new javax.swing.JButton();
 
         jMenu1.setText("jMenu1");
 
@@ -106,7 +112,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusCycleRoot(false);
 
         btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -185,6 +191,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         jLabel14.setText("KM Rodados:");
 
+        anoCarro.setEditable(true);
         anoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Ano", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", " " }));
         anoCarro.setEnabled(false);
         anoCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -197,9 +204,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         placaCarro.setEnabled(false);
         placaCarro.setFocusable(false);
 
-        modeloCarro.setEditable(false);
-        modeloCarro.setEnabled(false);
-
+        marcaCarro.setEditable(true);
         marcaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Marca", "AUDI", "BMW", "CITROEN", "FIAT", "FORD", "HONDA", "HYUNDAI", "JEEP", "KIA", "MERCEDES-BENZ", "MITSUBISHI", "PEUGEOT", "RENAULT", "TOYOTA", "VOLKSWAGEN", "VOLVO", " ", " " }));
         marcaCarro.setEnabled(false);
         marcaCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -208,11 +213,11 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             }
         });
 
-        tipoDeMotor.setEditable(false);
         tipoDeMotor.setEnabled(false);
 
-        quilometragemRodada.setEditable(false);
         quilometragemRodada.setEnabled(false);
+
+        modeloCarro1.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -231,10 +236,10 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(anoCarro, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(placaCarro)
-                    .addComponent(modeloCarro)
                     .addComponent(marcaCarro, 0, 196, Short.MAX_VALUE)
                     .addComponent(tipoDeMotor)
-                    .addComponent(quilometragemRodada))
+                    .addComponent(quilometragemRodada)
+                    .addComponent(modeloCarro1))
                 .addGap(22, 22, 22))
         );
         jPanel2Layout.setVerticalGroup(
@@ -254,7 +259,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(modeloCarro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(modeloCarro1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
@@ -276,6 +281,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         jLabel19.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         jLabel19.setText("Valor Diária:");
 
+        tipoCarro.setEditable(true);
         tipoCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Modelo", "A", "B", "C", "D", " ", " " }));
         tipoCarro.setEnabled(false);
         tipoCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -284,6 +290,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             }
         });
 
+        cambioCarro.setEditable(true);
         cambioCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Cambio", "Manual", "Automatico", "Misto" }));
         cambioCarro.setEnabled(false);
         cambioCarro.addActionListener(new java.awt.event.ActionListener() {
@@ -292,22 +299,10 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             }
         });
 
-        valorAluguel.setEditable(false);
-        try {
-            valorAluguel.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###,00")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        valorAluguel.setEnabled(false);
-        valorAluguel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valorAluguelActionPerformed(evt);
-            }
-        });
-
         jLabel21.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
         jLabel21.setText("Status:");
 
+        cbxStatus.setEditable(true);
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Status", "Alugado", "Livre", "Em Manutenção", "Ultrapassado", " " }));
         cbxStatus.setEnabled(false);
         cbxStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -316,30 +311,45 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
             }
         });
 
+        valorAluguel.setText("  ,00");
+        valorAluguel.setEnabled(false);
+
+        jLabel22.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        jLabel22.setText("Link da imagem:");
+
+        imagemVeiculo.setEnabled(false);
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addGap(21, 21, 21)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(valorAluguel, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cambioCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(imagemVeiculo))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(21, 21, 21)
+                                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(cambioCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tipoCarro, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(valorAluguel))))))
                 .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
@@ -360,8 +370,25 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 8, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel22)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(imagemVeiculo)
+                        .addContainerGap())))
         );
+
+        btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -373,24 +400,27 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1045, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(62, 62, 62)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(20, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnEditar)
-                        .addGap(238, 238, 238)
-                        .addComponent(btnSalvar)
-                        .addGap(229, 229, 229)
-                        .addComponent(btnExcluir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addGap(40, 40, 40))))
+                                .addComponent(btnEditar)
+                                .addGap(139, 139, 139)
+                                .addComponent(btnSalvar)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addComponent(btnExcluir)
+                                .addGap(131, 131, 131)
+                                .addComponent(btnCancelar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton4)
+                                .addGap(51, 51, 51)))))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -398,18 +428,19 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jLabel1)
                 .addGap(29, 29, 29)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnSalvar)
                     .addComponent(btnExcluir)
+                    .addComponent(btnCancelar)
                     .addComponent(jButton4))
-                .addContainerGap(29, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -435,25 +466,29 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         anoCarro.setSelectedItem(v.getAno());
         placaCarro.setText(v.getPlaca());
         marcaCarro.setSelectedItem(v.getMarca());
-        modeloCarro.setText(v.getModeloCarro());
+        imagemVeiculo.setText(v.getModeloCarro());
         tipoDeMotor.setText(v.getTipoMotor());
         quilometragemRodada.setText(Double.toString(v.getKmRodados()));
         tipoCarro.setSelectedItem(v.getTipo());
         cambioCarro.setSelectedItem(v.getCambio());
         valorAluguel.setText(Double.toString(v.getValorAluguel()));
         cbxStatus.setSelectedItem(v.getStatus());
+        imagemVeiculo.setText(v.getImagem());
+        modeloCarro1.setText(v.getModeloCarro());
         
         //libera os campos de veiculo para fazer a alteração
         anoCarro.setEnabled(true);
-        placaCarro.setEnabled(true);
+        //placaCarro.setEnabled(true); 
+        //obs: a placa do carro n pode ser alterada 
         marcaCarro.setEnabled(true);
-        modeloCarro.setEnabled(true);
+        imagemVeiculo.setEnabled(true);
         tipoDeMotor.setEnabled(true);
         quilometragemRodada.setEnabled(true);
         tipoCarro.setEnabled(true);
         cambioCarro.setEnabled(true);
         valorAluguel.setEnabled(true);
         cbxStatus.setEnabled(true);
+        imagemVeiculo.setEnabled(true);
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -467,9 +502,11 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         }
         
         try {
-            VeiculoDAO.removerVeiculoBD(v.getPlaca()); 
+            VeiculoDAO.removerVeiculoBD(v.getPlaca(), usuario); 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
@@ -485,28 +522,33 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         // TODO add your handling code here:
         //pegar novos valores do cadastro
-        
-        String ano = (String) anoCarro.getSelectedItem();
+        String ano = anoCarro.getSelectedItem().toString();
         String placa = placaCarro.getText();
-        String marca = (String) marcaCarro.getSelectedItem();
-        String modelo = modeloCarro.getText();
+        String marca = marcaCarro.getSelectedItem().toString();
+        String modelo = modeloCarro1.getText();
         String tipoMotor = tipoDeMotor.getText();
         String quilometragem = quilometragemRodada.getText(); 
-        String tipoDeCarro = (String) tipoCarro.getSelectedItem();
-        String cambio = (String) cambioCarro.getSelectedItem();
-        String valorDiaria = (String) valorAluguel.getText();
-        String status = (String) cbxStatus.getSelectedItem(); 
+        String tipoDeCarro = tipoCarro.getSelectedItem().toString();
+        String cambio = cambioCarro.getSelectedItem().toString();
+        String valorDiaria = valorAluguel.getText();
+        String status = cbxStatus.getSelectedItem().toString(); 
+        String imagem = imagemVeiculo.getText();
         
         try {
             //adicionar na lista de carros
-            ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, modelo,
-                    quilometragem, valorDiaria, status, tipoDeCarro, cambio); 
+            ServicoVeiculo.removerVeiculoPorPlaca(placa, usuario);
+            ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, 
+                    modelo,
+                    quilometragem, valorDiaria, status, 
+                    tipoDeCarro, cambio, imagem, usuario); 
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao consultar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ConsultaVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         this.dispose(); 
@@ -529,10 +571,6 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cambioCarroActionPerformed
 
-    private void valorAluguelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valorAluguelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_valorAluguelActionPerformed
-
     private void cbxStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxStatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbxStatusActionPerformed
@@ -540,16 +578,22 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarActionPerformed
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> anoCarro;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluir;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<String> cambioCarro;
     private javax.swing.JComboBox<String> cbxStatus;
+    private javax.swing.JTextField imagemVeiculo;
     private javax.swing.JButton jButton4;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JLabel jLabel1;
@@ -562,6 +606,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JPanel jPanel2;
@@ -569,11 +614,11 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JComboBox<String> marcaCarro;
-    private javax.swing.JTextField modeloCarro;
+    private javax.swing.JTextField modeloCarro1;
     private javax.swing.JTextField placaCarro;
     private javax.swing.JTextField quilometragemRodada;
     private javax.swing.JComboBox<String> tipoCarro;
     private javax.swing.JTextField tipoDeMotor;
-    private javax.swing.JFormattedTextField valorAluguel;
+    private javax.swing.JTextField valorAluguel;
     // End of variables declaration//GEN-END:variables
 }

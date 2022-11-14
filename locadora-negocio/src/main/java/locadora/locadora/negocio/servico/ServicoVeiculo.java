@@ -101,7 +101,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorCambio(cambio);
     }
     
-    public static Veiculo inserirVeiculoBD(String anoS, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio) throws negocioException, SQLException{
+    public static Veiculo inserirVeiculoBD(String anoS, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio, String imagem, String usuario) throws negocioException, SQLException, Exception{
         int ano = Integer.parseInt(anoS);
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
@@ -119,15 +119,17 @@ public class ServicoVeiculo {
             throw new negocioException(319, "O valor de aluguel é obrigatório.");
         if (status.isEmpty())
             throw new negocioException(319, "O status do veículo é obrigatório.");
+        if (imagem.isEmpty())
+            throw new negocioException(319, "A imagem do veículo é obrigatório.");
         
-        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseDouble(kmRodados), parseDouble(valorAluguel), status, tipo, cambio);
+        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseDouble(kmRodados), parseDouble(valorAluguel), status, tipo, cambio, imagem, usuario);
     }
     
-    public static Veiculo removerVeiculoPorPlaca(String placa) throws negocioException, SQLException{
+    public static Veiculo removerVeiculoPorPlaca(String placa, String usuario) throws negocioException, SQLException, Exception{
         if(placa.isEmpty())
             throw new negocioException (319, "Informe a placa para remover o veículo");
         
-        return VeiculoDAO.removerVeiculoBD(placa);
+        return VeiculoDAO.removerVeiculoBD(placa, usuario);
     }
     
     public static List<Veiculo> listarVeiculos() throws negocioException, SQLException{

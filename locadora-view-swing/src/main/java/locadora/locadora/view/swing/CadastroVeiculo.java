@@ -19,10 +19,12 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     /**
      * Creates new form CadastroVeiculo
      */
-    public CadastroVeiculo() {
+    String usuario = "";
+    public CadastroVeiculo(String user) {
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
+        usuario = user;
     }
 
     /**
@@ -60,6 +62,8 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         cbxStatus = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         diariaValor = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        imagemVeiculos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastro de veículos");
@@ -200,7 +204,7 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         });
 
         jLabel21.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
-        jLabel21.setText("Status:");
+        jLabel21.setText("Link para imagem:");
 
         cbxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione o Status", "Alugado", "Livre", "Em Manutenção", "Ultrapassado", " " }));
         cbxStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -210,6 +214,9 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         });
 
         jLabel1.setText("R$");
+
+        jLabel22.setFont(new java.awt.Font("Amiri", 1, 14)); // NOI18N
+        jLabel22.setText("Status:");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -232,9 +239,13 @@ public class CadastroVeiculo extends javax.swing.JDialog {
                             .addComponent(cambioCarro, 0, 196, Short.MAX_VALUE)
                             .addComponent(diariaValor)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(69, 69, 69)
-                        .addComponent(cbxStatus, 0, 196, Short.MAX_VALUE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel22, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(31, 31, 31)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(imagemVeiculos)
+                            .addComponent(cbxStatus, 0, 196, Short.MAX_VALUE))))
                 .addGap(22, 22, 22))
         );
         jPanel3Layout.setVerticalGroup(
@@ -252,11 +263,15 @@ public class CadastroVeiculo extends javax.swing.JDialog {
                     .addComponent(jLabel19)
                     .addComponent(jLabel1)
                     .addComponent(diariaValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel22))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel21)
-                    .addComponent(cbxStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 47, Short.MAX_VALUE))
+                    .addComponent(imagemVeiculos, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -329,16 +344,21 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         String cambio = cambioCarro.getSelectedItem().toString();
         String valorDiaria = diariaValor.getText();
         String status = cbxStatus.getSelectedItem().toString();
+        String imagem = imagemVeiculos.getText();
         
         try {
             //adicionar na lista de carros
             ServicoVeiculo.inserirVeiculoBD(ano, placa, marca, tipoMotor, modelo,
-                    quilometragem, valorDiaria, status, tipoDeCarro, cambio); 
+                    quilometragem, valorDiaria, status, tipoDeCarro, cambio, imagem, usuario); 
         } catch (negocioException | SQLException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro ao cadastrar veículo", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(CadastroVeiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        String mensagem = "Veículo cadastrado com sucesso";
+        JOptionPane.showMessageDialog(null, mensagem);
+        this.dispose();
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -364,6 +384,7 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cambioCarro;
     private javax.swing.JComboBox<String> cbxStatus;
     private javax.swing.JTextField diariaValor;
+    private javax.swing.JTextField imagemVeiculos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -374,6 +395,7 @@ public class CadastroVeiculo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;

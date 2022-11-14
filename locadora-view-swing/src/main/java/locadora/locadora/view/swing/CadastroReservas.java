@@ -37,14 +37,15 @@ import locadora.locadora.negocio.servico.ServicoVeiculo;
  *
  * @author gugup
  */
-public class CadastroReservas extends javax.swing.JDialog {
+public class CadastroReservas extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroReservas
      */
     List<Reservas> listaReservas = ServicoReservas.listarReservas();
+
     public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        super(parent, modal);
+        //super(parent, modal);
         initComponents();
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
@@ -79,16 +80,16 @@ public class CadastroReservas extends javax.swing.JDialog {
             }
         }
         List<Usuario> listaUsuarios = ServicoUsuarios.listarUsuarios();
-        for (int i = 0; i <  listaUsuarios.size(); i++) {
-            String nome =  listaUsuarios.get(i).getNome();
-            String cargo =  listaUsuarios.get(i).getCargo();
+        for (int i = 0; i < listaUsuarios.size(); i++) {
+            String nome = listaUsuarios.get(i).getNome();
+            String cargo = listaUsuarios.get(i).getCargo();
             String gerente = nome + "  |  " + cargo + ".";
             comb_rs_vendedor.addItem(gerente);
         }
         List<Cliente> listaClientes = ServicoClientes.listarClientes();
-        for (int i = 0; i <  listaClientes.size(); i++) {
-            String nome =  listaClientes.get(i).getNome();
-            String cpf =  listaClientes.get(i).getCpf();
+        for (int i = 0; i < listaClientes.size(); i++) {
+            String nome = listaClientes.get(i).getNome();
+            String cpf = listaClientes.get(i).getCpf();
             String cliente = nome + "  |  " + cpf + ".";
             comb_rs_cliente.addItem(cliente);
         }
@@ -589,15 +590,29 @@ public class CadastroReservas extends javax.swing.JDialog {
 
         int pos = veiculo.indexOf(" |");
         String placa = veiculo.substring(0, pos);
-        double diaria;
+        double diaria = 0;
         try {
             diaria = ServicoVeiculo.consultarPorPlaca(placa).getValorAluguel();
-            double valorTotal = diaria * diasInt;
+        } catch (negocioException | SQLException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        double valorTotal = diaria * diasInt;
+        if(ConsultarReservas.getVariavelB() != null)
+        if (ConsultarReservas.getVariavelB().equals("Editar")) {
+            try {
+                ServicoReservas.removerReservaPorCodigo(Integer.valueOf(codReserva));
+                ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal));
+            } catch (negocioException | SQLException ex) {
+                Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        try {
             ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal));
         } catch (negocioException | SQLException ex) {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
-String mensagem = "Reserva cadastrada com sucesso";
+
+        String mensagem = "Reserva cadastrada com sucesso";
         JOptionPane.showMessageDialog(null, mensagem);
         this.dispose();
     }//GEN-LAST:event_jButton9ActionPerformed
@@ -609,7 +624,7 @@ String mensagem = "Reserva cadastrada com sucesso";
     private void combo_veiculo_reservasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_combo_veiculo_reservasFocusLost
         try {
             String veiculo = combo_veiculo_reservas.getSelectedItem().toString();
-            int pos = veiculo.indexOf(" |");          
+            int pos = veiculo.indexOf(" |");
             String placa = veiculo.substring(0, pos);
             Veiculo veiculosPlaca = ServicoVeiculo.consultarPorPlaca(placa);
             String modelo = veiculosPlaca.getModeloCarro();
