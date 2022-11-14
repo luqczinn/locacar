@@ -543,12 +543,7 @@ public class Home extends javax.swing.JFrame {
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         try {
-            String usuario = user.getNome() + " | " + user.getCpf() + ".";
-            Controle.abrirCadastroUnidades(usuario);
-        } catch (SQLException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (negocioException ex) {
-            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }//GEN-LAST:event_jButton13ActionPerformed
 
