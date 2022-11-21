@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>--%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -59,16 +59,22 @@
                         SELECT * FROM unidades
                     </sql:query>
                     <select id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;">
+                        <option selected>Local de retirada</option>
                         <c:set var="contador" value="0"/>  
                         <c:forEach var="row" items="${result.rows}">
                             <c:set var="contador" value="contador+1"/>                        
-                            <option value="<c:out value="${contador}"/>"<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                            <option value="<c:out value="${contador}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
                         </c:forEach>
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                     <select id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;">
-
+                        <option selected>Local de retorno</option>
+                        <c:set var="contador" value="0"/>  
+                        <c:forEach var="row" items="${result.rows}">
+                            <c:set var="contador" value="contador+1"/>                        
+                            <option value="<c:out value="${contador}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
