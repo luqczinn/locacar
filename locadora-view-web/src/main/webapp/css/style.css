@@ -396,3 +396,11 @@ h6,
     display:none;
     color: red;
 }
+.formulario{
+    border: 1px solid #fff;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "form-group, form-row";
+    grid-gap: 20px;
+}
