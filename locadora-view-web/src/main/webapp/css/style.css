@@ -322,28 +322,26 @@ h6,
     border-radius: 50%;
 }
 
-#containerComprovante {
-    background-color: white;
-    border: 5px solid black;
-    width: 500px;
+#containerComprovante {
+    background-color: white;
+    border: 2px solid black;
+    width: 600px;
 }
 
-.resultados {
-    margin: 5px;
-    border: 3px solid black;
+.info {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
 }
 
-.info {
-    text-align: center;
-    border: 1px solid black;
-    margin: 5px;
+.resultados {
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    width: 500px;
 }
 
-.elementos {
-    border: 1px solid black;
-    margin: 5px;
-}
-
-#imagemIcone {
-    list-style: none;
+.elementos {
+    list-style: none;
+    line-height: 20px;
+    font-weight: 600;
 }

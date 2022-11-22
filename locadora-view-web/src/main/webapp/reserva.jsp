@@ -29,6 +29,10 @@
     String unidadeDevolucao = {$param.unidadeDevolucao};
     String marca = {$param.marca};
     String linkImagem = {$param.linkImagem}; 
+    String placaVeiculo = {$param.placaVeiculo}; 
+    String vendedor = {$param.vendedor};
+    String valorLocacao = {$param.valorLocacao};
+    String valorTotalLocacao = {$param.valorTotalLocacao};
 %>
 
 <!DOCTYPE html>
@@ -163,7 +167,7 @@
                         <h4 class="mb-2"><%=valorAluguel%></h4>
                         <div class="d-flex mb-3"></div>
                         <p>Informações do Veículo: Este veículo possui um motor <span><%=motor%></span>, da marca <span><%=marca%></span>, do ano <span><%=ano%></span>, com <span><%=quilometragem%></span> rodados. O seu 
-                        tipo é <%=tipo%>.</p>
+                            tipo é <%=tipo%>.</p>
                         <div class="d-flex pt-1">
                             <h6>Compartilhe em:</h6>
                             <div class="d-inline-flex">
