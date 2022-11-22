@@ -11,6 +11,7 @@ import java.util.List;
 import locadora.locadora.negocio.dao.ClientesDAO;
 import locadora.locadora.negocio.dto.Cliente;
 import locadora.locadora.negocio.excessoes.negocioException;
+import locadora.locadora.negocio.excessoes.persistenciaException;
 
 /**
  *
@@ -18,6 +19,20 @@ import locadora.locadora.negocio.excessoes.negocioException;
  */
 public class ServicoClientes {
 
+    public static Cliente logarCliente(String username, String senha)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, persistenciaException{
+        if(username.isEmpty()){
+            throw new negocioException(319, "Insira o username!");
+        }
+        if(senha.isEmpty()){
+            throw new negocioException(319, "Insira a senha!");
+        }
+        try{
+            return ClientesDAO.logarCliente(username, senha);
+        }catch(persistenciaException ex){
+            throw new negocioException(315, ex.getMessage());
+        }
+    }
+    
     public void removerCliente(String username) throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
         if (username.isEmpty()) {
             throw new negocioException(319, "Insira um username!");
