@@ -347,3 +347,60 @@ h6,
 #imagemIcone {
     list-style: none;
 }
+
+.parent-login{
+    border: 1px solid #fff;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "box-login submit-button forgot-password";
+    grid-gap: 20px;
+
+}
+.box-login{
+    grid-area: "box-login";
+    grid-row: box-login;
+    width: 100%;
+    height: 100%;
+    margin-top: 15%;
+    margin-left: 30%;
+    margin-right: 70%;
+    text-align: justify;
+}
+.submit-button{
+    grid-area: "submit-button";
+    width: 100%;
+}
+.btn-block{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.forgot-password{
+    grid-area: "forgot-password";
+    width: 100%;
+}
+.form-control::placeholder{
+    color: #F77D0A;
+}
+.ls-login-logo{
+    font-size: 30px;
+}
+.userPassword{
+    margin-top: 5%;
+}
+.ls-login-signup{
+    margin-top: 3%;
+}
+#senhaIncorreta{
+    display:none;
+    color: red;
+}
+.formulario{
+    border: 1px solid #fff;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "form-group, form-row";
+    grid-gap: 20px;
+}

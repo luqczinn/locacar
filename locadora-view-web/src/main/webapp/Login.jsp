@@ -1,11 +1,13 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <%@ page language="java" import="java.util.*" %>
-        <%@ page language="java" import="locadora.locadora.negocio*" %>
+        
         <title>Login</title>
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
@@ -26,56 +28,6 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
-        <style>
-            .parent-login{
-                border: 1px solid #fff;
-                max-width: 900px;
-                margin: auto;
-                display: grid;
-                grid-template-areas: "box-login submit-button forgot-password";
-                grid-gap: 20px;
-
-            }
-            .box-login{
-                grid-area: "box-login";
-                grid-row: box-login;
-                width: 100%;
-                height: 100%;
-                margin-top: 15%;
-                margin-left: 30%;
-                margin-right: 70%;
-                text-align: justify;
-            }
-            .submit-button{
-                grid-area: "submit-button";
-                width: 100%;
-            }
-            .btn-block{
-                margin-top: 15px;
-                margin-bottom: 15px;
-                border-radius: 4px;
-            }
-            .forgot-password{
-                grid-area: "forgot-password";
-                width: 100%;
-            }
-            .form-control::placeholder{
-                color: #F77D0A;
-            }
-            .ls-login-logo{
-                font-size: 30px;
-            }
-            .userPassword{
-                margin-top: 5%;
-            }
-            .ls-login-signup{
-                margin-top: 3%;
-            }
-            .senhaIncorreta{
-                display:none;
-                color: red;
-            }
-        </style>
     </head>
     <body>
         <div class="container-fluid position-relative nav-bar p-0">
@@ -91,8 +43,8 @@
                         <div class="navbar-nav ml-auto py-0">
                             <a href="home.html" class="nav-item nav-link">Home</a>
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Servi�os</a>
-                            <a href="service.html" class="nav-item nav-link">Ve�culos</a>
+                            <a href="service.html" class="nav-item nav-link">Serviï¿½os</a>
+                            <a href="service.html" class="nav-item nav-link">Veï¿½culos</a>
                             <a href="contact.html" class="nav-item nav-link">Contato</a>
                             <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
                         </div>
@@ -103,12 +55,12 @@
         <div class="parent-login">
             <div class="parent-inner">
                 <div class="box-login">
-                    <h1 class="ls-login-logo">Faça seu login!</h1>
-                    <form role="form" action="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/">
+                    <h1 class="ls-login-logo">FaÃ§a seu login!</h1>
+                    <form method="post" role="form" action="">
                         <fieldset>
                             <div class="form-group-ls-login-user">
-                                <label for="userLogin">Usuário</label>
-                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usu�rio" placeholder="Usu�rio">
+                                <label for="userLogin">UsuÃ¡rio</label>
+                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuï¿½rio" placeholder="Usuï¿½rio">
                             </div>
 
                             <div class="form-group ls-login-password">
@@ -119,49 +71,19 @@
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
-                                <p class="senhaIncorreta">Senha ou usuário incorretos!</p>
+                                <script>
+                                    <%
+                                        HttpSession session = request.getSession(); 
+                                        if(session.getAttribute("loginError") != null)
+                                    %>
+                                        document.getElementById("senhaIncorreta").style.display = "block";
+                                </script>
+                                <p id="senhaIncorreta">Erro no login!</p>
                                 <a href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#" class="ls-login-forgot">Esqueci minha senha</a>
-                                <p class="txt-center ls-login-signup">Não possui um usuário na Locacar? <a class="ls-login-signup"href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#">Cadastre-se agora</a></p>
+                                <p class="txt-center ls-login-signup">NÃ£o possui um usuÃ¡rio na Locacar? <a class="ls-login-signup"href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#">Cadastre-se agora</a></p>
                             </div>
                         </fieldset>
                     </form>
-                    <%
-                        String user = request.getParameter("usuario");
-                        String senha = request.getParameter("senha");
-                    
-                        if(user.isEmpty() && senha.isEmpty()){
-                            response.sendRedirect("Login.jsp");
-                        }
-                            session.setAttribute("usuario", user);
-                            session.setAttribute("senha", senha);
-                        if(ServicosUsuarios.logarUsuario(user, senha) == null){
-                            if(ServicosClientes.logarCliente(user, senha) == null)
-                                response.sendRedirect("Login.jsp");
-                            else
-                                Cliente cliente = ServicosClientes.logarCliente(user, senha);
-                        }
-                        else{
-                            Usuario user = ServicoUsuarios.logarUsuario(user, senha);
-                            ServicoLog.registrarLogUsuario(user);
-                        
-                            cargo = user.getCargo()
-                        
-
-                            switch (cargo) {
-                                    case "Vendedor" -> {
-                                        response.sendRedirect("index.html");
-                                    }
-                                    case "Gerente" -> {
-                                        response.sendRedirect("index.html");
-                                    }
-                                    case "Diretor" -> {
-                                        response.sendRedirect("index.html");
-                                    }
-                                    default -> {
-                                    }
-                                }
-                        }
-                    %>
                 </div>
             </div>
         </div>
