@@ -14,18 +14,30 @@
         <meta charset="utf-8">
         <title>Locacar - Locadora de Veículos</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
         <link href="img/favicon.png" rel="icon">
+
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
     </head>
 
     <body>
-        <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
+        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <p>A Locacar é um projeto de desenvolvimento Java, com parte Web e Desktop.</p>
+                    <br>
+                    <p>Esse projeto engloba as disciplinas de Linguagem de Programação I e Aplicações Web, do 2º ano do Curso Técnico em Informática do CEFET-MG</p>
+                    <br>
+                    <p>São integrantes desse projeto: Gustavo Penido, Henrique Mateus, Lucas Silva e Stella Maris.</p>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark py-3">
 
         </div>
         <div class="container-fluid position-relative nav-bar p-0">
@@ -39,18 +51,17 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="home.html" class="nav-item nav-link active">Home</a>
-                            <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
-                            <a href="contact.html" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <a href="index.jsp" class="nav-item nav-link active">Home</a>
+                            <a href="#" class="nav-item nav-link ">Sobre</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="#" class="nav-item nav-link">Contato</a>
+                            <a href="login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
-        
+
         <div class="container-fluid bg-white pt-3 px-lg-5">
             <div class="row mx-n2">
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -58,22 +69,19 @@
                     <sql:query dataSource="${conexao}" var="result">
                         SELECT * FROM unidades
                     </sql:query>
-                    <select id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;">
-                        <option selected>Local de retirada</option>
-                        <c:set var="contador" value="0"/>  
-                        <c:forEach var="row" items="${result.rows}">
-                            <c:set var="contador" value="contador+1"/>                        
-                            <option value="<c:out value="${contador}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
-                        </c:forEach>
-                    </select>
+                    <form action="veiculos.jsp" method="GET">
+                        <select name="unidadeRetirada" id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;">
+                            <option selected>Local de retirada</option>
+                            <c:forEach var="row" items="${result.rows}">                        
+                                <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                            </c:forEach>
+                        </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;">
+                    <select name="unidadeEntrega" id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;">
                         <option selected>Local de retorno</option>
-                        <c:set var="contador" value="0"/>  
-                        <c:forEach var="row" items="${result.rows}">
-                            <c:set var="contador" value="contador+1"/>                        
-                            <option value="<c:out value="${contador}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                        <c:forEach var="row" items="${result.rows}">                        
+                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
                         </c:forEach>
                     </select>
                 </div>
@@ -88,16 +96,18 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select id="tipoVeiculo" class="custom-select px-4 mb-3" style="height: 50px;">
+                    <select name="tipoVeiculo" id="tipoVeiculo" class="custom-select px-4 mb-3" style="height: 50px;">
                         <option selected>Tipo de veículo</option>
-                        <option value="1">Tipo A</option>
-                        <option value="2">Tipo B</option>
-                        <option value="3">Tipo C</option>
-                        <option value="4">Tipo D</option>
+                        <option value="Tipo A">Tipo A</option>
+                        <option value="Tipo B">Tipo B</option>
+                        <option value="Tipo C">Tipo C</option>
+                        <option value="Tipo D">Tipo D</option>
                     </select>
+
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
+                    <input type="submit" class="btn btn-primary btn-block mb-3" type="submit" value="Procurar" style="height: 50px; "/>
+                    </form>
                 </div>
             </div>
         </div>
@@ -138,7 +148,6 @@
                 </a>
             </div>
         </div>
-
         <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
             <div class="row pt-5">
                 <div class="col-lg-3 col-md-6 mb-5">
@@ -157,22 +166,13 @@
             </div>
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
 
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="lib/tempusdominus/js/moment.min.js"></script>
-            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-            <!-- Template Javascript -->
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>   
             <script src="js/main.js"></script>
     </body>
 
