@@ -1,8 +1,10 @@
+package locadora.locadora.view.web.servlets;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,21 +15,29 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.util.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.servico.ServicoUsuarios;
 import locadora.locadora.negocio.servico.ServicoClientes;
 import locadora.locadora.negocio.dto.Cliente;
+import locadora.locadora.negocio.dao.ClientesDAO;
+import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.excessoes.persistenciaException;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 /**
  *
  * @author Aluno
  */
-@WebServlet(urlPatterns = {"/Login.jsp"})
-public class servletLogin extends HttpServlet {
+@WebServlet(urlPatterns = {"/ServletCadastro"})
+public class ServletCadastro extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,30 +49,23 @@ public class servletLogin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, persistenciaException {
+            throws ServletException, IOException, negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, persistenciaException, Exception {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("usuario");
+            String nome = request.getParameter("name"); 
+            String cpf = request.getParameter("cpf"); 
+            String cliente = nome + "  |  " + cpf + ".";
+            String email = request.getParameter("email");
+            String telefone = request.getParameter("telefone");
+            String rg = request.getParameter("RG");
+            String user = request.getParameter("user");
             String senha = request.getParameter("senha");
-            HttpSession session = request.getSession();
-
-            if (user.isEmpty() && senha.isEmpty()) {
-                response.sendRedirect("Login.jsp");
-            }
-
-            session.setAttribute("usuario", user);
-            session.setAttribute("senha", senha);
-            if (ServicoUsuarios.logarUsuario(user, senha) == null) {
-                if (ServicoClientes.logarCliente(user, senha) == null) {
-                    session.setAttribute("loginError", "loginError");
-                } else {
-                    Cliente cliente = ServicoClientes.logarCliente(user, senha);
-                }
+            String endereco = request.getParameter("endereco");
+            String dataNasc = request.getParameter("dataNasc");
             
-
-            }
-            
+            ServicoClientes.cadastrarCliente(nome, dataNasc, cpf, rg, endereco, telefone, email, user, senha);
+            RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+            rd.forward(request, response);
         }
     }
 
@@ -81,15 +84,17 @@ public class servletLogin extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (negocioException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (persistenciaException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -107,13 +112,15 @@ public class servletLogin extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (negocioException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         } catch (persistenciaException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(ServletCadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

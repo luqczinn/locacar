@@ -1,7 +1,10 @@
+package locadora.locadora.view.web.servlets;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,21 +14,17 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import locadora.locadora.negocio.dao.UnidadesDAO;
-import locadora.locadora.negocio.dto.Unidades;
 import locadora.locadora.negocio.excessoes.negocioException;
-import locadora.locadora.negocio.servico.ServicoUnidades;
+import locadora.locadora.negocio.servico.ServicoReservas;
 
 /**
  *
- * @author gugup
+ * @author Aluno
  */
-@WebServlet(urlPatterns = {"/abrirHome"})
-public class abrirHome extends HttpServlet {
+@WebServlet(urlPatterns = {"/reserva.jsp"})
+public class ReservaServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,20 +39,26 @@ public class abrirHome extends HttpServlet {
             throws ServletException, IOException, negocioException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-
-            List<Unidades> unidades = ServicoUnidades.listarUnidades();
-
-            List listaUnidades = new ArrayList();
-            if (unidades != null) {
-                for (Unidades u : unidades) {
-                    String numero = u.getNumReferencia();
-                    String cidade = u.getCidade();
-                    String logradouro = u.getLogradouro();
-                    String unidade = numero + " | " + logradouro + " | " + cidade;
-                    listaUnidades.add(unidade);
-                }
-                request.getSession().setAttribute("listaUnidades", listaUnidades);
-            }
+            /* TODO output your page here. You may use following sample code. */
+            //concatenação de cliente
+            String nome = request.getParameter("nomeCliente"); 
+            String cpf = request.getParameter("cpfCliente"); 
+            String cliente = nome + "  |  " + cpf + ".";
+            
+            //concatenação do veiculo
+            String placa = request.getParameter("placaVeiculo");
+            String modelo = request.getParameter("modelo"); 
+            String carro = placa + " | " + modelo + ".";
+            
+            String vendedor = request.getParameter("vendedor");
+            String unidade = request.getParameter("unidadeEntrega");
+            String dataInicio = request.getParameter("dataLocacao");
+            String dataFim = request.getParameter("dataDevolucao");
+            String valorReserva = request.getParameter("valorLocacao"); 
+            String valorTotalReserva = request.getParameter("valorTotalLocacao"); 
+            
+            //inserir no bd
+            ServicoReservas.inserirReservaBD(Integer.SIZE, cliente, vendedor, carro, unidade, dataInicio, dataFim, valorReserva, valorTotalReserva);
         }
     }
 
@@ -72,9 +77,9 @@ public class abrirHome extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (negocioException ex) {
-            Logger.getLogger(abrirHome.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(abrirHome.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -92,9 +97,9 @@ public class abrirHome extends HttpServlet {
         try {
             processRequest(request, response);
         } catch (negocioException ex) {
-            Logger.getLogger(abrirHome.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
-            Logger.getLogger(abrirHome.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
