@@ -194,20 +194,41 @@
                                                 <span><c:out value = "${row.km}"/> KM</span>
                                             </div>
                                         </div>
-                                        <form action="Login.jsp" method="post">
-                                            <input name="ano" value="${row.ano}" style="display: none;">
-                                            <input name="placaCarro" value="${row.placaCarro}" style="display: none;">
-                                            <input name="marca" value="${row.marca}" style="display: none;">
-                                            <input name="tipoMotor" value="${row.tipoMotor}" style="display: none;">
-                                            <input name="modelo" value="${row.modelo}" style="display: none;"> 
-                                            <input name="km" value="${row.km}" style="display: none;">
-                                            <input name="tipoDeCarro" value="${row.tipoDeCarro}" style="display: none;">
-                                            <input name="cambio" value="${row.cambio}" style="display: none;">
-                                            <input name="valorDiaria" value="${row.valorDiaria}" style="display: none;">
-                                            <input name="situacao" value="${row.situacao}" style="display: none;">
-                                            <input name="imagem" value="${row.imagem}" style="display: none;">
-                                            <input type="submit" value="R$ <c:out value = "${row.valorDiaria}"/>/dia" class="btn btn-primary px-3">
-                                        </form>
+                                        <c:choose>
+                                            <c:when test="${requestScope.cliente == null}">
+                                                <form action="Login.jsp" method="post">
+                                                    <input name="ano" value="${row.ano}" style="display: none;">
+                                                    <input name="placaCarro" value="${row.placaCarro}" style="display: none;">
+                                                    <input name="marca" value="${row.marca}" style="display: none;">
+                                                    <input name="tipoMotor" value="${row.tipoMotor}" style="display: none;">
+                                                    <input name="modelo" value="${row.modelo}" style="display: none;"> 
+                                                    <input name="km" value="${row.km}" style="display: none;">
+                                                    <input name="tipoDeCarro" value="${row.tipoDeCarro}" style="display: none;">
+                                                    <input name="cambio" value="${row.cambio}" style="display: none;">
+                                                    <input name="valorDiaria" value="${row.valorDiaria}" style="display: none;">
+                                                    <input name="situacao" value="${row.situacao}" style="display: none;">
+                                                    <input name="imagem" value="${row.imagem}" style="display: none;">
+                                                    <input type="submit" value="R$ <c:out value = "${row.valorDiaria}"/>/dia" class="btn btn-primary px-3">
+                                                </form>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <form action="AbrirReserva" method="post">
+                                                    <input name="ano" value="${row.ano}" style="display: none;">
+                                                    <input name="placaCarro" value="${row.placaCarro}" style="display: none;">
+                                                    <input name="marca" value="${row.marca}" style="display: none;">
+                                                    <input name="tipoMotor" value="${row.tipoMotor}" style="display: none;">
+                                                    <input name="modelo" value="${row.modelo}" style="display: none;"> 
+                                                    <input name="km" value="${row.km}" style="display: none;">
+                                                    <input name="tipoDeCarro" value="${row.tipoDeCarro}" style="display: none;">
+                                                    <input name="cambio" value="${row.cambio}" style="display: none;">
+                                                    <input name="valorDiaria" value="${row.valorDiaria}" style="display: none;">
+                                                    <input name="situacao" value="${row.situacao}" style="display: none;">
+                                                    <input name="imagem" value="${row.imagem}" style="display: none;">
+                                                    <input name="user" value="${requestScope.cliente}" style="display: none;">
+                                                    <input type="submit" value="R$ <c:out value = "${row.valorDiaria}"/>/dia" class="btn btn-primary px-3">
+                                                </form>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
 
