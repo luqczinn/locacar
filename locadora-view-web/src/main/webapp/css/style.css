@@ -411,3 +411,32 @@ h6,
     justify-content: center;
     align-items: center;
 }
+.titleTicket{
+  margin-top: 6%;
+  text-align: center;
+}
+.title2Ticket{
+  font-size: 20px;
+  margin-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+  color: rgb(100, 100, 100);
+}
+#selectOutro{
+  display: none;
+}
+#map{
+  height: 600px;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.displaydiv{
+  display: inline-block;
+}
+.margindiv{
+  padding-left: 200px;
+  padding-right: 200px;
+}

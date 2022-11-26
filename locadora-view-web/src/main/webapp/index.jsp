@@ -54,7 +54,7 @@
                             <a href="index.jsp" class="nav-item nav-link active">Home</a>
                             <a href="#" class="nav-item nav-link ">Sobre</a>
                             <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
-                            <a href="#" class="nav-item nav-link">Contato</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
                             <a href="login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
                         </div>
                     </div>

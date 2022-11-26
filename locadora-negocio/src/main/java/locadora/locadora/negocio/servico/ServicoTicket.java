@@ -20,7 +20,7 @@ public class ServicoTicket {
     
     private ServicoTicket() {}
     
-    public static void cadastrarTicket(String usuarioPedido, String assunto, String descricao, String dataCriada)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, Exception{
+    public static boolean cadastrarTicket(String usuarioPedido, String assunto, String descricao, String dataCriada)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, Exception{
         if(usuarioPedido.isEmpty()){
             throw new negocioException(319, "Insira o usuário!");
         }
@@ -34,7 +34,7 @@ public class ServicoTicket {
             throw new negocioException(319, "Data para criação do ticket não encontrada!");
         }
             TicketDAO.cadastrarTicketBD(usuarioPedido, assunto, descricao, dataCriada);
-
+            return true;
     }
     
     public static void responderTicket(int id, String funcionarioResposta, String resposta, String dataRespondida)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, Exception{

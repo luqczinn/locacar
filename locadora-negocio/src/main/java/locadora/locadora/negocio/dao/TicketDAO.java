@@ -56,7 +56,8 @@ public class TicketDAO {
     public static Ticket responderTicketBD(int id, String funcionarioResposta, String resposta, String dataRespondida)throws SQLException, Exception{
         Ticket ticket = consultarPorId(id);
         if(ticket != null){
-            String sql = "UPDATE tickets SET funcionarioResposta = '"+funcionarioResposta+"', resposta= '"+resposta+"', dataRespondida = '"+dataRespondida+"' WHERE id = "+String.valueOf(id);
+            String sql = "UPDATE tickets SET funcionarioResposta = '"+funcionarioResposta+"', dataRespondida = '"+dataRespondida+"' WHERE id = "+String.valueOf(id);
+            System.out.println(sql);
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
             pstmt.execute();

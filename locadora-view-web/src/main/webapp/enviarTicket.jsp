@@ -8,7 +8,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="locadora.locadora.negocio.servico.ServicoUnidades" %>
 <%@ page import="locadora.locadora.negocio.dto.Unidades" %>
-
+<%@ page import="locadora.locadora.negocio.servico.ServicoTicket" %>
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page import="java.time.format.DateTimeFormatter" %>
 
 
 <!DOCTYPE html>
@@ -119,96 +121,39 @@
     <!-- Search End -->
 
 
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header">
-        <h1 class="display-3 text-uppercase text-white mb-3">Contato</h1>
-        <div class="d-inline-flex text-white">
-            <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
-            <h6 class="text-body m-0 px-3">/</h6>
-            <h6 class="text-uppercase text-body m-0">Contato</h6>
-        </div>
-    </div>
-    <!-- Page Header Start -->
-
+   
+    
+    <% 
+    String assuntoSelect = (String)request.getParameter("assuntoSelect"); 
+    String assuntoOutro = request.getParameter("assuntoOutro"); 
+    String descricao = request.getParameter("descricao");
+    if(assuntoSelect.equals("1")){
+            assuntoSelect = "Tenho um problema com os dados da minha conta";
+    }
+    if(assuntoSelect.equals("2")){
+            assuntoSelect = "Tenho um problema com as opções de pagamento";
+    }
+    if(assuntoSelect.equals("3")){
+            assuntoSelect = "Não consigo alugar um veículo";
+    }
+    if(assuntoSelect.equals("4")){
+            assuntoSelect = "Encontrei um problema no sistema da Locacar";
+    }
+    if(assuntoSelect.equals("5")){
+            assuntoSelect = assuntoOutro;
+    }
     
     
-    <h1 class="titleTicket">NOS CONHEÇA</h1>
-    <div class="margindiv">
-        <label>Seleciona a unidade:</label>
-        <select onchange="myFunction()" id="selectUnidade" class="custom-select px-4 mb-3 margindiv" style="height: 50px;">
-            <option value="0">Selecione</option>
-            <%      
-                  List<Unidades> listaUnidades = locadora.locadora.negocio.servico.ServicoUnidades.listarUnidades();
-                  int contador = 1;
-                  for(Unidades u : listaUnidades){
-            %>
-                  <option value="<%=contador%>"><%=u.getCidade()%> - <%=u.getLogradouro()%></option>
-            <% contador = contador + 1;
-             }%>
-        </select>
-    </div>
-    <h1 id="coco"></h1>
-    <iframe id="map" frameborder="0" style="border:0"
-          src="https://www.google.com/maps/embed/v1/place?q=<%=  listaUnidades.get(0).getEndereco() %>&key=AIzaSyAuq-yu9yXNLMuV88VUBDEnI8naScEfxm8">
-    </iframe>
-
-    <script>
-    function myFunction(){
-          var index = document.getElementById("selectUnidade").selectedIndex;
-          var valor = document.getElementsByTagName("option")[index].value;
-          <%
-                contador = 1;
-                for(Unidades u : listaUnidades){
-          %>
-          if(valor === "<%=contador%>"){
-              
-                document.getElementById("map").src="https://www.google.com/maps/embed/v1/place?q=Avenida <%= u.getEndereco() %> &key=AIzaSyAuq-yu9yXNLMuV88VUBDEnI8naScEfxm8";
-          }
-          <%contador = contador + 1;
-           }%>
-        }
-    </script>
-
-    <h1 class="titleTicket">CONTATE-NOS</h1>
-    <h2 class="title2Ticket">Envie seu ticket contendo seu problema, ou algo que quer nos contar. Preencha os campos, nos envie e trabalharemos para lhe responder o mais rápido possivel!</h2>
-    <div class="contact-form bg-light mb-4" style="padding: 30px; margin-right:15%; margin-left:15%; margin-top:4%;">
-        <form action="enviarTicket.jsp" method="post">
-          <label>1. Escolha um assunto</label>
-          <select name="assuntoSelect" onchange="selectOuString()" id="selectTicket" class="custom-select px-4 mb-3" style="height: 50px;" required>
-              <option selected>-</option>
-              <option value="1">Tenho um poblema com os dados da minha conta</option>
-              <option value="2">Tenho um problema com as opções de pagamento</option>
-              <option value="3">Não consigo alugar um veículo</option>
-              <option value="4">Encontrei um problema no sistema da Locacar</option>
-              <option value="5">Outros</option>
-          </select>
-          <div id="selectOutro">
-              <label>Escreva o assunto</label>
-              <input id="inputOutro" name="assuntoOutro" type="text" class="form-control p-4" maxlength="90">
-          </div>
-            <div class="form-group">
-                <label>2. Descreva o assunto</label>
-                <textarea name="descricao" class="form-control py-3 px-4" rows="5"  required="required"></textarea>
-            </div>
-            <div>
-                <button class="btn btn-primary py-3 px-5" type="submit">Enviar</button>
-            </div>
-        </form>
-    </div>
-    <script>
-        function selectOuString() {
-        var valor = document.getElementById("selectTicket").value;
-        if(valor == "5"){
-          document.getElementById('selectOutro').style.display = 'block';
-          document.getElementById('inputOutro').setAttribute("required", "required");
-        }else{
-          document.getElementById('selectOutro').style.display = 'none';
-          document.getElementById('inputOutro').removeAttribute("required");
-        }
-      }
-    </script>
-
-
+    LocalDateTime dataHora = LocalDateTime.now();
+    DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+    String data = dataHora.format(dataFormatada);
+    locadora.locadora.negocio.servico.ServicoTicket.cadastrarTicket("souzex", assuntoSelect, descricao, data);
+    %>
+    
+    <h1 style="text-align: center;  margin-top: 8%;"> MUITO BEM!</h1>
+    <h2 style="text-align: center; margin-left: 20%; margin-right: 20%; margin-bottom: 3%;">Você enviou com sucesso um ticket para os serviços da locacar! Enviaremos sua resposta por e-mail quando ela estiver pronta.</h2>
+    <button style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15%;" class="btn btn-primary py-3 px-5" type="submit">Voltar para a Home</button>
+    
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row pt-5">
