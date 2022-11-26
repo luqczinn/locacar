@@ -4,27 +4,52 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import locadora.locadora.negocio.dto.Log;
 import locadora.locadora.negocio.dto.Usuario;
-
+import locadora.locadora.negocio.excessoes.negocioException;
+import locadora.locadora.negocio.servico.ServicoLog; 
+import static locadora.locadora.view.swing.Controle.abrirConsultaFuncionarios;
 /**
  *
  * @author gugup
  */
-public class Home extends javax.swing.JDialog {
+public class Home extends javax.swing.JFrame {
 
     /**
      * Creates new form Hme
      */
-    public Home(java.awt.Frame parent, boolean modal, Usuario user) {
-        super(parent, modal);
+    static Usuario user;
+    
+    public Home(Usuario user) throws Exception {
         initComponents();
+        this.user = user;
         String cargo = user.getCargo();
+        String nome = user.getNome();
+        labelNome.setText(nome);
         painelVeiculos.setVisible(false);
         adicionarVendedores.setVisible(false);
         adicionarGerentes.setVisible(false);
         adicionarUnidades.setVisible(false);
-        abrirHome(cargo);
         
+        Date dataAtual = new Date();
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String dataFormatada = dateFormat.format(dataAtual);
+        data.setText(dataFormatada);
+        abrirHome(cargo);
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
+        ListarUsuariosLogados();
     }
 
     private void abrirHome(String cargo) {
@@ -46,6 +71,18 @@ public class Home extends javax.swing.JDialog {
             }
         }
     }
+    
+    public void ListarUsuariosLogados() throws negocioException, SQLException, Exception, Exception {
+        Object Colunas[] = {"Usuário", "Cargo", "Horário"};
+        DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
+     
+        List<Log> lista = ServicoLog.usuariosLogados();
+        
+        for (int i = 0; i < lista.size(); i++) {
+            modelo.addRow(new Object[]{lista.get(i).getNome(),lista.get(i).getCargo(), lista.get(i).getHorario()});
+        }
+        tabela_logs.setModel(modelo);
+    };
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -57,7 +94,7 @@ public class Home extends javax.swing.JDialog {
         jMenu4 = new javax.swing.JMenu();
         jMenu5 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
         btnDesconectar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         painelVeiculos = new javax.swing.JPanel();
@@ -76,11 +113,11 @@ public class Home extends javax.swing.JDialog {
         jButton14 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabela_logs = new javax.swing.JTable();
         jPanel9 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        data = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -99,7 +136,7 @@ public class Home extends javax.swing.JDialog {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Minha conta"));
 
-        jLabel1.setText("Nome da pessoa\n");
+        labelNome.setText("Nome da pessoa\n");
 
         btnDesconectar.setText("Desconectar");
         btnDesconectar.addActionListener(new java.awt.event.ActionListener() {
@@ -113,9 +150,9 @@ public class Home extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(41, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addContainerGap()
+                .addComponent(labelNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
                 .addComponent(btnDesconectar, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -124,7 +161,7 @@ public class Home extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(labelNome)
                     .addComponent(btnDesconectar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -141,6 +178,11 @@ public class Home extends javax.swing.JDialog {
         });
 
         jButton2.setText("Nova reserva");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Visualizar veículos");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -150,6 +192,11 @@ public class Home extends javax.swing.JDialog {
         });
 
         jButton4.setText("Listar reservas");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelVeiculosLayout = new javax.swing.GroupLayout(painelVeiculos);
         painelVeiculos.setLayout(painelVeiculosLayout);
@@ -188,8 +235,18 @@ public class Home extends javax.swing.JDialog {
         adicionarVendedores.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedores"));
 
         jButton5.setText("Adicionar vendedor");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Listar vendedores");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adicionarVendedoresLayout = new javax.swing.GroupLayout(adicionarVendedores);
         adicionarVendedores.setLayout(adicionarVendedoresLayout);
@@ -210,7 +267,7 @@ public class Home extends javax.swing.JDialog {
             .addGroup(adicionarVendedoresLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton5)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarVendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarVendedoresLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -221,8 +278,18 @@ public class Home extends javax.swing.JDialog {
         adicionarGerentes.setBorder(javax.swing.BorderFactory.createTitledBorder("Gerentes"));
 
         jButton9.setText("Adicionar gerentes");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
         jButton10.setText("Listar gerentes");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adicionarGerentesLayout = new javax.swing.GroupLayout(adicionarGerentes);
         adicionarGerentes.setLayout(adicionarGerentesLayout);
@@ -243,7 +310,7 @@ public class Home extends javax.swing.JDialog {
             .addGroup(adicionarGerentesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton9)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarGerentesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarGerentesLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -254,8 +321,18 @@ public class Home extends javax.swing.JDialog {
         adicionarUnidades.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidades"));
 
         jButton13.setText("Adicionar unidades");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("Listar unidades");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout adicionarUnidadesLayout = new javax.swing.GroupLayout(adicionarUnidades);
         adicionarUnidades.setLayout(adicionarUnidadesLayout);
@@ -276,7 +353,7 @@ public class Home extends javax.swing.JDialog {
             .addGroup(adicionarUnidadesLayout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jButton13)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 49, Short.MAX_VALUE))
             .addGroup(adicionarUnidadesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(adicionarUnidadesLayout.createSequentialGroup()
                     .addGap(52, 52, 52)
@@ -308,7 +385,7 @@ public class Home extends javax.swing.JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Últimos usuários onlines"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabela_logs.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -327,7 +404,7 @@ public class Home extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabela_logs);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -348,11 +425,29 @@ public class Home extends javax.swing.JDialog {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Data/hora"));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
+        jLabel1.setText("LOCADORA DE VEÍCULOS");
 
-        jLabel2.setText("17/10/2022");
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(80, 80, 80)
+                .addComponent(jLabel1)
+                .addContainerGap(119, Short.MAX_VALUE))
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jLabel1)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
 
-        jLabel3.setText("12:00");
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Inicio de sessão"));
+
+        data.setText("17/10/2022");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -360,34 +455,15 @@ public class Home extends javax.swing.JDialog {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(data)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(data)
                 .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(555, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 21, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Arquivo");
@@ -407,9 +483,11 @@ public class Home extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -423,7 +501,9 @@ public class Home extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(43, 43, 43)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -438,15 +518,58 @@ public class Home extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        Controle.abrirCadastroVeiculos();
-        this.setVisible(false);
+        String usuario = user.getNome() + " | " + user.getCpf() + ".";
+        Controle.abrirCadastroVeiculos(usuario);
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        Controle.abrirConsultaVeiculos();
-        this.setVisible(false);
+        try {
+            String usuario = user.getNome() + " | " + user.getCpf() + ".";
+            Controle.abrirConsultaVeiculos(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (negocioException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        Controle.abrirConsultaReservas();
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Controle.abrirCadastroReservas();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        String usuario = user.getNome() + " | " + user.getCpf() + ".";
+        try {
+            Controle.abrirConsultaUnidades(usuario);
+        } catch (SQLException ex) {
+            Logger.getLogger(Home.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        Controle.abrirCadastroFuncionario(user);
+        System.out.println(user.getCargo());
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Controle.abrirCadastroFuncionario(user);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        abrirConsultaFuncionarios(user);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        abrirConsultaFuncionarios(user);
+    }//GEN-LAST:event_jButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -455,6 +578,7 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel adicionarVendedores;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnDesconectar;
+    private javax.swing.JLabel data;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
@@ -465,8 +589,6 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
@@ -481,7 +603,8 @@ public class Home extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel labelNome;
     private javax.swing.JPanel painelVeiculos;
+    private javax.swing.JTable tabela_logs;
     // End of variables declaration//GEN-END:variables
 }

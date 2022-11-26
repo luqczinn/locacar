@@ -5,14 +5,17 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
-import locadora.locadora.negocio.servico.ServicoUsuario;
-import locadora.locadora.negocio.excessoes.persistenciaException;
+import locadora.locadora.negocio.servico.ServicoUsuarios;
+import locadora.locadora.negocio.servico.ServicoLog;
 /**
  *
  * @author Aluno
@@ -24,6 +27,8 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
     }
 
     /**
@@ -143,19 +148,24 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
         //se nenhum dos campos de senha tiverem vazios//
         String insereUsuario = inserirUsuario.getText();
-        String insereSenha = inserirSenha.getText(); 
-        
+        String insereSenha = inserirSenha.getText();
+
         try {
             //chamando função para funcionar
-            Usuario user = ServicoUsuario.logarUsuario(insereUsuario, insereSenha);
+            Usuario user = ServicoUsuarios.logarUsuario(insereUsuario, insereSenha);
+            ServicoLog.registrarLogUsuario(user);
             Controle.abrirHome(user);
         } catch (negocioException ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro de Login", JOptionPane.ERROR_MESSAGE);
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-        this.setVisible(false);               
+        this.setVisible(false);
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void inserirUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirUsuarioActionPerformed
@@ -165,10 +175,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void inserirSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inserirSenhaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inserirSenhaActionPerformed
-    
-    public static void main (String args[]) {
-        
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEntrar;

@@ -18,15 +18,10 @@ import java.util.List;
  *
  * @author Aluno
  */
-public class ServicoVeiculo {
-
-    public static void inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modelo, String quilometragem, String status, char tipoDeCarro, String cambio) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
+public class ServicoVeiculo {    
     private ServicoVeiculo(){ }
     
-    public static List<Veiculo> consultarPorAno(String ano) throws negocioException{
+    public static List<Veiculo> consultarPorAno(String ano) throws negocioException, SQLException{
         
         if(ano.isEmpty())
             throw new negocioException(319, "Insira o ano dos veículos!");
@@ -34,7 +29,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorAno(parseInt(ano));
     }
     
-    public static Veiculo consultarPorPlaca(String placa) throws negocioException{
+    public static Veiculo consultarPorPlaca(String placa) throws negocioException, SQLException{
         
         if(placa.isEmpty())
             throw new negocioException(319, "Insira a placa do veículo!");
@@ -42,7 +37,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorPlaca(placa);
     }
     
-    public static List<Veiculo> consultarPorMarca(String marca) throws negocioException{
+    public static List<Veiculo> consultarPorMarca(String marca) throws negocioException, SQLException{
         
         if(marca.isEmpty())
             throw new negocioException(319, "Insira a marca dos veículos!");
@@ -50,7 +45,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorMarca(marca);
     }
     
-    public static List<Veiculo> consultarPorMotor(String motor) throws negocioException{
+    public static List<Veiculo> consultarPorMotor(String motor) throws negocioException, SQLException{
         
         if(motor.isEmpty())
             throw new negocioException(319, "Insira o motor dos veículos!");
@@ -58,7 +53,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorMotor(motor);
     }
     
-    public static List<Veiculo> consultarPorModelo(String modelo) throws negocioException{
+    public static List<Veiculo> consultarPorModelo(String modelo) throws negocioException, SQLException{
         
         if(modelo.isEmpty())
             throw new negocioException(319, "Insira o modelo dos veículos!");
@@ -66,7 +61,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorModelo(modelo);
     }
     
-    public static List<Veiculo> consultarPorKm(String kmRodados) throws negocioException{
+    public static List<Veiculo> consultarPorKm(String kmRodados) throws negocioException, SQLException{
         
         if(kmRodados.isEmpty())
             throw new negocioException(319, "Insira o número de km dos veículos!");
@@ -74,7 +69,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorKm(parseInt(kmRodados));
     }
     
-    public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) throws negocioException{
+    public static List<Veiculo> consultarPorFaixaValores(double minimo, double maximo) throws negocioException, SQLException{
         
         if(minimo < 0)
             throw new negocioException(319, "Valor impossível!");
@@ -82,7 +77,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorFaixaValores(minimo, maximo);
     }
     
-    public static List<Veiculo> consultarPorStatus(String status) throws negocioException{
+    public static List<Veiculo> consultarPorStatus(String status) throws negocioException, SQLException{
         
         if(status.isEmpty())
             throw new negocioException(319, "Insira o status dos veículos!");
@@ -90,7 +85,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorStatus(status);
     }
     
-    public static List<Veiculo> consultarPorTipo(String tipo) throws negocioException{
+    public static List<Veiculo> consultarPorTipo(String tipo) throws negocioException, SQLException{
         
         if(tipo.isEmpty())
             throw new negocioException(319, "Insira o tipo do veículos!");
@@ -98,7 +93,7 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorTipo(tipo);
     }
     
-    public static List<Veiculo> consultarPorCambio(String cambio) throws negocioException{
+    public static List<Veiculo> consultarPorCambio(String cambio) throws negocioException, SQLException{
         
         if(cambio.isEmpty())
             throw new negocioException(319, "Insira o câmbio dos veículos!");
@@ -106,7 +101,8 @@ public class ServicoVeiculo {
         return VeiculoDAO.consultarPorCambio(cambio);
     }
     
-    public static Veiculo inserirVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio) throws negocioException, SQLException{
+    public static Veiculo inserirVeiculoBD(String anoS, String placa, String marca, String tipoMotor, String modeloCarro, String kmRodados, String valorAluguel, String status, String tipo, String cambio, String imagem, String usuario) throws negocioException, SQLException, Exception{
+        int ano = Integer.parseInt(anoS);
         if (ano < 1999 && ano > 2022)
             throw new negocioException(319, "O ano do veículo é inválido.");
         if (placa.isEmpty())
@@ -123,18 +119,20 @@ public class ServicoVeiculo {
             throw new negocioException(319, "O valor de aluguel é obrigatório.");
         if (status.isEmpty())
             throw new negocioException(319, "O status do veículo é obrigatório.");
+        if (imagem.isEmpty())
+            throw new negocioException(319, "A imagem do veículo é obrigatório.");
         
-        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseDouble(kmRodados), parseDouble(valorAluguel), status, tipo, cambio);
+        return VeiculoDAO.cadastrarVeiculoBD(ano, placa, marca, tipoMotor, modeloCarro, parseDouble(kmRodados), parseDouble(valorAluguel), status, tipo, cambio, imagem, usuario);
     }
     
-    public static Veiculo removerVeiculoPorPlaca(String placa) throws negocioException{
+    public static Veiculo removerVeiculoPorPlaca(String placa, String usuario) throws negocioException, SQLException, Exception{
         if(placa.isEmpty())
             throw new negocioException (319, "Informe a placa para remover o veículo");
         
-        return VeiculoDAO.removerVeiculoBD(placa);
+        return VeiculoDAO.removerVeiculoBD(placa, usuario);
     }
     
-    public static List<Veiculo> listarVeiculos() throws negocioException{
+    public static List<Veiculo> listarVeiculos() throws negocioException, SQLException{
         if(VeiculoDAO.listarVeiculosBD() == null)
             throw new negocioException (315, "Não existem veículos cadastrados!");
         

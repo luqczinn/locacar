@@ -9,6 +9,7 @@ import locadora.locadora.database.Conexao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 public class VeiculoDAO {
 
@@ -118,7 +119,7 @@ public class VeiculoDAO {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {
             for (Veiculo v : listarVeiculosBD()) {
-                if (v.getTipo() == tipo) {
+                if (v.getTipo().equals(tipo)) {
                     listaConsulta.add(v);
                 }
             }
@@ -140,27 +141,33 @@ public class VeiculoDAO {
         return null;
     }
 
-    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio) throws SQLException {
+    public static Veiculo cadastrarVeiculoBD(int ano, String placa, String marca, String tipoMotor, String modeloCarro, double kmRodados, double valorAluguel, String status, String tipo, String cambio, String imagem, String usuario) throws SQLException, Exception {
         if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
+            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"','"+cambio+"',"+valorAluguel+",'"+status+"','"+imagem+"')";
             Connection com = Conexao.getConnection();
-            Statement statement = com.createStatement();
-            String sql = "INSERT INTO veiculos VALUES("+ano+",'"+placa+"','"+marca+"','"+tipoMotor+"','"+modeloCarro+"',"+kmRodados+",'"+tipo+"',"+cambio+"',"+valorAluguel+",'"+status+"')";
-            statement.executeUpdate(sql);
-            Conexao.closeConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
+            String acao = "ADICAO";
+            String descricao = "VEICULO@" + placa;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return v;
         }
         return null;
     }
 
-    public static Veiculo removerVeiculoBD(String placa) throws SQLException {
+    public static Veiculo removerVeiculoBD(String placa, String usuario) throws SQLException, Exception {
         if (consultarPorPlaca(placa) != null) {
             Veiculo v = consultarPorPlaca(placa);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
             String sql = "DELETE FROM veiculos WHERE placaCarro='"+placa+"'";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
+            String acao = "REMOCAO";
+            String descricao = "VEICULO@" + placa;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
             return v;
         }
         return null;
@@ -175,26 +182,27 @@ public class VeiculoDAO {
     }
 
     public static List<Veiculo> listarVeiculosBD() throws SQLException {
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
-        String sql = "SELECT * FROM veiculos";
-        ResultSet rs = statement.executeQuery(sql);
         List<Veiculo> listaVeiculos = new ArrayList<>();
+        String sql = "SELECT * FROM veiculos";
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+        
         while (rs.next()) {
-            int ano = Integer.valueOf(rs.getString("ano"));
+            int ano = (rs.getInt("ano"));
             String placa = rs.getString("placaCarro");
             String marca = rs.getString("marca");
             String tipoMotor = rs.getString("tipoMotor");
             String modeloCarro = rs.getString("modelo");
             double kmRodados = rs.getDouble("km");
-            String tipo = rs.getString("fim");
+            String tipo = rs.getString("tipoDeCarro");
             String cambio = rs.getString("cambio");
             double valorAluguel = rs.getDouble("valorDiaria");
-            String status = rs.getString("status");
-            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio);
+            String status = rs.getString("situacao");
+            String imagem = rs.getString("imagem");
+            Veiculo v = new Veiculo(ano, placa, marca, tipoMotor, modeloCarro, kmRodados, valorAluguel, status, tipo, cambio, imagem);
             listaVeiculos.add(v);
         }
-        Conexao.closeConnection();
         if (listaVeiculos.isEmpty() != true) {
             return listaVeiculos;
         }

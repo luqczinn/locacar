@@ -5,6 +5,8 @@
  */
 package locadora.locadora.negocio.servico;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import locadora.locadora.negocio.dao.UsuarioDAO;
 import locadora.locadora.negocio.dto.Usuario;
@@ -19,7 +21,7 @@ public class ServicoUsuario {
     
     private ServicoUsuario() {}
     
-    public static Usuario logarUsuario(String username, String senha)throws negocioException, SQLException{
+    public static Usuario logarUsuario(String username, String senha)throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException{
         if(username.isEmpty()){
             throw new negocioException(319, "Insira o username!");
         }
@@ -27,7 +29,7 @@ public class ServicoUsuario {
             throw new negocioException(319, "Insira a senha!");
         }
         try{
-            return UsuarioDAO.logarUsuario(username, senha);
+            return UsuarioDAO.logarUsuarioFuncionario(username, senha);
         }catch(persistenciaException ex){
             throw new negocioException(315, ex.getMessage());
         }

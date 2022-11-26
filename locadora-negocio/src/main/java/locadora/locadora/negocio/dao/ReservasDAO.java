@@ -1,6 +1,7 @@
 package locadora.locadora.negocio.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,21 +37,22 @@ public class ReservasDAO {
     public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva) throws SQLException {
         if (consultarPorCodigo(codigo) == null) {
             Reservas reserva = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
-            Connection com = Conexao.getConnection();
-            Statement statement = com.createStatement();
             String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
-            statement.executeUpdate(sql);
-            Conexao.closeConnection();
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
             return reserva;
         }
         return null;
     }
 
     public static List<Reservas> listarReservasBD() throws SQLException {
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
         String sql = "SELECT * FROM reservas";
-        ResultSet rs = statement.executeQuery(sql);
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
         List<Reservas> listaReservas = new ArrayList<>();
         while (rs.next()) {
             Integer codigo = Integer.valueOf(rs.getString("codigo"));
@@ -65,7 +67,6 @@ public class ReservasDAO {
             Reservas r = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
             listaReservas.add(r);
         }
-        Conexao.closeConnection();
         if (listaReservas.isEmpty() != true) {
             return listaReservas;
         }
@@ -79,7 +80,6 @@ public class ReservasDAO {
             Statement statement = com.createStatement();
             String sql = "DELETE FROM reservas WHERE codigo='"+codigo+"'";
             statement.executeUpdate(sql);
-            Conexao.closeConnection();
             return r;
         }
         return null;

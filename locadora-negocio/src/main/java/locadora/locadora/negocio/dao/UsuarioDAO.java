@@ -12,29 +12,87 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Usuario;
+import locadora.locadora.negocio.excessoes.negocioException;
+
 /**
  *
  * @author Aluno
  */
-public class UsuarioDAO{
-    
-    public static void cadastrarFuncionario(){}
-    public static void removerFuncionario(){}
-    public static void contagemFuncionarios(){}
-    public static int numeroFuncionarios(){return 0;}
-    
-    public static Usuario procurarPorUsername(String username) throws SQLException{
-        System.out.println("Antes conetion");
-        Connection com = Conexao.getConnection();
-        Statement statement = com.createStatement();
-        String sql = "SELECT * FROM funcionarios";
-        ResultSet rs = statement.executeQuery(sql);
+public class UsuarioDAO {
+
+    public static void cadastrarFuncionario(String nome, String cpf, String rg, String nascimento, String cnis, double salario, String cargo, String endereco, String telefone, String email, String usuario, String senha, String unidade) throws negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        if (procurarPorUsernameFuncionario(usuario) == null | listarFuncionariosBD() == null) {
+            String sql = "INSERT INTO funcionarios VALUES('" + nome + "','" + cpf + "','" + rg + "','" + nascimento + "','" + cnis + "'," + salario + ",'" + cargo + "','" + endereco + "','" + telefone + "','" + email + "','" + usuario + "','" + criptografarSenha(senha) + "','" + unidade + "')";
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
+        }
+    }
+
+    public static void removerFuncionario(String username) throws SQLException, negocioException {
+        if (procurarPorUsernameFuncionario(username) != null) {
+            Usuario u = procurarPorUsernameFuncionario(username);
+            String sql = "DELETE FROM funcionarios WHERE usuario='" + username + "'";
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
+        }
+    }
+
+    public static Usuario procurarPorUsernameFuncionario(String username) throws SQLException {
+        List<Usuario> listaFuncionarios = listarFuncionariosBD();
+
+        if (listaFuncionarios != null) {
+            for (Usuario u : listaFuncionarios) {
+                if (u.getUsername().equals(username)) {
+                    return u;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static Usuario logarUsuarioFuncionario(String username, String senha) throws persistenciaException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        Usuario usuario = procurarPorUsernameFuncionario(username);
+
+        if (usuario == null) {
+            throw new persistenciaException("Username de usuário não encontrado!");
+        }
+        if (usuario.getSenha().equals(criptografarSenha(senha))) {
+            return usuario;
+        } else {
+            throw new persistenciaException("Senha incorreta!");
+        }
+    }
+
+    public static String criptografarSenha(String senha) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
+        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+
+        StringBuilder hexString = new StringBuilder();
+        for (byte b : messageDigest) {
+            hexString.append(String.format("%02X", 0xFF & b));
+        }
+        String senhahex = hexString.toString();
+        return senhahex;
+    }
+
+    public static List<Usuario> listarFuncionariosBD() throws SQLException {
         List<Usuario> listaUsuarios = new ArrayList<>();
+        String sql = "SELECT * FROM funcionarios";
+        Connection com = Conexao.getConnection();
+        PreparedStatement stmt = com.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
+
         while (rs.next()) {
             String nome = rs.getString("nome");
             String cpf = rs.getString("cpf");
@@ -49,51 +107,14 @@ public class UsuarioDAO{
             String usuario = rs.getString("usuario");
             String senha = rs.getString("senha");
             String unidade = rs.getString("unidade");
-            
             Usuario u = new Usuario(nome, cpf, rg, nascimento, cnis, salario, cargo, endereco, telefone, email, usuario, senha, unidade);
             listaUsuarios.add(u);
-            System.out.println(nome + cpf + rg + nascimento + usuario + senha);
+            System.out.println("Usuário adicionado");
         }
-        rs.close();
-        statement.close();
-        Conexao.closeConnection();
-        System.out.println("Depois conection");
-       
-        if (listaUsuarios != null) {
-            for (Usuario u : listaUsuarios) {
-                if (u.getUsername().equals(username)) {
-                    return u;
-                }
-            }
+        if (listaUsuarios.isEmpty() != true) {
+            return listaUsuarios;
         }
         return null;
-    } 
-    
-    public static Usuario logarUsuario(String username, String senha)throws persistenciaException, SQLException{
-        Usuario usuario = procurarPorUsername(username);
-        
-        if (usuario == null) {
-            throw new persistenciaException("Username de usuário não encontrado!");
-        }
-        if (usuario.getSenha().equals(senha)) {
-            Usuario className = usuario;
-            System.out.println("Bancou aq");
-            return className;
-        } else {
-            throw new persistenciaException("Senha incorreta!");
-        }
-    }
-    
-    public static String criptografarSenha(String senha)throws UnsupportedEncodingException, NoSuchAlgorithmException{
-        MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
-        byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
-
-        StringBuilder hexString = new StringBuilder();
-        for (byte b : messageDigest) {
-            hexString.append(String.format("%02X", 0xFF & b));
-        }
-        String senhahex = hexString.toString();
-        return senhahex;
     }
 
 }

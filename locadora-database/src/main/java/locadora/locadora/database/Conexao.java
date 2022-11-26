@@ -3,50 +3,27 @@ package locadora.locadora.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 public class Conexao {
 
-    static Connection con = null;
-    static String hostName = "locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com";
-    static String userName = "admin";
-    static String password = "NFe8Y6Nh7OPZEfh^sW3hv";
-    static String jdbcDriver = "com.mysql.cj.jdbc.Driver";
-    static String dataBaseName = "bdlocacar";
-    static String dataBasePrefix = "jdbc:mysql://";
-    static String dabaBasePort = "3306";
+	private static final String URL_MYSQL = "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar";
+		
+	private static final String DRIVER_CLASS = "com.mysql.jdbc.Driver";
+		
+	private static final String USER = "admin";
+	
+	private static final String PASS = "NFe8Y6Nh7OPZEfh^sW3hv";
 
-    static String url = dataBasePrefix + hostName + ":" + dabaBasePort + "/" + dataBaseName;
-
-    public static Connection getConnection() {
-        try {
-            if (con == null) {
-                Class.forName(jdbcDriver);
-                con = DriverManager.getConnection(url, userName, password);
-            } else if (con.isClosed()) {
-                con = null;
-                return getConnection();
-            }
-        } catch (ClassNotFoundException e) {
-
-            //TODO: use um sistema de log apropriado.
-            e.printStackTrace();
-        } catch (SQLException e) {
-
-            //TODO: use um sistema de log apropriado.
-            e.printStackTrace();
-        }
-        return con;
-    }
-
-    public static void closeConnection() {
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                //TODO: use um sistema de log apropriado.
-                e.printStackTrace();
-            }
-        }
-    }
+	public static Connection getConnection() {
+		System.out.println("Conectando ao Banco de Dados");
+		try {
+			Class.forName(DRIVER_CLASS);
+			return DriverManager.getConnection(URL_MYSQL, USER, PASS);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
 }
