@@ -1,3 +1,14 @@
+<%-- 
+    Document   : cadastro.
+    Created on : 24 de nov. de 2022, 20:47:23
+    Author     : sufra
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    Object vinda = session.getAttribute("vinda");
+
+%>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -39,10 +50,10 @@
         </button>
         <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
           <div class="navbar-nav ml-auto py-0">
-            <a href="home.html" class="nav-item nav-link">Home</a>
+            <a href="index.jsp" class="nav-item nav-link">Home</a>
             <a href="about.html" class="nav-item nav-link">Sobre</a>
-            <a href="service.html" class="nav-item nav-link">Serviï¿½os</a>
-            <a href="service.html" class="nav-item nav-link">Veï¿½culos</a>
+            <a href="service.html" class="nav-item nav-link">Serviços</a>
+            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
             <a href="contact.html" class="nav-item nav-link">Contato</a>
             <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
           </div>
@@ -53,14 +64,14 @@
 
 
   <div class="formulario">
-    <form class="needs-validation" novalidate>
+    <form method="POST" action="ServletCadastro" class="needs-validation" novalidate>
     <div class="titulo">
       <h2>Realize seu cadastro!</h2>
     </div>
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputNome">Nome Completo</label>
-        <input type="text" class="form-control" id="inputNome" placeholder="Nome" required>
+        <input type="text" class="form-control" id="inputNome" name="name" placeholder="Nome" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -70,7 +81,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputCpf">CPF</label>
-        <input type="text" class="form-control" id="inputCpf" placeholder="CPF" required>
+        <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="CPF" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -82,7 +93,7 @@
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputRg">RG</label>
-      <input type="text" class="form-control" id="inputRg" placeholder="RG" required>
+      <input type="text" class="form-control" name="RG" id="inputRg" placeholder="RG" required>
       <div class="valid-feedback">
         Campo correto!
       </div>
@@ -106,7 +117,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputEndereco">Endereço</label>
-        <input type="text" class="form-control" id="inputEndereco" placeholder="Endereço" required>
+        <input type="text" class="form-control" name="endereco" id="inputEndereco" placeholder="Endereço" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -116,7 +127,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputTel">Telefone</label>
-        <input type="tel" class="form-control" id="inputTel" placeholder="Telefone" required>
+        <input type="tel" class="form-control" name="telefone" id="inputTel" placeholder="Telefone" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -128,7 +139,7 @@
     <div class="form-row">
       <div class="form-group col-md-12">
         <label for="inputEmail">E-mail</label>
-        <input type="email" class="form-control" id="inputEmail" placeholder="E-mail" required>
+        <input type="email" class="form-control" name="email" id="inputEmail" placeholder="E-mail" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -140,7 +151,7 @@
     <div class="form-row">
       <div class="form-group col-md-6">
         <label for="inputUsuario">Usuário</label>
-        <input type="text" class="form-control" id="inputUsuario" placeholder="Usuário" required>
+        <input type="text" class="form-control" name="user" id="inputUsuario" placeholder="Usuário" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -150,7 +161,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputSenha">Senha</label>
-        <input type="password" class="form-control" id="inputSenha" placeholder="Senha" required>
+        <input type="password" class="form-control" name="senha" id="inputSenha" placeholder="Senha" required>
         <div class="valid-feedback">
           Campo correto!
         </div>

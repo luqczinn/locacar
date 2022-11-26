@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
+
         <title>Login</title>
         <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
@@ -26,6 +26,7 @@
 
         <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
+
     </head>
     <body>
         <div class="container-fluid position-relative nav-bar p-0">
@@ -41,8 +42,8 @@
                         <div class="navbar-nav ml-auto py-0">
                             <a href="home.html" class="nav-item nav-link">Home</a>
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviï¿½os</a>
-                            <a href="service.html" class="nav-item nav-link">Veï¿½culos</a>
+                            <a href="service.html" class="nav-item nav-link">Serviços</a>
+                            <a href="service.html" class="nav-item nav-link">Veículos</a>
                             <a href="contact.html" class="nav-item nav-link">Contato</a>
                             <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
                         </div>
@@ -53,12 +54,12 @@
         <div class="parent-login">
             <div class="parent-inner">
                 <div class="box-login">
-                    <h1 class="ls-login-logo">FaÃ§a seu login!</h1>
-                    <form method="post" role="form" action="">
+                    <h1 class="ls-login-logo">Faça seu login!</h1>
+                    <form method="POST" role="form" action="servletLogin">
                         <fieldset>
                             <div class="form-group-ls-login-user">
-                                <label for="userLogin">UsuÃ¡rio</label>
-                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuï¿½rio" placeholder="Usuï¿½rio">
+                                <label for="userLogin">Usuário</label>
+                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuário" placeholder="Usuário">
                             </div>
 
                             <div class="form-group ls-login-password">
@@ -69,16 +70,13 @@
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
-                                <script>
-                                    <%
-                                        HttpSession session = request.getSession(); 
-                                        if(session.getAttribute("loginError") != null)
-                                    %>
-                                        document.getElementById("senhaIncorreta").style.display = "block";
-                                </script>
+                                <%
+                                    String erro = request.getParameter("erro");
+                                    if(erro == "I"){
+                                %>
                                 <p id="senhaIncorreta">Erro no login!</p>
-                                <a href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#" class="ls-login-forgot">Esqueci minha senha</a>
-                                <p class="txt-center ls-login-signup">NÃ£o possui um usuÃ¡rio na Locacar? <a class="ls-login-signup"href="http://opensource.locaweb.com.br/locawebstyle-v2/manual/exemplos/login/#">Cadastre-se agora</a></p>
+                                    <% }%>
+                                <p class="txt-center ls-login-signup">Não possui um usuário na Locacar? <a class="ls-login-signup"href="cadastro.jsp">Cadastre-se agora</a></p>
                             </div>
                         </fieldset>
                     </form>
