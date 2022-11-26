@@ -7,24 +7,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Login</title>
-        <!-- Favicon -->
         <link href="img/favicon.ico" rel="icon">
 
-        <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet"> 
-
-        <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
-        <!-- Libraries Stylesheet -->
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
 
     </head>
@@ -53,9 +44,9 @@
         </div>
         <div class="parent-login">
             <div class="parent-inner">
-                <div class="box-login">
-                    <h1 class="ls-login-logo">Faça seu login!</h1>
+                <div class="box-login">                   
                     <form method="POST" role="form" action="servletLogin">
+                        <h1 class="ls-login-logo ">Faça seu login!</h1>
                         <fieldset>
                             <div class="form-group-ls-login-user">
                                 <label for="userLogin">Usuário</label>
@@ -70,12 +61,13 @@
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
-                                <%
-                                    String erro = request.getParameter("erro");
+                                <%  
+                                    if(request.getAttribute("erro") != null){
+                                        String erro = request.getAttribute("erro").toString();
                                     if(erro == "I"){
                                 %>
                                 <p id="senhaIncorreta">Erro no login!</p>
-                                    <% }%>
+                                <% }}%>
                                 <p class="txt-center ls-login-signup">Não possui um usuário na Locacar? <a class="ls-login-signup"href="cadastro.jsp">Cadastre-se agora</a></p>
                             </div>
                         </fieldset>
@@ -101,7 +93,8 @@
             </div>
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
+
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
     </body>
 </html>

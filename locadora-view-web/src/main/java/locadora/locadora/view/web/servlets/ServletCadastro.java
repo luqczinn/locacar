@@ -64,7 +64,7 @@ public class ServletCadastro extends HttpServlet {
             String dataNasc = request.getParameter("dataNasc");
             
             ServicoClientes.cadastrarCliente(nome, dataNasc, cpf, rg, endereco, telefone, email, user, senha);
-            RequestDispatcher rd = request.getRequestDispatcher("Login.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
             rd.forward(request, response);
         }
     }

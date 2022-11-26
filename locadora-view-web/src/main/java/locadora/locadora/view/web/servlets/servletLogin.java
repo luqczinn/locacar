@@ -53,21 +53,23 @@ public class servletLogin extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            RequestDispatcher r = request.getRequestDispatcher("index.jsp");
-            r.forward(request, response);
             String user = request.getParameter("usuario");
             String senha = request.getParameter("senha");
             String ip = request.getRemoteAddr();
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            
+
             if (user.isEmpty() | senha.isEmpty()) {
-                response.sendRedirect("Login.jsp?erro=I");
+                session.setAttribute("erro", "I");
+                RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
+                rd.forward(request, response);
             }
 
             if (ServicoUsuarios.logarUsuario(user, senha) == null) {
                 if (ServicoClientes.logarCliente(user, senha) == null) {
-                    response.sendRedirect("Login.jsp?erro=I");
+                    session.setAttribute("erro", "I");
+                    RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
+                    rd.forward(request, response);
                 } else {
                     Cliente cliente = ServicoClientes.logarCliente(user, senha);
                     String cpf = cliente.getCpf();
@@ -91,11 +93,11 @@ public class servletLogin extends HttpServlet {
                         session.setAttribute("cliente", session.getAttribute("clienteBD"));
                     } else if (vinda == "listagemVeiculos") {
                         destino = "veiculos.jsp";
-                        Object dataLocacao = (String)session.getAttribute("dataLocacao");
-                        Object dataDevolucao = (String)session.getAttribute("dataDevolucao");
-                        Object tipo = (String)session.getAttribute("tipo");
-                        Object unidadeEntrega = (String)session.getAttribute("unidadeEntrega");
-                        Object unidadeDevolucao = (String)session.getAttribute("unidadeDevolucao");
+                        Object dataLocacao = (String) session.getAttribute("dataLocacao");
+                        Object dataDevolucao = (String) session.getAttribute("dataDevolucao");
+                        Object tipo = (String) session.getAttribute("tipo");
+                        Object unidadeEntrega = (String) session.getAttribute("unidadeEntrega");
+                        Object unidadeDevolucao = (String) session.getAttribute("unidadeDevolucao");
                         session.setAttribute("dataLocacao", dataLocacao);
                         session.setAttribute("dataDevolucao", dataDevolucao);
                         session.setAttribute("tipo", tipo);
@@ -105,20 +107,20 @@ public class servletLogin extends HttpServlet {
                         session.setAttribute("cliente", session.getAttribute("clienteBD"));
                     } else if (vinda == "reservaVeiculos") {
                         destino = "reserva.jsp";
-                        Object dataLocacao = (String)session.getAttribute("dataLocacao");
-                        Object dataDevolucao = (String)session.getAttribute("dataDevolucao");
-                        Object imagemVeiculo = (String)session.getAttribute("imagemVeiculo");
-                        Object motor = (String)session.getAttribute("motor");
-                        Object tipo = (String)session.getAttribute("tipo");
-                        Object ano = (String)session.getAttribute("ano");
-                        Object quilometragem = (String)session.getAttribute("quilometragem");
-                        Object unidadeEntrega = (String)session.getAttribute("unidadeEntrega");
-                        Object unidadeDevolucao = (String)session.getAttribute("unidadeDevolucao");
-                        Object marca = (String)session.getAttribute("marca");
-                        Object placaVeiculo = (String)session.getAttribute("placaVeiculo");
-                        Object vendedor = (String)session.getAttribute("vendedor");
-                        Object valorLocacao = (String)session.getAttribute("valorLocacao");
-                        Object valorTotalLocacao = (String)session.getAttribute("valorTotalLocacao");
+                        Object dataLocacao = (String) session.getAttribute("dataLocacao");
+                        Object dataDevolucao = (String) session.getAttribute("dataDevolucao");
+                        Object imagemVeiculo = (String) session.getAttribute("imagemVeiculo");
+                        Object motor = (String) session.getAttribute("motor");
+                        Object tipo = (String) session.getAttribute("tipo");
+                        Object ano = (String) session.getAttribute("ano");
+                        Object quilometragem = (String) session.getAttribute("quilometragem");
+                        Object unidadeEntrega = (String) session.getAttribute("unidadeEntrega");
+                        Object unidadeDevolucao = (String) session.getAttribute("unidadeDevolucao");
+                        Object marca = (String) session.getAttribute("marca");
+                        Object placaVeiculo = (String) session.getAttribute("placaVeiculo");
+                        Object vendedor = (String) session.getAttribute("vendedor");
+                        Object valorLocacao = (String) session.getAttribute("valorLocacao");
+                        Object valorTotalLocacao = (String) session.getAttribute("valorTotalLocacao");
                         session.setAttribute("dataLocacao", dataLocacao);
                         session.setAttribute("dataDevolucao", dataDevolucao);
                         session.setAttribute("imagemVeiculo", imagemVeiculo);
@@ -136,13 +138,13 @@ public class servletLogin extends HttpServlet {
                         session.setAttribute("user", session.getAttribute("user"));
                         session.setAttribute("cliente", session.getAttribute("clienteBD"));
                     }
-                    RequestDispatcher rd = request.getRequestDispatcher("veiculos.jsp");
+                    RequestDispatcher rd = request.getRequestDispatcher("/veiculos.jsp");
                     rd.forward(request, response);
                 }
             } else {
                 Usuario usuario = ServicoUsuarios.logarUsuario(user, senha);
                 ServicoLog.registrarLogUsuario(usuario);
-                RequestDispatcher rd = request.getRequestDispatcher("veiculos.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
                 rd.forward(request, response);
             }
 
