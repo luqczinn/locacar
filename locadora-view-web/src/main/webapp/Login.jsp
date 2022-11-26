@@ -1,5 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<%
+    String erro = (String) request.getAttribute("erro");
+    String teste = (String) request.getAttribute("teste");
+%>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
@@ -50,24 +54,39 @@
                         <fieldset>
                             <div class="form-group-ls-login-user">
                                 <label for="userLogin">Usuário</label>
-                                <input class="form-control ls-login-bg-user input-lg" name="usuario "id="userLogin" type="text" aria-label="Usuário" placeholder="Usuário">
+                                <input class="form-control ls-login-bg-user input-lg" name="user" id="userLogin" type="text" aria-label="Usuário" placeholder="Usuário">
                             </div>
 
                             <div class="form-group ls-login-password">
                                 <label class="userPassword" for="userPassword">Senha</label>
                                 <input class="form-control ls-login-bg-password input-lg" name="senha" id="userPassword" type="password" aria-label="Senha" placeholder="Senha">
                             </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="checkbox" value="usuario" id="flexCheckDefault" checked/>
+                                <label class="form-check-label" for="flexCheckDefault">Logar como funcionário</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="checkbox" value="cliente" id="flexCheckDefault" />
+                                <label class="form-check-label" for="flexCheckDefault">Logar como cliente</label>
+                            </div>
                             <div class="submit-button">
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
-                                <%  
-                                    if(request.getAttribute("erro") != null){
-                                        String erro = request.getAttribute("erro").toString();
-                                    if(erro == "I"){
-                                %>
-                                <p id="senhaIncorreta">Erro no login!</p>
-                                <% }}%>
+                                <p id="senhaIncorreta">
+                                    <%
+                                        if(erro != null){ 
+                                            out.print(erro);
+                                        }
+                                    %>
+                                </p>
+                                <p id="senhaIncorreta">
+                                    <%
+                                        if(teste != null){ 
+                                            out.print(teste);
+                                        }
+                                    %>
+                                </p>
                                 <p class="txt-center ls-login-signup">Não possui um usuário na Locacar? <a class="ls-login-signup"href="cadastro.jsp">Cadastre-se agora</a></p>
                             </div>
                         </fieldset>
