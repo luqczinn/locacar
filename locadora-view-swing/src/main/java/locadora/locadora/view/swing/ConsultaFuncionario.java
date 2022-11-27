@@ -139,6 +139,7 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
         btn_editar_funcionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Funcionários");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionarios"));
 

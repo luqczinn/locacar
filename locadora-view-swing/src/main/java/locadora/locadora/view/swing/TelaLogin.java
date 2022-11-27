@@ -16,6 +16,7 @@ import locadora.locadora.negocio.dto.Usuario;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUsuarios;
 import locadora.locadora.negocio.servico.ServicoLog;
+
 /**
  *
  * @author Aluno
@@ -49,6 +50,7 @@ public class TelaLogin extends javax.swing.JFrame {
         inserirSenha = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tela Login");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Login"));
 

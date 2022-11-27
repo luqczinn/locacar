@@ -189,8 +189,10 @@ public class CadastroReservas extends javax.swing.JFrame {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Reservas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reserva"));
+        jPanel1.setToolTipText("");
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Dados da reserva"));
 

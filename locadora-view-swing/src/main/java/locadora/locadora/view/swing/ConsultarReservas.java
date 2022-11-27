@@ -115,6 +115,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
         btn_editar_reserva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Reservas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
 

@@ -3,7 +3,7 @@
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
-    <Property name="title" type="java.lang.String" value="Cadastro de ve&#xed;culos"/>
+    <Property name="title" type="java.lang.String" value="Cadastro de Ve&#xed;culos"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -281,26 +281,28 @@
         <Component class="javax.swing.JComboBox" name="marcaCarro">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="19">
+              <StringArray count="21">
                 <StringItem index="0" value="Selecione a Marca"/>
                 <StringItem index="1" value="AUDI"/>
                 <StringItem index="2" value="BMW"/>
-                <StringItem index="3" value="CITROEN"/>
-                <StringItem index="4" value="FIAT"/>
-                <StringItem index="5" value="FORD"/>
-                <StringItem index="6" value="HONDA"/>
-                <StringItem index="7" value="HYUNDAI"/>
-                <StringItem index="8" value="JEEP"/>
-                <StringItem index="9" value="KIA"/>
-                <StringItem index="10" value="MERCEDES-BENZ"/>
-                <StringItem index="11" value="MITSUBISHI"/>
-                <StringItem index="12" value="PEUGEOT"/>
-                <StringItem index="13" value="RENAULT"/>
-                <StringItem index="14" value="TOYOTA"/>
-                <StringItem index="15" value="VOLKSWAGEN"/>
-                <StringItem index="16" value="VOLVO"/>
-                <StringItem index="17" value=" "/>
-                <StringItem index="18" value=" "/>
+                <StringItem index="3" value="CHEVROLET"/>
+                <StringItem index="4" value="CITROEN"/>
+                <StringItem index="5" value="FIAT"/>
+                <StringItem index="6" value="FORD"/>
+                <StringItem index="7" value="HONDA"/>
+                <StringItem index="8" value="HYUNDAI"/>
+                <StringItem index="9" value="JEEP"/>
+                <StringItem index="10" value="KIA"/>
+                <StringItem index="11" value="MERCEDES-BENZ"/>
+                <StringItem index="12" value="MITSUBISHI"/>
+                <StringItem index="13" value="NISSAN"/>
+                <StringItem index="14" value="PEUGEOT"/>
+                <StringItem index="15" value="RENAULT"/>
+                <StringItem index="16" value="TOYOTA"/>
+                <StringItem index="17" value="VOLKSWAGEN"/>
+                <StringItem index="18" value="VOLVO"/>
+                <StringItem index="19" value=" "/>
+                <StringItem index="20" value=" "/>
               </StringArray>
             </Property>
           </Properties>

@@ -440,3 +440,27 @@ h6,
   padding-left: 200px;
   padding-right: 200px;
 }
+
+#tabelLogs {
+    border-style: solid;
+    border-width: 3px;
+    margin: auto;
+    width: 800px;
+}
+
+tr {
+    background-color: #F6E300;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#titulo {
+    background-color: #3afa84;
+    font-weight: bold;
+}
+
+td {
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+}
