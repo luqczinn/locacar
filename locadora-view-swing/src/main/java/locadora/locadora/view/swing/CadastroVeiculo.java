@@ -66,7 +66,7 @@ public class CadastroVeiculo extends javax.swing.JDialog {
         imagemVeiculos = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Cadastro de veículos");
+        setTitle("Cadastro de Veículos");
 
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");

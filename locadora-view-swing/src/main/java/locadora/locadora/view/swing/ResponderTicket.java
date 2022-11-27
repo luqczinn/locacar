@@ -105,6 +105,7 @@ public class ResponderTicket extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Responder Tickets");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ticket"));
 

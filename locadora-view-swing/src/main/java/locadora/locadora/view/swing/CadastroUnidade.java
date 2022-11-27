@@ -114,6 +114,7 @@ public class CadastroUnidade extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Unidades"));
 

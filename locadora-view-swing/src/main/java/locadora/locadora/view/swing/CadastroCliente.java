@@ -67,6 +67,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         botaoCadastrarFunc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Cliente");
 
         jLabel7.setFont(new java.awt.Font("Droid Serif", 0, 24)); // NOI18N
         jLabel7.setText("Cadastro dos Clientes ");

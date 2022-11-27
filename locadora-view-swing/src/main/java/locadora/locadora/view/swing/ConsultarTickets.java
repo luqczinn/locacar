@@ -105,6 +105,7 @@ public class ConsultarTickets extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Tickets");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tickets"));
 
