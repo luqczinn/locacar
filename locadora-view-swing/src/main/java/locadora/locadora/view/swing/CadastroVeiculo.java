@@ -119,7 +119,7 @@ public class CadastroVeiculo extends javax.swing.JDialog {
             }
         });
 
-        marcaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Marca", "AUDI", "BMW", "CITROEN", "FIAT", "FORD", "HONDA", "HYUNDAI", "JEEP", "KIA", "MERCEDES-BENZ", "MITSUBISHI", "PEUGEOT", "RENAULT", "TOYOTA", "VOLKSWAGEN", "VOLVO", " ", " " }));
+        marcaCarro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione a Marca", "AUDI", "BMW", "CHEVROLET", "CITROEN", "FIAT", "FORD", "HONDA", "HYUNDAI", "JEEP", "KIA", "MERCEDES-BENZ", "MITSUBISHI", "NISSAN", "PEUGEOT", "RENAULT", "TOYOTA", "VOLKSWAGEN", "VOLVO", " ", " " }));
         marcaCarro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 marcaCarroActionPerformed(evt);
