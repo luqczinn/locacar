@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <title>Login</title>
-        <link href="img/favicon.ico" rel="icon">
+        <link href="img/favicon.png" rel="icon">
 
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet"> 
@@ -81,7 +81,6 @@
                                 <input name="valorDiaria" value="${param.valorDiaria}" style="display: none;">
                                 <input name="situacao" value="${param.situacao}" style="display: none;">
                                 <input name="imagem" value="${param.imagem}" style="display: none;">
-                                <input name="vinda" value="listagemVeiculos" style="display: none;">
                                 <input name="vinda" value="${param.vinda}" style="display: none;">
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
@@ -90,13 +89,6 @@
                                     <%
                                         if(erro != null){ 
                                             out.print(erro);
-                                        }
-                                    %>
-                                </p>
-                                <p id="senhaIncorreta">
-                                    <%
-                                        if(teste != null){ 
-                                            out.print(teste);
                                         }
                                     %>
                                 </p>

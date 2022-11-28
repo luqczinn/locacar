@@ -257,6 +257,7 @@
             <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+            <script>
 
             <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
@@ -273,4 +274,12 @@
             <script src="js/main.js"></script>
             </body>
 
+<<<<<<< HEAD
+
+=======
+            <!-- Template Javascript -->
+            <script src="js/main.js"></script>
+            </body>
+
+>>>>>>> origin/production
             </html>
