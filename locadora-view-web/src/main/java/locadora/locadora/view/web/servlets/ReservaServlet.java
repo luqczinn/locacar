@@ -58,7 +58,9 @@ public class ReservaServlet extends HttpServlet {
             String valorTotalReserva = request.getParameter("valorTotalLocacao"); 
             
             //inserir no bd
-            ServicoReservas.inserirReservaBD(Integer.SIZE, cliente, vendedor, carro, unidade, dataInicio, dataFim, valorReserva, valorTotalReserva);
+            ServicoReservas.inserirReservaBD(Integer.SIZE, cliente, vendedor, carro, unidade, dataInicio, dataFim, valorReserva, valorTotalReserva, "ONLINE");
+        } catch (Exception ex) {
+            Logger.getLogger(ReservaServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
