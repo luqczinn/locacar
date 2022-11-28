@@ -23,7 +23,7 @@ import locadora.locadora.negocio.servico.ServicoReservas;
  *
  * @author Aluno
  */
-@WebServlet(urlPatterns = {"/reserva.jsp"})
+@WebServlet(urlPatterns = {"/ReservaServlet"})
 public class ReservaServlet extends HttpServlet {
 
     /**

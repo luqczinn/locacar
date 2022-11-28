@@ -59,8 +59,7 @@ public class servletLogin extends HttpServlet {
                 u = ServicoUsuarios.logarUsuario(user, senha);
                 if (u.getUsername().equals(user) && u.getSenha().equals(ClientesDAO.criptografarSenha(senha))) {
                     tipoLogin = "usuario";
-                }
-                else {
+                } else {
                     request.setAttribute("erro", "Credenciais incorretas!");
                     RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
                     rd.forward(request, response);
@@ -69,8 +68,7 @@ public class servletLogin extends HttpServlet {
                 c = ServicoClientes.logarCliente(user, senha);
                 if (c.getUsername().equals(user) && c.getSenha().equals(ClientesDAO.criptografarSenha(senha))) {
                     tipoLogin = "cliente";
-                }
-                else{
+                } else {
                     request.setAttribute("erro", "Credenciais incorretas!");
                     RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
                     rd.forward(request, response);
@@ -91,8 +89,7 @@ public class servletLogin extends HttpServlet {
                     break;
 
                 case "cliente":
-                    
-                    
+
                     String cpf = c.getCpf();
                     String nome = c.getNome();
                     String clienteBD = nome + "|" + cpf;
@@ -106,24 +103,16 @@ public class servletLogin extends HttpServlet {
                     pstmt.execute();
                     pstmt.close();
                     com.close();
-                    String vinda = "index.jsp"; //(String) request.getAttribute("vinda");
+                    
+                    
+                    String vinda = (String) request.getParameter("vinda");
                     String destino = "";
                     if (vinda.equals("home")) {
                         destino = "/index.jsp";
                         request.setAttribute("user", user);
                         request.setAttribute("cliente", clienteBD);
                     } else if (vinda.equals("listagemVeiculos")) {
-                        destino = "/veiculos.jsp";
-                        String dataLocacao = (String) request.getAttribute("dataLocacao");
-                        String dataDevolucao = (String) request.getAttribute("dataDevolucao");
-                        String tipo = (String) request.getAttribute("tipo");
-                        String unidadeEntrega = (String) request.getAttribute("unidadeEntrega");
-                        String unidadeDevolucao = (String) request.getAttribute("unidadeDevolucao");
-                        request.setAttribute("dataLocacao", dataLocacao);
-                        request.setAttribute("dataDevolucao", dataDevolucao);
-                        request.setAttribute("tipo", tipo);
-                        request.setAttribute("unidadeEntrega", unidadeEntrega);
-                        request.setAttribute("unidadeDevolucao", unidadeDevolucao);
+                        destino = "/abrirBooking";
                         request.setAttribute("user", user);
                         request.setAttribute("cliente", clienteBD);
                     } else if (vinda.equals("reservaVeiculos")) {
@@ -161,7 +150,6 @@ public class servletLogin extends HttpServlet {
                     }
                     RequestDispatcher rd4 = request.getRequestDispatcher(destino);
                     rd4.forward(request, response);
-
                     break;
             }
 

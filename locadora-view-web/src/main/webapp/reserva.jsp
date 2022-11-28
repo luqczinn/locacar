@@ -5,35 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    String nomeVeiculo = {$param.nomeVeiculo}; 
-    String valorAluguel = {$param.valorAluguel}; 
-    String modelo = {$param.modelo}; 
-    String cambio = {$param.cambio};
-    String nomeCliente = {$param.nomeCliente}; 
-    Strng emailCliente = {$param.emailCliente};
-    String telefoneCliente = {$param.telefoneCliente};
-    String apelidoCliente = {$param.apelidoCliente};
-    String nascimentoCliente = {$param.nascimentoCliente};
-    String enderecoCliente = {$param.enderecoCliente};
-    String cpfCliente = {$param.cpfCliente};
-    String rgCliente = {$param.rgCliente};
-    String dataLocacao = {$param.dataLocacao};
-    String dataDevolucao = {$param.dataDevolucao};
-    String imagemVeiculo = {$param.imagemVeiculo};
-    String motor = {$param.motor};
-    String tipo = {$param.tipo};
-    String ano = {$param.ano};
-    String quilometragem = {$param.quilometragem};
-    String unidadeEntrega = {$param.unidadeEntrega};
-    String unidadeDevolucao = {$param.unidadeDevolucao};
-    String marca = {$param.marca};
-    String linkImagem = {$param.linkImagem}; 
-    String placaVeiculo = {$param.placaVeiculo}; 
-    String vendedor = {$param.vendedor};
-    String valorLocacao = {$param.valorLocacao};
-    String valorTotalLocacao = {$param.valorTotalLocacao};
-%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -158,16 +131,16 @@
         <!-- Detail Start -->
         <div class="container-fluid pt-5">
             <div class="container pt-5 pb-3">
-                <h1 class="display-4 text-uppercase mb-5"><%=nomeVeiculo%></h1>
+                <h1 class="display-4 text-uppercase mb-5">${requestScope.nomeVeiculo}</h1>
                 <div class="row align-items-center pb-2">
                     <div class="col-lg-6 mb-4">
-                        <img class="img-fluid" src="<%=linkImagem%>" alt="">
+                        <img class="img-fluid" src="${requestScope.imagemVeiculo}" alt="">
                     </div>
                     <div class="col-lg-6 mb-4">
-                        <h4 class="mb-2"><%=valorAluguel%></h4>
+                        <h4 class="mb-2">R$ ${requestScope.valorAluguel}</h4>
                         <div class="d-flex mb-3"></div>
-                        <p>Informações do Veículo: Este veículo possui um motor <span><%=motor%></span>, da marca <span><%=marca%></span>, do ano <span><%=ano%></span>, com <span><%=quilometragem%></span> rodados. O seu 
-                            tipo é <%=tipo%>.</p>
+                        <p>Informações do Veículo: Este veículo possui um motor <span>${requestScope.motor}</span>, da marca <span>${requestScope.marca}</span>, do ano <span>${requestScope.ano}</span>, com <span>${requestScope.quilometragem}</span> rodados. O seu 
+                            tipo é ${requestScope.tipo}.</p>
                         <div class="d-flex pt-1">
                             <h6>Compartilhe em:</h6>
                             <div class="d-inline-flex">
@@ -182,11 +155,11 @@
                 <div class="row mt-n3 mt-lg-0 pb-4">
                     <div class="col-md-3 col-6 mb-2">
                         <i class="fa fa-car text-primary mr-2"></i>
-                        <span>Modelo: <%=modelo%></span>
+                        <span>Modelo: ${requestScope.modelo}</span>
                     </div>
                     <div class="col-md-3 col-6 mb-2">
                         <i class="fa fa-cogs text-primary mr-2"></i>
-                        <span>Câmbio: <%=cambio%></span>
+                        <span>Câmbio: ${requestScope.cambio}</span>
                     </div>
                 </div>
             </div>
@@ -203,64 +176,76 @@
                         <div class="mb-5">
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Nome" required="required" disabled value="<%=nomeCliente%>">
+                                    <input type="text" class="form-control p-4" placeholder="Nome" required="required" disabled value="${requestScope.nomeCliente}">
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Apelido" required="required" disabled value="<%=apelidoCliente%>">
+                                    <input type="text" class="form-control p-4" placeholder="Apelido" required="required" disabled value="${requestScope.apelidoCliente}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Email" required="required" disabled value="<%=emailCliente%>">
+                                    <input type="email" class="form-control p-4" placeholder="Email" required="required" disabled value="${requestScope.emailCliente}">
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Telefone" required="required" disabled value="<%=telefoneCliente%>">
+                                    <input type="text" class="form-control p-4" placeholder="Telefone" required="required" disabled value="${requestScope.telefoneCliente}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Data Nascimento" required="required" disabled value="<%=nascimentoCliente%>">
+                                    <input type="email" class="form-control p-4" placeholder="Data Nascimento" required="required" disabled value="${requestScope.nascimentoCliente}">
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Endereço" required="required" disabled value="<%=enderecoCliente%>">
+                                    <input type="text" class="form-control p-4" placeholder="Endereço" required="required" disabled value="${requestScope.enderecoCliente}">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="CPF" required="required" disabled value="<%=cpfCliente%>">
+                                    <input type="email" class="form-control p-4" placeholder="CPF" required="required" disabled value="${requestScope.cpfCliente}">
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="RG" required="required" disabled value="<%=rgCliente%>">
+                                    <input type="text" class="form-control p-4" placeholder="RG" required="required" disabled value="${requestScope.rgCliente}">
                                 </div>
                             </div>
-                            <button type="button" id="editarCliente" href="#">Editar Cliente</button>
                         </div>
                         <h2 class="mb-4">Detalhes da Reserva:</h2>
                         <div class="mb-5">
                             <div class="row">
                                 <div class="col-6 form-group">
-
-                                    <select class="custom-select px-4" style="height: 50px;" disabled>
-                                        <option selected>Local de Locação: <%=unidadeLocacao%></option>
+                                    <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
+                                    <sql:query dataSource="${conexao}" var="result">
+                                        SELECT * FROM unidades
+                                    </sql:query>
+                                    <select name="localColeta"class="custom-select px-4" style="height: 50px;">
+                                        <option selected>Local de coleta</option>
+                                        <c:forEach var="row" items="${result.rows}">                        
+                                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                                 <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Local de Devolução" required="required" disabled value="value="<%=unidadeDevolucao%>"">
+                                    <sql:query dataSource="${conexao}" var="result">
+                                        SELECT * FROM unidades
+                                    </sql:query>
+                                    <select name="localEntrega" class="custom-select px-4" style="height: 50px;">
+                                        <option selected>Local de retorno</option>
+                                        <c:forEach var="row" items="${result.rows}">                        
+                                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-6 form-group">
                                     <div class="date" id="date2" data-target-input="nearest">
-                                        <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Data de Locação" disabled value="<%=dataLocacao%>"/>
+                                        <input onkeydown="return false" type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
                                 <div class="col-6 form-group">
                                     <div class="time" id="time2" data-target-input="nearest">
-                                        <input type="text" class="form-control p-4 datetimepicker-input" placeholder="Data de Devolução" disabled value="<%=dataDevolucao%>"/>
+                                         <input onkeydown="return false" type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" id="editarCliente" href="veiculos.jsp">Editar Reserva</button>
                         </div>
                     </div>
                     <div class="col-lg-4">

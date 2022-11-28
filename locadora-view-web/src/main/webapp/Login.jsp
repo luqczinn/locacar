@@ -70,6 +70,19 @@
                                 <label class="form-check-label" for="flexCheckDefault">Logar como cliente</label>
                             </div>
                             <div class="submit-button">
+                                <input name="ano" value="${param.ano}" style="display: none;">
+                                <input name="placaCarro" value="${param.placaCarro}" style="display: none;">
+                                <input name="marca" value="${param.marca}" style="display: none;">
+                                <input name="tipoMotor" value="${param.tipoMotor}" style="display: none;">
+                                <input name="modelo" value="${param.modelo}" style="display: none;"> 
+                                <input name="km" value="${param.km}" style="display: none;">
+                                <input name="tipoDeCarro" value="${param.tipoDeCarro}" style="display: none;">
+                                <input name="cambio" value="${param.cambio}" style="display: none;">
+                                <input name="valorDiaria" value="${param.valorDiaria}" style="display: none;">
+                                <input name="situacao" value="${param.situacao}" style="display: none;">
+                                <input name="imagem" value="${param.imagem}" style="display: none;">
+                                <input name="vinda" value="listagemVeiculos" style="display: none;">
+                                <input name="vinda" value="${param.vinda}" style="display: none;">
                                 <input type="submit" value="Entrar" class="btn btn-primary btn-lg btn-block">
                             </div>
                             <div class="forgot-password">
