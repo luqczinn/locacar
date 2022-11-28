@@ -236,7 +236,7 @@
                             <div class="text-right">
                                 <h3 class="text-uppercase text-light mb-3">Quer ser um cliente?</h3>
                                 <p class="mb-4">Clientes Locacar possuem descontos em abastecimentos, lava-jatos e muito mais.</p>
-                                <a class="btn btn-primary py-2 px-4" href="">Cadastrar agora</a>
+                                <a class="btn btn-primary py-2 px-4" href="Login.jsp">Cadastrar agora</a>
                             </div>
                         </div>
                     </div>

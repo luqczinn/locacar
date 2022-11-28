@@ -1,3 +1,5 @@
+package locadora.locadora.view.web.servlets;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
@@ -39,10 +41,6 @@ public class abrirBooking extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String nomeVeiculo = (String) request.getParameter("marca") + " " + (String) request.getAttribute("modelo");
-            String valorAluguel = (String) request.getParameter("valorDiaria");
-            String modelo = (String) request.getParameter("modelo");
-            String cambio = (String) request.getParameter("cambio");
             String user = (String) request.getAttribute("user");
             Cliente c = ClientesDAO.procurarCliente(user);
             String nomeCliente = c.getNome();
@@ -53,19 +51,7 @@ public class abrirBooking extends HttpServlet {
             String enderecoCliente = c.getEndereco();
             String cpfCliente = c.getCpf();
             String rgCliente = c.getRg();
-            String imagemVeiculo = (String) request.getParameter("imagem");
-            String motor = (String) request.getParameter("tipoMotor");
-            String tipo = (String) request.getParameter("tipoDeCarro");
-            String ano = (String) request.getParameter("ano");
-            String quilometragem = (String) request.getParameter("km");
-            String marca = (String) request.getParameter("marca");
-            String placaVeiculo = (String) request.getParameter("placaVeiculo");
-            String vendedor = "ONLINE";
 
-            request.setAttribute("nomeVeiculo", nomeVeiculo);
-            request.setAttribute("valorAluguel", valorAluguel);
-            request.setAttribute("modelo", modelo);
-            request.setAttribute("cambio", cambio);
             request.setAttribute("nomeCliente", nomeCliente);
             request.setAttribute("emailCliente", emailCliente);
             request.setAttribute("telefoneCliente", telefoneCliente);
@@ -74,14 +60,7 @@ public class abrirBooking extends HttpServlet {
             request.setAttribute("enderecoCliente", enderecoCliente);
             request.setAttribute("cpfCliente", cpfCliente);
             request.setAttribute("rgCliente", rgCliente);
-            request.setAttribute("imagemVeiculo", imagemVeiculo);
-            request.setAttribute("motor", motor);
-            request.setAttribute("tipo", tipo);
-            request.setAttribute("ano", ano);
-            request.setAttribute("quilometragem", quilometragem);
-            request.setAttribute("marca", marca);
-            request.setAttribute("placaVeiculo", placaVeiculo);
-            request.setAttribute("vendedor", vendedor);
+            
 
             RequestDispatcher rd = request.getRequestDispatcher("/reserva.jsp");
             rd.forward(request, response);

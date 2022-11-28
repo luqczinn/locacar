@@ -19,7 +19,9 @@ import java.sql.Connection;
 import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import locadora.locadora.database.Conexao;
@@ -103,15 +105,15 @@ public class servletLogin extends HttpServlet {
                     pstmt.execute();
                     pstmt.close();
                     com.close();
-                    
+
                     String vinda = (String) request.getParameter("vinda");
-                    
+
                     //Codigo para conseguir definir "vinda" com getAttribute()"
                     String teste = (String) request.getAttribute("vinda2");
-                    if(teste != null){
+                    if (teste != null) {
                         vinda = teste;
                     }
-                    
+
                     String destino = "";
                     if (vinda.equals("home")) {
                         destino = "/index.jsp";
@@ -121,47 +123,49 @@ public class servletLogin extends HttpServlet {
                         destino = "/abrirBooking";
                         request.setAttribute("user", user);
                         request.setAttribute("cliente", clienteBD);
-                    } else if (vinda.equals("reservaVeiculos")) {
-                        destino = "/reserva.jsp";
-                        String dataLocacao = (String) request.getAttribute("dataLocacao");
-                        String dataDevolucao = (String) request.getAttribute("dataDevolucao");
-                        String imagemVeiculo = (String) request.getAttribute("imagemVeiculo");
-                        String motor = (String) request.getAttribute("motor");
-                        String tipo = (String) request.getAttribute("tipo");
-                        String ano = (String) request.getAttribute("ano");
-                        String quilometragem = (String) request.getAttribute("quilometragem");
-                        String unidadeEntrega = (String) request.getAttribute("unidadeEntrega");
-                        String unidadeDevolucao = (String) request.getAttribute("unidadeDevolucao");
-                        String marca = (String) request.getAttribute("marca");
-                        String placaVeiculo = (String) request.getAttribute("placaVeiculo");
-                        String vendedor = (String) request.getAttribute("vendedor");
-                        String valorLocacao = (String) request.getAttribute("valorLocacao");
-                        String valorTotalLocacao = (String) request.getAttribute("valorTotalLocacao");
-                        request.setAttribute("dataLocacao", dataLocacao);
-                        request.setAttribute("dataDevolucao", dataDevolucao);
+                        String nomeVeiculo = (String) request.getParameter("marca") + " " + (String) request.getParameter("modelo");
+                        Locale l = new Locale("pt", "BR");
+                        NumberFormat nf = NumberFormat.getCurrencyInstance(l);
+                        Double valor = Double.valueOf(request.getParameter("valorDiaria"));
+                        String valorAluguel = nf.format(valor);
+                        String modelo = (String) request.getParameter("modelo");
+                        String cambio = (String) request.getParameter("cambio");
+                        String imagemVeiculo = (String) request.getParameter("imagem");
+                        String motor = (String) request.getParameter("tipoMotor");
+                        String tipo = (String) request.getParameter("tipoDeCarro");
+                        String ano = (String) request.getParameter("ano");
+                        NumberFormat nk = NumberFormat.getInstance(l);
+                        Double km = Double.valueOf(request.getParameter("km"));
+                        String quilometragem = nk.format(km);
+                        String marca = (String) request.getParameter("marca");
+                        String placaVeiculo = (String) request.getParameter("placaVeiculo");
+                        String vendedor = "ONLINE";
+
+                        request.setAttribute("nomeVeiculo", nomeVeiculo);
+                        request.setAttribute("valorAluguel", valorAluguel);
+                        request.setAttribute("modelo", modelo);
+                        request.setAttribute("cambio", cambio);
                         request.setAttribute("imagemVeiculo", imagemVeiculo);
                         request.setAttribute("motor", motor);
                         request.setAttribute("tipo", tipo);
                         request.setAttribute("ano", ano);
                         request.setAttribute("quilometragem", quilometragem);
-                        request.setAttribute("unidadeEntrega", unidadeEntrega);
-                        request.setAttribute("unidadeDevolucao", unidadeDevolucao);
                         request.setAttribute("marca", marca);
                         request.setAttribute("placaVeiculo", placaVeiculo);
                         request.setAttribute("vendedor", vendedor);
-                        request.setAttribute("valorLocacao", valorLocacao);
-                        request.setAttribute("valorTotalLocacao", valorTotalLocacao);
-                        request.setAttribute("user", user);
-                        request.setAttribute("cliente", clienteBD);
-                    } else if(vinda.equals("enviarTicket")){
+                    } else if (vinda.equals("enviarTicket")) {
                         destino = "/contato.jsp";
-                        String assuntoSelect = (String)request.getParameter("assuntoSelect"); 
-                        String assuntoOutro = (String)request.getParameter("assuntoOutro"); 
-                        String descricao = (String)request.getParameter("descricao");
+                        String assuntoSelect = (String) request.getParameter("assuntoSelect");
+                        String assuntoOutro = (String) request.getParameter("assuntoOutro");
+                        String descricao = (String) request.getParameter("descricao");
                         request.setAttribute("assuntoSelect", assuntoSelect);
                         request.setAttribute("assuntoOutro", assuntoOutro);
                         request.setAttribute("descricao", descricao);
                         request.setAttribute("user", user);
+                    }else{
+                        destino = "/index.jsp";
+                        request.setAttribute("user", user);
+                        request.setAttribute("cliente", clienteBD);
                     }
                     RequestDispatcher rd4 = request.getRequestDispatcher(destino);
                     rd4.forward(request, response);

@@ -26,20 +26,9 @@
     </head>
 
     <body>
-        <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-xl">
-                <div class="modal-content">
-                    <p>A Locacar é um projeto de desenvolvimento Java, com parte Web e Desktop.</p>
-                    <br>
-                    <p>Esse projeto engloba as disciplinas de Linguagem de Programação I e Aplicações Web, do 2º ano do Curso Técnico em Informática do CEFET-MG</p>
-                    <br>
-                    <p>São integrantes desse projeto: Gustavo Penido, Henrique Mateus, Lucas Silva e Stella Maris.</p>
-                </div>
-            </div>
-        </div>
         <div class="bg-dark py-3">
-
         </div>
+        
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="position-relative px-lg-5" style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
