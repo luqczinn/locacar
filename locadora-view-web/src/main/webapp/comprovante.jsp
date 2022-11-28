@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
+        <button style="padding: 5px; align-items: center;">IMPRIMIR COMPROVANTE</button>
         <div id="containerComprovante">
             <img src="img/LOCACAR__1_-removebg-preview.png" style="width:50px; height:50px; align-items: center;">
             <h1 style="color: #1d7c42;" class="info">COMPROVANTE DE RESERVA</h1>
