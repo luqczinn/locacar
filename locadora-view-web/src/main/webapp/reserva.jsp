@@ -39,9 +39,9 @@
     </head>
 
     <body>
-       <div class="bg-dark py-3">
+        <div class="bg-dark py-3">
         </div>
-        
+
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="position-relative px-lg-5" style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
@@ -78,189 +78,224 @@
 
 
         <!-- Detail Start -->
-        <form action="ReservaServlet" method="POST">
-        <div class="container-fluid pt-5">
-            <div class="container pt-5 pb-3">
-                <h1 class="display-4 text-uppercase mb-5">${requestScope.nomeVeiculo}</h1>
-                <div class="row align-items-center pb-2">
-                    <div class="col-lg-6 mb-4">
-                        <img class="img-fluid" src="${requestScope.imagemVeiculo}" alt="">
-                    </div>
-                    <div class="col-lg-6 mb-4">
-                        <h4 class="mb-2">${requestScope.valorAluguel} por dia.</h4>
-                        <div class="d-flex mb-3"></div>
-                        <p>Informações do Veículo: Este veículo possui um motor <span>${requestScope.motor}</span>, da marca <span>${requestScope.marca}</span>, do ano <span>${requestScope.ano}</span>, com <span>${requestScope.quilometragem} KM</span> rodados. O seu 
-                            tipo é ${requestScope.tipo}.</p>
-                        <div class="d-flex pt-1">
-                            <h6>Compartilhe em:</h6>
-                            <div class="d-inline-flex">
-                                <a class="px-2" href=""><i class="fab fa-facebook-f"></i></a>
-                                <a class="px-2" href=""><i class="fab fa-twitter"></i></a>
-                                <a class="px-2" href=""><i class="fab fa-linkedin-in"></i></a>
-                                <a class="px-2" href=""><i class="fab fa-pinterest"></i></a>
+        <form action="ReservaServlet" method="POST"  class="needs-validation" novalidate>
+            <div class="container-fluid pt-5">
+                <div class="container pt-5 pb-3">
+                    <h1 class="display-4 text-uppercase mb-5">${requestScope.nomeVeiculo}</h1>
+                    <div class="row align-items-center pb-2">
+                        <div class="col-lg-6 mb-4">
+                            <img class="img-fluid" src="${requestScope.imagemVeiculo}" alt="">
+                        </div>
+                        <div class="col-lg-6 mb-4">
+                            <h4 class="mb-2">${requestScope.valorAluguel} por dia.</h4>
+                            <div class="d-flex mb-3"></div>
+                            <p>Informações do Veículo: Este veículo possui um motor <span>${requestScope.motor}</span>, da marca <span>${requestScope.marca}</span>, do ano <span>${requestScope.ano}</span>, com <span>${requestScope.quilometragem} KM</span> rodados. O seu 
+                                tipo é ${requestScope.tipo}.</p>
+                            <div class="d-flex pt-1">
+                                <h6>Compartilhe em:</h6>
+                                <div class="d-inline-flex">
+                                    <a class="px-2" href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a class="px-2" href=""><i class="fab fa-twitter"></i></a>
+                                    <a class="px-2" href=""><i class="fab fa-linkedin-in"></i></a>
+                                    <a class="px-2" href=""><i class="fab fa-pinterest"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row mt-n3 mt-lg-0 pb-4">
-                    <div class="col-md-3 col-6 mb-2">
-                        <i class="fa fa-car text-primary mr-2"></i>
-                        <span>Modelo: ${requestScope.modelo}</span>
-                    </div>
-                    <div class="col-md-3 col-6 mb-2">
-                        <i class="fa fa-cogs text-primary mr-2"></i>
-                        <span>Câmbio: ${requestScope.cambio}</span>
+                    <div class="row mt-n3 mt-lg-0 pb-4">
+                        <div class="col-md-3 col-6 mb-2">
+                            <i class="fa fa-car text-primary mr-2"></i>
+                            <span>Modelo: ${requestScope.modelo}</span>
+                        </div>
+                        <div class="col-md-3 col-6 mb-2">
+                            <i class="fa fa-cogs text-primary mr-2"></i>
+                            <span>Câmbio: ${requestScope.cambio}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- Detail End -->
+            <!-- Detail End -->
 
 
-        <!-- Car Booking Start -->
-        <div class="container-fluid pb-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <h2 class="mb-4">Detalhes Cliente:</h2>
-                        <div class="mb-5">
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Nome" required="required" disabled value="${requestScope.nomeCliente}">
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Apelido" required="required" disabled value="${requestScope.apelidoCliente}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Email" required="required" disabled value="${requestScope.emailCliente}">
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Telefone" required="required" disabled value="${requestScope.telefoneCliente}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="Data Nascimento" required="required" disabled value="${requestScope.nascimentoCliente}">
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="Endereço" required="required" disabled value="${requestScope.enderecoCliente}">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <input type="email" class="form-control p-4" placeholder="CPF" required="required" disabled value="${requestScope.cpfCliente}">
-                                </div>
-                                <div class="col-6 form-group">
-                                    <input type="text" class="form-control p-4" placeholder="RG" required="required" disabled value="${requestScope.rgCliente}">
-                                </div>
-                            </div>
-                        </div>
-                        <h2 class="mb-4">Detalhes da Reserva:</h2>
-                        <div class="mb-5">
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
-                                    <sql:query dataSource="${conexao}" var="result">
-                                        SELECT * FROM unidades
-                                    </sql:query>
-                                    <select name="localColeta"class="custom-select px-4" style="height: 50px;">
-                                        <option selected>Local de coleta</option>
-                                        <c:forEach var="row" items="${result.rows}">                        
-                                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="col-6 form-group">
-                                    <sql:query dataSource="${conexao}" var="result">
-                                        SELECT * FROM unidades
-                                    </sql:query>
-                                    <select name="localEntrega" class="custom-select px-4" style="height: 50px;">
-                                        <option selected>Local de retorno</option>
-                                        <c:forEach var="row" items="${result.rows}">                        
-                                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 form-group">
-                                    <div class="date" id="date2" data-target-input="nearest">
-                                        <input onkeydown="return false" type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
+            <!-- Car Booking Start -->
+            <div class="container-fluid pb-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h2 class="mb-4">Detalhes Cliente:</h2>
+                            <div class="mb-5">
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <input type="text" class="form-control p-4" placeholder="Nome" required="required" disabled value="${requestScope.nomeCliente}" >
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <input type="text" class="form-control p-4" placeholder="Apelido" required="required" disabled value="${requestScope.apelidoCliente}" >
                                     </div>
                                 </div>
-                                <div class="col-6 form-group">
-                                    <div class="time" id="time2" data-target-input="nearest">
-                                        <input onkeydown="return false" type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <input type="email" class="form-control p-4" placeholder="Email" required="required" disabled value="${requestScope.emailCliente}" >
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <input type="text" class="form-control p-4" placeholder="Telefone" required="required" disabled value="${requestScope.telefoneCliente}" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <input type="email" class="form-control p-4" placeholder="Data Nascimento" required="required" disabled value="${requestScope.nascimentoCliente}" >
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <input type="text" class="form-control p-4" placeholder="Endereço" required="required" disabled value="${requestScope.enderecoCliente}" >
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <input type="email" class="form-control p-4" placeholder="CPF" required="required" disabled value="${requestScope.cpfCliente}" >
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <input type="text" class="form-control p-4" placeholder="RG" required="required" disabled value="${requestScope.rgCliente}" >
                                     </div>
                                 </div>
                             </div>
+                            <h2 class="mb-4">Detalhes da Reserva:</h2>
+                            <div class="mb-5">
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
+                                        <sql:query dataSource="${conexao}" var="result">
+                                            SELECT * FROM unidades
+                                        </sql:query>
+                                        <select name="localColeta"class="custom-select px-4" style="height: 50px;" required>
+                                            <c:forEach var="row" items="${result.rows}">                        
+                                                <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <sql:query dataSource="${conexao}" var="result">
+                                            SELECT * FROM unidades
+                                        </sql:query>
+                                        <select name="localEntrega" class="custom-select px-4" style="height: 50px;" required>
+                                            <c:forEach var="row" items="${result.rows}">                        
+                                                <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <div class="date" id="date2" data-target-input="nearest">
+                                            <input onkeydown="return false" type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" required/>
+                                            <div class="valid-feedback">
+                                                Campo correto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Preencha o campo corretamente.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <div class="time" id="time2" data-target-input="nearest">
+                                            <input onkeydown="return false" type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" required/>
+                                            <div class="valid-feedback">
+                                                Campo correto!
+                                            </div>
+                                            <div class="invalid-feedback">
+                                                Preencha o campo corretamente.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="bg-secondary p-5 mb-5">
+                                <h2 class="text-primary mb-4">Pagamento</h2>
+                                <select name="pagamento" class="custom-select px-4" style="height: 50px;" required>
+                                    <option value="pix">Pix</option>
+                                    <option value="paypal">Paypal</option>
+                                    <option value="cartao">Cartão de crédito</option>
+                                    <option value="dinheiro">Dinheiro (na unidade de coleta)</option>
+                                </select>
+                                <br>
+                                <input type="submit" value="Reserve Agora" class="btn btn-block btn-primary py-3">
+                                </form>
+                            </div>                    
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="bg-secondary p-5 mb-5">
-                            <h2 class="text-primary mb-4">Pagamento</h2>
-                            <select name="pagamento" class="custom-select px-4" style="height: 50px;">
-                                <option selected>Forma de pagamento</option>                     
-                                <option value="pix">Pix</option>
-                                <option value="paypal">Paypal</option>
-                                <option value="cartao">Cartão de crédito</option>
-                                <option value="dinheiro">Dinheiro (na unidade de coleta)</option>
-                            </select>
-                            <br>
-                            <input type="submit" value="Reserve Agora" class="btn btn-block btn-primary py-3">
-                            </form>
-                        </div>                    
+                </div>
+            </div>
+        </div>
+        <!-- Car Booking End -->
+
+
+        <!-- Footer Start -->
+        <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
+            <div class="row pt-5">
+                <div class="col-lg-3 col-md-6 mb-5">
+                    <h4 class="text-uppercase text-light mb-4">Entre em contato</h4>
+                    <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>Av. Amazonas, 7675 - Nova Gameleira, Belo Horizonte</p>
+                    <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+55 31 99510-6573</p>
+                    <p><i class="fa fa-envelope text-white mr-3"></i>contato@locacar.com.br</p>
+                    <h6 class="text-uppercase text-white py-2">Siga-nos</h6>
+                    <div class="d-flex justify-content-start">
+                        <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-    <!-- Car Booking End -->
-
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
-        <div class="row pt-5">
-            <div class="col-lg-3 col-md-6 mb-5">
-                <h4 class="text-uppercase text-light mb-4">Entre em contato</h4>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-white mr-3"></i>Av. Amazonas, 7675 - Nova Gameleira, Belo Horizonte</p>
-                <p class="mb-2"><i class="fa fa-phone-alt text-white mr-3"></i>+55 31 99510-6573</p>
-                <p><i class="fa fa-envelope text-white mr-3"></i>contato@locacar.com.br</p>
-                <h6 class="text-uppercase text-white py-2">Siga-nos</h6>
-                <div class="d-flex justify-content-start">
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                    <a class="btn btn-lg btn-dark btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
-                </div>
+            <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
+                <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
+                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
-        </div>
-        <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
-            <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-            <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
-        </div>
-        <!-- Footer End -->
+            <!-- Footer End -->
 
 
-        <!-- Back to Top -->
-        <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+            <!-- Back to Top -->
+            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
+            <script>
 
-        <!-- JavaScript Libraries -->
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-        <script src="lib/easing/easing.min.js"></script>
-        <script src="lib/waypoints/waypoints.min.js"></script>
-        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-        <script src="lib/tempusdominus/js/moment.min.js"></script>
-        <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-        <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    (function() {
+      'use strict';
+      window.addEventListener('load', function() {
+        let forms = document.getElementsByClassName('needs-validation');
+        let validation = Array.prototype.filter.call(forms, function(form) {
+          form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+          }, false);
+        });
+      }, false);
+    })();
 
-        <!-- Template Javascript -->
-        <script src="js/main.js"></script>
-</body>
+      function refresh(){
+          let forms = document.getElementsByClassName('was-validated');
+          let validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+            form.classList.remove('was-validated');
+            },false)
+          });
+      }
+      </script>
+            <!-- JavaScript Libraries -->
+            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+            <script src="lib/easing/easing.min.js"></script>
+            <script src="lib/waypoints/waypoints.min.js"></script>
+            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+            <script src="lib/tempusdominus/js/moment.min.js"></script>
+            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-</html>
+            <!-- Template Javascript -->
+            <script src="js/main.js"></script>
+            </body>
+
+            </html>

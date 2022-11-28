@@ -17,6 +17,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Cadastro de clientes</title>
+  
+  <link href="img/favicon.png" rel="icon">
+  
   <!-- Google Web Fonts -->
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
@@ -81,7 +84,7 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputCpf">CPF</label>
-        <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="CPF" required>
+        <input type="text" class="form-control" name="cpf" id="inputCpf" placeholder="CPF" pattern="([0-9]{2}[\.]?[0-9]{3}[\.]?[0-9]{3}[\/]?[0-9]{4}[-]?[0-9]{2})|([0-9]{3}[\.]?[0-9]{3}[\.]?[0-9]{3}[-]?[0-9]{2})" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
@@ -93,7 +96,7 @@
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputRg">RG</label>
-      <input type="text" class="form-control" name="RG" id="inputRg" placeholder="RG" required>
+      <input type="text" class="form-control" name="RG" id="inputRg" pattern="(^\d{1,2}).?(\d{3}).?(\d{3})-?(\d{1}|X|x$)" placeholder="RG" required>
       <div class="valid-feedback">
         Campo correto!
       </div>
@@ -127,12 +130,12 @@
       </div>
       <div class="form-group col-md-6">
         <label for="inputTel">Telefone</label>
-        <input type="tel" class="form-control" name="telefone" id="inputTel" placeholder="Telefone" required>
+        <input type="tel" class="form-control" name="telefone" id="inputTel" placeholder="Telefone" pattern="(\([0-9]{2}\))\s([9]{1})?([0-9]{4})-([0-9]{4})" required>
         <div class="valid-feedback">
           Campo correto!
         </div>
         <div class="invalid-feedback">
-          Preencha o campo corretamente.
+          O formato do telefone tem que ser (99) 99999-9999!
         </div>
       </div>
     </div>
