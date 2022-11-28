@@ -9,9 +9,9 @@
 <%@ page import="locadora.locadora.negocio.servico.ServicoUnidades" %>
 <%@ page import="locadora.locadora.negocio.dto.Unidades" %>
 <%@ page import="locadora.locadora.negocio.servico.ServicoTicket" %>
+<%@ page import="locadora.locadora.negocio.dto.Cliente" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -123,37 +123,11 @@
 
    
     
-    <% 
-    String assuntoSelect = (String)request.getParameter("assuntoSelect"); 
-    String assuntoOutro = request.getParameter("assuntoOutro"); 
-    String descricao = request.getParameter("descricao");
-    if(assuntoSelect.equals("1")){
-            assuntoSelect = "Tenho um problema com os dados da minha conta";
-    }
-    if(assuntoSelect.equals("2")){
-            assuntoSelect = "Tenho um problema com as opções de pagamento";
-    }
-    if(assuntoSelect.equals("3")){
-            assuntoSelect = "Não consigo alugar um veículo";
-    }
-    if(assuntoSelect.equals("4")){
-            assuntoSelect = "Encontrei um problema no sistema da Locacar";
-    }
-    if(assuntoSelect.equals("5")){
-            assuntoSelect = assuntoOutro;
-    }
-    
-    
-    LocalDateTime dataHora = LocalDateTime.now();
-    DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-    String data = dataHora.format(dataFormatada);
-    locadora.locadora.negocio.servico.ServicoTicket.cadastrarTicket("souzex", assuntoSelect, descricao, data);
-    %>
     
     <h1 style="text-align: center;  margin-top: 8%;"> MUITO BEM!</h1>
     <h2 style="text-align: center; margin-left: 20%; margin-right: 20%; margin-bottom: 3%;">Você enviou com sucesso um ticket para os serviços da locacar! Enviaremos sua resposta por e-mail quando ela estiver pronta.</h2>
-    <button style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15%;" class="btn btn-primary py-3 px-5" type="submit">Voltar para a Home</button>
-    
+    <button style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 15%;" onclick="window.location.href = 'locadora-view-web/index.jsp'" class="btn btn-primary py-3 px-5" type="submit">Voltar para a Home</button>
+   
     <!-- Footer Start -->
     <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
         <div class="row pt-5">

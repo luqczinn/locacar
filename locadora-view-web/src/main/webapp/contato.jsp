@@ -172,7 +172,7 @@
     <h1 class="titleTicket">CONTATE-NOS</h1>
     <h2 class="title2Ticket">Envie seu ticket contendo seu problema, ou algo que quer nos contar. Preencha os campos, nos envie e trabalharemos para lhe responder o mais rápido possivel!</h2>
     <div class="contact-form bg-light mb-4" style="padding: 30px; margin-right:15%; margin-left:15%; margin-top:4%;">
-        <form action="enviarTicket.jsp" method="post">
+        <form action="TicketServlet" method="post">
           <label>1. Escolha um assunto</label>
           <select name="assuntoSelect" onchange="selectOuString()" id="selectTicket" class="custom-select px-4 mb-3" style="height: 50px;" required>
               <option selected>-</option>

@@ -33,7 +33,6 @@ import locadora.locadora.negocio.servico.ServicoTicket;
 public class ConsultarTickets extends javax.swing.JFrame {
 
     static String usuario;
-    static int[] vetorId;
     static int verStatus = 0;
     static TableColumnModel colmod;
     /**
@@ -57,14 +56,11 @@ public class ConsultarTickets extends javax.swing.JFrame {
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
         List<Ticket> listaTickets = TicketDAO.listarTicketsBD();
         if(listaTickets != null){
-            vetorId = new int[listaTickets.size()];
             for (int i = 0; i < TicketDAO.listarTicketsBD().size(); i++) {
                 if(listaTickets.get(i).getFuncionarioResposta() == null){
-                    vetorId[i] = listaTickets.get(i).getId();
                     modelo.addRow(new Object[]{listaTickets.get(i).getId(), listaTickets.get(i).getAssunto(), listaTickets.get(i).getDataCriada(),listaTickets.get(i).getUsuarioPedido(), "Aberto"});
                 }else{
                     if(verStatus == 1){
-                        vetorId[i] = listaTickets.get(i).getId();
                         modelo.addRow(new Object[]{listaTickets.get(i).getId(), listaTickets.get(i).getAssunto(), listaTickets.get(i).getDataCriada(),listaTickets.get(i).getUsuarioPedido(), "Respondido"});
                     }
                 }
@@ -105,7 +101,6 @@ public class ConsultarTickets extends javax.swing.JFrame {
         jCheckBox1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Consulta Tickets");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tickets"));
 
@@ -220,18 +215,16 @@ public class ConsultarTickets extends javax.swing.JFrame {
 
     private void btn_responderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_responderActionPerformed
    
-            int x = tlb_tickets.getSelectedRow();
-            int ticketId = vetorId[x];
-            Controle.abrirResponderTicket(usuario, ticketId);
+            int x =  (int) tlb_tickets.getValueAt(tlb_tickets.getSelectedRow(), 0);
+            Controle.abrirResponderTicket(usuario, x);
               
     }//GEN-LAST:event_btn_responderActionPerformed
 
     private void btn_excluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_excluirActionPerformed
       
-                int x = tlb_tickets.getSelectedRow();
-                int ticketId = vetorId[x];
+                int x =  (int) tlb_tickets.getValueAt(tlb_tickets.getSelectedRow(), 0);
                 try {
-                    ServicoTicket.removerTicket(ticketId, usuario);
+                    ServicoTicket.removerTicket(x, usuario);
                     LoadTableContent();
                 } catch (NoSuchAlgorithmException ex) {
                     Logger.getLogger(ConsultarTickets.class.getName()).log(Level.SEVERE, null, ex);

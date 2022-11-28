@@ -13,6 +13,19 @@ import locadora.locadora.negocio.dto.Ticket;
 import locadora.locadora.database.Conexao;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import locadora.locadora.negocio.dto.Cliente;
 import locadora.locadora.negocio.servico.ServicoLog;
 
 /**
@@ -56,7 +69,7 @@ public class TicketDAO {
     public static Ticket responderTicketBD(int id, String funcionarioResposta, String resposta, String dataRespondida)throws SQLException, Exception{
         Ticket ticket = consultarPorId(id);
         if(ticket != null){
-            String sql = "UPDATE tickets SET funcionarioResposta = '"+funcionarioResposta+"', dataRespondida = '"+dataRespondida+"' WHERE id = "+String.valueOf(id);
+            String sql = "UPDATE tickets SET funcionarioResposta = '"+funcionarioResposta+"',resposta='"+resposta+"', dataRespondida = '"+dataRespondida+"' WHERE id = "+String.valueOf(id);
             System.out.println(sql);
             Connection com = Conexao.getConnection();
             PreparedStatement pstmt = com.prepareStatement(sql);
@@ -109,5 +122,46 @@ public class TicketDAO {
         }
         return null;
     }
-
+    public static void sendEmail(Ticket ticket) throws SQLException {
+        try {
+            Properties properties = new Properties();
+            
+            properties.put("mail.smtp.auth", "true");
+            properties.put("mail.smtp.starttls.enable", "true");
+            properties.put("mail.smtp.host", "smtp.gmail.com");
+            properties.put("mail.smtp.port", "587");
+            
+            String myAccountEmail = "locacar25@gmail.com";
+            String password = "ypoymhayjxbtegsw";
+            
+            Session session = Session.getInstance(properties, new Authenticator() {
+                @Override
+                protected PasswordAuthentication getPasswordAuthentication(){
+                    return new PasswordAuthentication(myAccountEmail, password);
+                }
+            });
+            String username = ticket.getUsuarioPedido();
+            Cliente cliente = ClientesDAO.procurarCliente(username);
+            Message message = prepareMessage(session, myAccountEmail, cliente.getEmail(), ticket);
+            
+            Transport.send(message);
+            System.out.println("Mensagem enviada com sucesso!");
+        } catch (MessagingException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private static Message prepareMessage(Session session, String myAccountEmail, String recepient, Ticket ticket) throws MessagingException{
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(myAccountEmail));
+            message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+            message.setSubject("Seu ticket foi respondido! Confira aqui.");
+            message.setContent("<h1>Resposta da Locacar ao ticket</h1> <p>Olá "+ticket.getUsuarioPedido()+"!</p> <p>Seu ticket enviado ao Serviço da Locacar foi respondido. Agradeçemos a espera!</p> <h3>Informações do Ticket:</h3> <p><b>Criado por:</b>"+ticket.getUsuarioPedido()+"</p> <p><b>Enviado em: </b>"+ticket.getDataCriada()+"</p> <p><b>Assunto: </b>"+ticket.getAssunto()+"</p> <p><b>Descrição: </b>"+ticket.getDescricao()+"</p> <h3>Resposta:</h3> <p><b>"+ticket.getResposta()+"</b></p>", "text/html");
+            return message;
+        } catch (AddressException ex) {
+            Logger.getLogger(TicketDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 }

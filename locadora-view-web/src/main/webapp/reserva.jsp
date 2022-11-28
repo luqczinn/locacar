@@ -62,7 +62,7 @@
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
                             <a href="service.html" class="nav-item nav-link">Serviços</a>
                             <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
                             <a href="contact.html" id="entrarBtn" class="nav-item nav-link">Entrar</a>
                         </div>
                     </div>

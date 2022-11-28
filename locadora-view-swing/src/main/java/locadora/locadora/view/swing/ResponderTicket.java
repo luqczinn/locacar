@@ -69,8 +69,8 @@ public class ResponderTicket extends javax.swing.JFrame {
                 txt_usuario.setText("Enviado por: "+ticket.getUsuarioPedido());
                 txt_data.setText("Data: "+ticket.getDataCriada());
                 field_descricao.setText(ticket.getDescricao());
-                field_resposta.setEditable(false);
                 field_resposta.setText(ticket.getResposta());
+                field_resposta.setEditable(false);
                 jPanel2.setBorder(BorderFactory.createTitledBorder("Resposta"));
                 jButton3.setVisible(false);
                 txt_funcionario.setText(ticket.getFuncionarioResposta());
@@ -105,7 +105,6 @@ public class ResponderTicket extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Responder Tickets");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Ticket"));
 
@@ -282,11 +281,13 @@ public class ResponderTicket extends javax.swing.JFrame {
             DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
             String data = dataHora.format(dataFormatada);
             ServicoTicket.responderTicket(ticketId, usuario, resposta, data);
+            Ticket ticket = TicketDAO.consultarPorId(ticketId);
+            TicketDAO.sendEmail(ticket);
             ConsultarTickets.LoadTableContent();
             this.dispose();
         } catch (SQLException ex) {
             Logger.getLogger(ResponderTicket.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
+       } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(ResponderTicket.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ResponderTicket.class.getName()).log(Level.SEVERE, null, ex);

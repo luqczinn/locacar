@@ -104,8 +104,14 @@ public class servletLogin extends HttpServlet {
                     pstmt.close();
                     com.close();
                     
-                    
                     String vinda = (String) request.getParameter("vinda");
+                    
+                    //Codigo para conseguir definir "vinda" com getAttribute()"
+                    String teste = (String) request.getAttribute("vinda2");
+                    if(teste != null){
+                        vinda = teste;
+                    }
+                    
                     String destino = "";
                     if (vinda.equals("home")) {
                         destino = "/index.jsp";
@@ -147,6 +153,15 @@ public class servletLogin extends HttpServlet {
                         request.setAttribute("valorTotalLocacao", valorTotalLocacao);
                         request.setAttribute("user", user);
                         request.setAttribute("cliente", clienteBD);
+                    } else if(vinda.equals("enviarTicket")){
+                        destino = "/contato.jsp";
+                        String assuntoSelect = (String)request.getParameter("assuntoSelect"); 
+                        String assuntoOutro = (String)request.getParameter("assuntoOutro"); 
+                        String descricao = (String)request.getParameter("descricao");
+                        request.setAttribute("assuntoSelect", assuntoSelect);
+                        request.setAttribute("assuntoOutro", assuntoOutro);
+                        request.setAttribute("descricao", descricao);
+                        request.setAttribute("user", user);
                     }
                     RequestDispatcher rd4 = request.getRequestDispatcher(destino);
                     rd4.forward(request, response);
