@@ -464,3 +464,19 @@ td {
     border-style: solid;
     text-align: center;
 }
+
+.tableScroll{
+    max-widht: 100%;
+    overflow: scroll;
+}
+
+.tabelasMostra{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.tabelas{
+    max-widht: 50%;
+}
