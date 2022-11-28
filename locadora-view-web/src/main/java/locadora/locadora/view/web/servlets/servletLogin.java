@@ -39,44 +39,65 @@ import locadora.locadora.negocio.servico.ServicoLog;
 @WebServlet(urlPatterns = {"/servletLogin"})
 public class servletLogin extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, negocioException, SQLException, UnsupportedEncodingException, NoSuchAlgorithmException, persistenciaException, Exception {
-        response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String user = request.getParameter("usuario");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException, UnsupportedEncodingException, UnsupportedEncodingException {
+        try {
+            Usuario u = null;
+            Cliente c = null;
+            String checkBox[] = request.getParameterValues("checkbox");
+            String valorCheckbox = checkBox[0];
+            String user = request.getParameter("user");
             String senha = request.getParameter("senha");
-            String ip = request.getRemoteAddr();
-            HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            String tipoLogin = "";
 
-            if (user.isEmpty() | senha.isEmpty()) {
-                session.setAttribute("erro", "I");
-                RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
-                rd.forward(request, response);
-            }
-
-            if (ServicoUsuarios.logarUsuario(user, senha) == null) {
-                if (ServicoClientes.logarCliente(user, senha) == null) {
-                    session.setAttribute("erro", "I");
+            if (valorCheckbox.equals("usuario")) {
+                u = ServicoUsuarios.logarUsuario(user, senha);
+                if (u.getUsername().equals(user) && u.getSenha().equals(ClientesDAO.criptografarSenha(senha))) {
+                    tipoLogin = "usuario";
+                }
+                else {
+                    request.setAttribute("erro", "Credenciais incorretas!");
                     RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
                     rd.forward(request, response);
-                } else {
-                    Cliente cliente = ServicoClientes.logarCliente(user, senha);
-                    String cpf = cliente.getCpf();
-                    String nome = cliente.getNome();
+                }
+            } else if (valorCheckbox.equals("cliente")) {
+                c = ServicoClientes.logarCliente(user, senha);
+                if (c.getUsername().equals(user) && c.getSenha().equals(ClientesDAO.criptografarSenha(senha))) {
+                    tipoLogin = "cliente";
+                }
+                else{
+                    request.setAttribute("erro", "Credenciais incorretas!");
+                    RequestDispatcher rd = request.getRequestDispatcher("/Login.jsp");
+                    rd.forward(request, response);
+                }
+            }
+            HttpSession session = request.getSession();
+            String ip = request.getRemoteAddr();
+            session.setAttribute("user", user);
+
+            switch (tipoLogin) {
+
+                case "usuario":
+                    request.setAttribute("user", u);
+                    ServicoLog.registrarLogUsuario(u);
+                    RequestDispatcher rd3 = request.getRequestDispatcher("/index.jsp");
+                    rd3.forward(request, response);
+
+                    break;
+
+                case "cliente":
+                    
+                    
+                    String cpf = c.getCpf();
+                    String nome = c.getNome();
                     String clienteBD = nome + "|" + cpf;
-                    session.setAttribute("cliente", clienteBD);
-                    session.setAttribute("ip", ip);
+                    request.setAttribute("cliente", clienteBD);
+                    request.setAttribute("ip", ip);
                     SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
                     String agora = formater.format(new Date());
                     String sql = "INSERT INTO logCliente VALUES('" + clienteBD + "','" + ip + "','" + agora + "')";
@@ -85,115 +106,76 @@ public class servletLogin extends HttpServlet {
                     pstmt.execute();
                     pstmt.close();
                     com.close();
-                    Object vinda = (String) session.getAttribute("vinda");
+                    String vinda = "index.jsp"; //(String) request.getAttribute("vinda");
                     String destino = "";
-                    if (vinda == "home") {
-                        destino = "index.jsp";
-                        session.setAttribute("user", session.getAttribute("user"));
-                        session.setAttribute("cliente", session.getAttribute("clienteBD"));
-                    } else if (vinda == "listagemVeiculos") {
-                        destino = "veiculos.jsp";
-                        Object dataLocacao = (String) session.getAttribute("dataLocacao");
-                        Object dataDevolucao = (String) session.getAttribute("dataDevolucao");
-                        Object tipo = (String) session.getAttribute("tipo");
-                        Object unidadeEntrega = (String) session.getAttribute("unidadeEntrega");
-                        Object unidadeDevolucao = (String) session.getAttribute("unidadeDevolucao");
-                        session.setAttribute("dataLocacao", dataLocacao);
-                        session.setAttribute("dataDevolucao", dataDevolucao);
-                        session.setAttribute("tipo", tipo);
-                        session.setAttribute("unidadeEntrega", unidadeEntrega);
-                        session.setAttribute("unidadeDevolucao", unidadeDevolucao);
-                        session.setAttribute("user", session.getAttribute("user"));
-                        session.setAttribute("cliente", session.getAttribute("clienteBD"));
-                    } else if (vinda == "reservaVeiculos") {
-                        destino = "reserva.jsp";
-                        Object dataLocacao = (String) session.getAttribute("dataLocacao");
-                        Object dataDevolucao = (String) session.getAttribute("dataDevolucao");
-                        Object imagemVeiculo = (String) session.getAttribute("imagemVeiculo");
-                        Object motor = (String) session.getAttribute("motor");
-                        Object tipo = (String) session.getAttribute("tipo");
-                        Object ano = (String) session.getAttribute("ano");
-                        Object quilometragem = (String) session.getAttribute("quilometragem");
-                        Object unidadeEntrega = (String) session.getAttribute("unidadeEntrega");
-                        Object unidadeDevolucao = (String) session.getAttribute("unidadeDevolucao");
-                        Object marca = (String) session.getAttribute("marca");
-                        Object placaVeiculo = (String) session.getAttribute("placaVeiculo");
-                        Object vendedor = (String) session.getAttribute("vendedor");
-                        Object valorLocacao = (String) session.getAttribute("valorLocacao");
-                        Object valorTotalLocacao = (String) session.getAttribute("valorTotalLocacao");
-                        session.setAttribute("dataLocacao", dataLocacao);
-                        session.setAttribute("dataDevolucao", dataDevolucao);
-                        session.setAttribute("imagemVeiculo", imagemVeiculo);
-                        session.setAttribute("motor", motor);
-                        session.setAttribute("tipo", tipo);
-                        session.setAttribute("ano", ano);
-                        session.setAttribute("quilometragem", quilometragem);
-                        session.setAttribute("unidadeEntrega", unidadeEntrega);
-                        session.setAttribute("unidadeDevolucao", unidadeDevolucao);
-                        session.setAttribute("marca", marca);
-                        session.setAttribute("placaVeiculo", placaVeiculo);
-                        session.setAttribute("vendedor", vendedor);
-                        session.setAttribute("valorLocacao", valorLocacao);
-                        session.setAttribute("valorTotalLocacao", valorTotalLocacao);
-                        session.setAttribute("user", session.getAttribute("user"));
-                        session.setAttribute("cliente", session.getAttribute("clienteBD"));
+                    if (vinda.equals("home")) {
+                        destino = "/index.jsp";
+                        request.setAttribute("user", user);
+                        request.setAttribute("cliente", clienteBD);
+                    } else if (vinda.equals("listagemVeiculos")) {
+                        destino = "/veiculos.jsp";
+                        String dataLocacao = (String) request.getAttribute("dataLocacao");
+                        String dataDevolucao = (String) request.getAttribute("dataDevolucao");
+                        String tipo = (String) request.getAttribute("tipo");
+                        String unidadeEntrega = (String) request.getAttribute("unidadeEntrega");
+                        String unidadeDevolucao = (String) request.getAttribute("unidadeDevolucao");
+                        request.setAttribute("dataLocacao", dataLocacao);
+                        request.setAttribute("dataDevolucao", dataDevolucao);
+                        request.setAttribute("tipo", tipo);
+                        request.setAttribute("unidadeEntrega", unidadeEntrega);
+                        request.setAttribute("unidadeDevolucao", unidadeDevolucao);
+                        request.setAttribute("user", user);
+                        request.setAttribute("cliente", clienteBD);
+                    } else if (vinda.equals("reservaVeiculos")) {
+                        destino = "/reserva.jsp";
+                        String dataLocacao = (String) request.getAttribute("dataLocacao");
+                        String dataDevolucao = (String) request.getAttribute("dataDevolucao");
+                        String imagemVeiculo = (String) request.getAttribute("imagemVeiculo");
+                        String motor = (String) request.getAttribute("motor");
+                        String tipo = (String) request.getAttribute("tipo");
+                        String ano = (String) request.getAttribute("ano");
+                        String quilometragem = (String) request.getAttribute("quilometragem");
+                        String unidadeEntrega = (String) request.getAttribute("unidadeEntrega");
+                        String unidadeDevolucao = (String) request.getAttribute("unidadeDevolucao");
+                        String marca = (String) request.getAttribute("marca");
+                        String placaVeiculo = (String) request.getAttribute("placaVeiculo");
+                        String vendedor = (String) request.getAttribute("vendedor");
+                        String valorLocacao = (String) request.getAttribute("valorLocacao");
+                        String valorTotalLocacao = (String) request.getAttribute("valorTotalLocacao");
+                        request.setAttribute("dataLocacao", dataLocacao);
+                        request.setAttribute("dataDevolucao", dataDevolucao);
+                        request.setAttribute("imagemVeiculo", imagemVeiculo);
+                        request.setAttribute("motor", motor);
+                        request.setAttribute("tipo", tipo);
+                        request.setAttribute("ano", ano);
+                        request.setAttribute("quilometragem", quilometragem);
+                        request.setAttribute("unidadeEntrega", unidadeEntrega);
+                        request.setAttribute("unidadeDevolucao", unidadeDevolucao);
+                        request.setAttribute("marca", marca);
+                        request.setAttribute("placaVeiculo", placaVeiculo);
+                        request.setAttribute("vendedor", vendedor);
+                        request.setAttribute("valorLocacao", valorLocacao);
+                        request.setAttribute("valorTotalLocacao", valorTotalLocacao);
+                        request.setAttribute("user", user);
+                        request.setAttribute("cliente", clienteBD);
                     }
-                    RequestDispatcher rd = request.getRequestDispatcher("/veiculos.jsp");
-                    rd.forward(request, response);
-                }
-            } else {
-                Usuario usuario = ServicoUsuarios.logarUsuario(user, senha);
-                ServicoLog.registrarLogUsuario(usuario);
-                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                rd.forward(request, response);
+                    RequestDispatcher rd4 = request.getRequestDispatcher(destino);
+                    rd4.forward(request, response);
+
+                    break;
             }
 
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        try {
-            processRequest(request, response);
         } catch (negocioException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (persistenciaException ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException, UnsupportedEncodingException {
-        try {
-            processRequest(request, response);
-        } catch (negocioException ex) {
+            String user = request.getParameter("user");
+            String senha = request.getParameter("senha");
+            if (user.isEmpty() | senha.isEmpty()) {
+                request.setAttribute("erro", "Insira suas credenciais!");
+                RequestDispatcher rd1 = request.getRequestDispatcher("/Login.jsp");
+                rd1.forward(request, response);
+            }
+            request.setAttribute("erro", "Credenciais incorretas!");
+            RequestDispatcher rd2 = request.getRequestDispatcher("/Login.jsp");
+            rd2.forward(request, response);
             Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(servletLogin.class.getName()).log(Level.SEVERE, null, ex);
