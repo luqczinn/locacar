@@ -25,9 +25,11 @@ public class ConsultarReservas extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarReservas
      */
-    public ConsultarReservas(java.awt.Frame parent, boolean modal) throws SQLException {
+    public String usuario = "";
+    public ConsultarReservas(java.awt.Frame parent, boolean modal, String usuario) throws SQLException {
         //super(parent, modal);
         initComponents();
+        this.usuario = usuario;
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         modo = "Navegar";
@@ -244,7 +246,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
 
     private void btn_nova_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_reservaActionPerformed
         modo = "Novo";
-        Controle.abrirCadastroReservas();
+        Controle.abrirCadastroReservas(usuario);
         setVariavelB(modo);
     }//GEN-LAST:event_btn_nova_reservaActionPerformed
 
@@ -258,7 +260,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         setVariavelA(x);
-        Controle.abrirCadastroReservas();
+        Controle.abrirCadastroReservas(usuario);
     }//GEN-LAST:event_btn_editar_reservaActionPerformed
 
     private void tlb_reservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_reservasMouseClicked

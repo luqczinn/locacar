@@ -238,7 +238,7 @@ public class Controle {
         new ConsultaVeiculo(usuario).setVisible(true);
     }
 
-    public static void abrirConsultaReservas() {
+    public static void abrirConsultaReservas(String usuario) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -267,7 +267,7 @@ public class Controle {
             public void run() {
                 ConsultarReservas dialog = null;
                 try {
-                    dialog = new ConsultarReservas(new javax.swing.JFrame(), true);
+                    dialog = new ConsultarReservas(new javax.swing.JFrame(), true, usuario);
                 } catch (SQLException ex) {
                     Logger.getLogger(Controle.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -325,7 +325,7 @@ public class Controle {
         });
     }
 
-    public static void abrirCadastroReservas() {
+    public static void abrirCadastroReservas(String usuario) {
         
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -350,7 +350,7 @@ public class Controle {
             public void run() {
                 try {
                     CadastroReservas dialog = null;
-                    dialog = new CadastroReservas(new javax.swing.JFrame(), true);
+                    dialog = new CadastroReservas(new javax.swing.JFrame(), true, usuario);
                     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                         @Override
                         public void windowClosing(java.awt.event.WindowEvent e) {
