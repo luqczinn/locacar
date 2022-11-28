@@ -51,11 +51,11 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="home.html" class="nav-item nav-link active">Home</a>
+                            <a href="index.jsp" class="nav-item nav-link active">Home</a>
                             <a href="about.html" class="nav-item nav-link">Sobre</a>
                             <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
                             <a href="contact.html" id="entrarBtn" class="nav-item nav-link">Entrar</a>
                         </div>
                     </div>
