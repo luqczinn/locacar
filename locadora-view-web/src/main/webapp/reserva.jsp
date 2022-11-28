@@ -78,7 +78,7 @@
 
 
         <!-- Detail Start -->
-        <form action="ReservaServlet" method="POST">
+        <form action="ComprovanteServlet" method="POST">
             <div class="container-fluid pt-5">
                 <div class="container pt-5 pb-3">
                     <h1 class="display-4 text-uppercase mb-5">${requestScope.nomeVeiculo}</h1>
@@ -196,7 +196,7 @@
                                 <div class="row">
                                     <div class="col-6 form-group">
                                         <div class="date" id="date2" data-target-input="nearest">
-                                            <input onkeydown="return false" type="date" id="dataRetirada" name="dataColeta" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
+                                            <input onkeydown="return false" type="date" id="dataRetirada" name="dataRetirada" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
                                         </div>
                                     </div>
                                     <div class="col-6 form-group">
