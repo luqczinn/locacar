@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import locadora.locadora.negocio.dto.Reservas;
 import java.util.List;
 import locadora.locadora.database.Conexao;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 public class ReservasDAO {
 
@@ -34,7 +35,7 @@ public class ReservasDAO {
         return null;
     }
 
-    public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva) throws SQLException {
+    public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva, String usuario) throws SQLException, Exception {
         if (consultarPorCodigo(codigo) == null) {
             Reservas reserva = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
             String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
@@ -43,6 +44,10 @@ public class ReservasDAO {
             pstmt.execute();
             pstmt.close();
             com.close();
+            String acao = "ADICAO";
+            String descricao = "RESERVA@" + codigo;
+            ServicoLog.registrarLogs(acao, descricao, usuario);
+            System.out.println("Chegou no DAO");
             return reserva;
         }
         return null;

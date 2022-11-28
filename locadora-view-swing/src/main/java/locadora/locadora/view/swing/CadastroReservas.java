@@ -42,11 +42,13 @@ public class CadastroReservas extends javax.swing.JFrame {
     /**
      * Creates new form CadastroReservas
      */
+    String usuario = "";
     List<Reservas> listaReservas = ServicoReservas.listarReservas();
 
-    public CadastroReservas(java.awt.Frame parent, boolean modal) throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
+    public CadastroReservas(java.awt.Frame parent, boolean modal, String usuario) throws SQLException, negocioException, UnsupportedEncodingException, NoSuchAlgorithmException {
         //super(parent, modal);
         initComponents();
+        this.usuario = usuario;
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         String modo = "";
@@ -599,18 +601,23 @@ public class CadastroReservas extends javax.swing.JFrame {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
         double valorTotal = diaria * diasInt;
-        if(ConsultarReservas.getVariavelB() != null)
-        if (ConsultarReservas.getVariavelB().equals("Editar")) {
-            try {
-                ServicoReservas.removerReservaPorCodigo(Integer.valueOf(codReserva));
-                ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal));
-            } catch (negocioException | SQLException ex) {
-                Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        if (ConsultarReservas.getVariavelB() != null) {
+            if (ConsultarReservas.getVariavelB().equals("Editar")) {
+                try {
+                    ServicoReservas.removerReservaPorCodigo(Integer.valueOf(codReserva));
+                    ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal), usuario);
+                } catch (negocioException | SQLException ex) {
+                    Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         try {
-            ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal));
+            ServicoReservas.inserirReservaBD(Integer.valueOf(codReserva), cliente, vendedor, veiculo, unidade, dataDeColeta, dataDeEntrega, Double.toString(diaria), Double.toString(valorTotal), usuario);
         } catch (negocioException | SQLException ex) {
+            Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(CadastroReservas.class.getName()).log(Level.SEVERE, null, ex);
         }
 
