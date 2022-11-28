@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import locadora.locadora.database.Conexao;
 import locadora.locadora.negocio.dto.Log;
+import locadora.locadora.negocio.dto.Logs;
 import locadora.locadora.negocio.dto.Usuario;
 
 /**
@@ -86,6 +87,29 @@ public class ServicoLog {
         pstmt.close();
         com.close();
         System.out.println(usuario + "|" + acao + "|" + descricao + "| em" + dataHora.format(dataFormatada));
+    }
+    
+    public static List<Logs> listaLogsAcao() throws Exception {
+        String sql = "SELECT * FROM logs ORDER BY id DESC LIMIT 10";
+        Connection com = Conexao.getConnection();
+        PreparedStatement pstmt = com.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery(sql);
+        List<Logs> listaLogsAcao = new ArrayList<>();
+        while (rs.next()) {
+            int id =  rs.getInt("id");
+            String acao = rs.getString("acao");
+            String descricao = rs.getString("descricao");
+            String usuario = rs.getString("usuario");
+            String dataHora = rs.getString("dataHora");
+            listaLogsAcao.add(new Logs(id, acao, descricao, usuario, dataHora));
+        }
+        com.close();
+        rs.close();
+        pstmt.close();
+        if (listaLogsAcao.isEmpty() != true) {
+            return listaLogsAcao;
+        }
+        return null;
     }
 }
 
