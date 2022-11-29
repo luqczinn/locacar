@@ -6,6 +6,8 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -39,11 +41,11 @@ public class ConsultarReservas extends javax.swing.JFrame {
     public void LoadTableContent() throws SQLException {
         Object Colunas[] = {"Código", "Cliente", "Vendedor", "Veiculo", "Unidade", "Coleta", "Entrega", "Valor diário", "Valor total"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
-
-        for (int i = 0; i < ReservasDAO.listarReservasBD().size(); i++) {
-            modelo.addRow(new Object[]{ReservasDAO.listarReservasBD().get(i).getCodigo(), ReservasDAO.listarReservasBD().get(i).getCliente(), ReservasDAO.listarReservasBD().get(i).getVendedor(), ReservasDAO.listarReservasBD().get(i).getVeiculo(),
-                ReservasDAO.listarReservasBD().get(i).getUnidade(), ReservasDAO.listarReservasBD().get(i).getInicio(), ReservasDAO.listarReservasBD().get(i).getFim(), "R$ " + ReservasDAO.listarReservasBD().get(i).getValorDiaria(),
-                "R$ " + ReservasDAO.listarReservasBD().get(i).getValorReserva()});
+        List<Reservas> listaReservas = ReservasDAO.listarReservasBD();
+        for (int i = 0; i < listaReservas.size(); i++) {
+            modelo.addRow(new Object[]{listaReservas.get(i).getCodigo(), listaReservas.get(i).getCliente(), listaReservas.get(i).getVendedor(), listaReservas.get(i).getVeiculo(),
+                listaReservas.get(i).getUnidade(), listaReservas.get(i).getInicio(), listaReservas.get(i).getFim(), "R$ " + listaReservas.get(i).getValorDiaria(),
+                "R$ " + listaReservas.get(i).getValorReserva()});
         }
 
         tlb_reservas.setModel(modelo);
