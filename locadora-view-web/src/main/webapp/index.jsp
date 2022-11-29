@@ -44,7 +44,23 @@
                             <a href="#" class="nav-item nav-link ">Sobre</a>
                             <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
                             <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <%
+                                if(request.getAttribute("user") == null){
+                            %>
                             <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <%
+                                }
+                                else{
+                            %>
+                            <form action="perfil.jsp" method="post">
+                                <input name="apelidoCliente" value="${requestScope.user}" style="display: none;">
+                                <input name="nomeCliente" value="${requestScope.nome}" style="display: none;">
+                                <input name="emailCliente" value="${requestScope.email}" style="display: none;">
+                                <input name="telefoneCliente" value="${requestScope.tel}" style="display: none;">
+                                <input name="enderecoCliente" value="${requestScope.endereco}" style="display: none;">
+                                <input type="submit" value="Meu perfil" class="nav-item nav-link">
+                            </form>
+                            <%}%>
                         </div>
                     </div>
                 </nav>

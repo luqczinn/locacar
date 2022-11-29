@@ -18,7 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import locadora.locadora.negocio.dao.ClientesDAO;
 import locadora.locadora.negocio.dao.UnidadesDAO;
+import locadora.locadora.negocio.dto.Cliente;
 import locadora.locadora.negocio.dto.Unidades;
 import locadora.locadora.negocio.excessoes.negocioException;
 import locadora.locadora.negocio.servico.ServicoUnidades;
@@ -43,7 +45,8 @@ public class abrirHome extends HttpServlet {
             throws ServletException, IOException, negocioException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
-
+            
+            
             List<Unidades> unidades = ServicoUnidades.listarUnidades();
 
             List listaUnidades = new ArrayList();

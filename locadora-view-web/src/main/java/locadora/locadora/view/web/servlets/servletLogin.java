@@ -91,10 +91,18 @@ public class servletLogin extends HttpServlet {
                     break;
 
                 case "cliente":
-
+                    
+                    String email = c.getEmail();
+                    String tel = c.getTelefone();
+                    String endereco = c.getEndereco();
                     String cpf = c.getCpf();
                     String nome = c.getNome();
                     String clienteBD = nome + "|" + cpf;
+                    request.setAttribute("user", user);
+                    request.setAttribute("nome", nome);
+                    request.setAttribute("email", email);
+                    request.setAttribute("tel", tel);
+                    request.setAttribute("endereco", endereco);
                     request.setAttribute("cliente", clienteBD);
                     request.setAttribute("ip", ip);
                     SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
@@ -117,8 +125,7 @@ public class servletLogin extends HttpServlet {
                     String destino = "";
                     if (vinda.equals("home")) {
                         destino = "/index.jsp";
-                        request.setAttribute("user", user);
-                        request.setAttribute("cliente", clienteBD);
+                        
                     } else if (vinda.equals("listagemVeiculos")) {
                         destino = "/abrirBooking";
                         request.setAttribute("user", user);

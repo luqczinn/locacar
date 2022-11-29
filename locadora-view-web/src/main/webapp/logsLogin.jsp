@@ -8,7 +8,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
     <head>
         <meta charset="utf-8">
@@ -82,86 +82,85 @@
         <!-- Page Header Start -->
 
         <div class="container-fluid bg-white pt-3 px-lg-5">
-            <div class="row mx-n2">
+            <div class="row mx-n2 tabelasMostra">
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                     <form action="logsLogin.jsp" method="GET">
                         <h1 class="ls-login-logo ">Escolha a tabela</h1>
                         <select name="tipoTabela" id="tipoTabela" class="custom-select px-4 mb-3" style="height: 50px;">
-                            <option value="c">Cliente</option>
-                            <option value="f">Funcionário</option>
+                            <option value="1">Cliente</option>
+                            <option value="2">Funcionário</option>
                         </select>
                 </div>
             </div>
-            <div class="row mx-n2">
+            <div class="row mx-n2 tabelasMostra">
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
                     <input type="submit" class="btn btn-primary btn-block mb-3" type="submit" value="Procurar" style="height: 50px; "/>
                     </form>
                 </div>
             </div>
-        </div>
-        <% 
-            if(request.getParameter("tipoTabela").equals('c')){
-        %>
-            <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
-            <sql:query dataSource="${conexao}" var="result">
-                SELECT * FROM logCliente ORDER BY dataHora desc
-            </sql:query>
-            <div class="tabelasMostra">
+        
+        <c:set var="tipo" value="${param.tipoTabela}"/>
+        <c:choose>
+            <c:when test= "${tipo < 2}">    
+                <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
+                <sql:query dataSource="${conexao}" var="result">
+                    SELECT * FROM logCliente ORDER BY dataHora desc
+                </sql:query>
+                <div class="tabelasMostra">
+                    <!-- Tabela de Logs -->
+                    <div class="tabela">
+                        <table id="tabelCliente" class="tabelas">
+                            <!--Linha de titulos -->
+                            <tr id="titulo">
+                                <td>Usuário</td>
+                                <td>Hora</td>
+                            </tr>      
+                            <c:forEach var="row" items="${result.rows}">                        
+                                <tr> 
+                                    <td>
+                                        <c:out value = "${row.cliente}"/> 
+                                    </td>
+                                    <td>
+                                        <c:out value = "${row.dataHora}"/> 
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </div>
+                </div>
+            </c:when>
+            <c:when test= "${tipo > 1}">
+                <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
+                <sql:query dataSource="${conexao}" var="result">
+                    SELECT * FROM log ORDER BY horaLogin desc
+                </sql:query>
                 <!-- Tabela de Logs -->
-                <div class="tabela">
-                    <table id="tabelCliente" class="tabelas">
+                <div class="tabelasMostra">
+                    <table id="tabelFuncionario" class="tabelas">
                         <!--Linha de titulos -->
                         <tr id="titulo">
                             <td>Usuário</td>
+                            <td>Cargo</td>
                             <td>Hora</td>
                         </tr>      
                         <c:forEach var="row" items="${result.rows}">                        
                             <tr> 
                                 <td>
-                                    <c:out value = "${row.cliente}"/> 
+                                    <c:out value = "${row.funcionario}"/> 
                                 </td>
                                 <td>
-                                    <c:out value = "${row.dataHora}"/> 
+                                    <c:out value = "${row.cargo}"/> 
+                                </td>
+                                <td>
+                                    <c:out value = "${row.horaLogin}"/> 
                                 </td>
                             </tr>
                         </c:forEach>
                     </table>
                 </div>
-            </div>
-                <% } %>
-            <% 
-                if(request.getParameter("tipoTabela").equals('f')){
-            %>
-            <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
-            <sql:query dataSource="${conexao}" var="result">
-                SELECT * FROM log ORDER BY horaLogin desc
-            </sql:query>
-            <!-- Tabela de Logs -->
-            <div class="tabela">
-                <table id="tabelFuncionario" class="tabelas">
-                    <!--Linha de titulos -->
-                    <tr id="titulo">
-                        <td>Usuário</td>
-                        <td>Cargo</td>
-                        <td>Hora</td>
-                    </tr>      
-                    <c:forEach var="row" items="${result.rows}">                        
-                        <tr> 
-                            <td>
-                                <c:out value = "${row.funcionario}"/> 
-                            </td>
-                            <td>
-                                <c:out value = "${row.cargo}"/> 
-                            </td>
-                            <td>
-                                <c:out value = "${row.horaLogin}"/> 
-                            </td>
-                        </tr>
-                    </c:forEach>
-                </table>
-            </div>
-            <% } %>
-
+            </c:when>
+        </c:choose>
+        </div>
             <!-- Footer Start -->
             <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
                 <div class="row pt-5">
@@ -191,7 +190,7 @@
 
 
                 <!-- JavaScript Libraries -->
-
+                <script src="js/ajax.js"></script>
                 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
                 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
                 <script src="lib/easing/easing.min.js"></script>

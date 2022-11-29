@@ -463,11 +463,7 @@ td {
     border-width: 1px;
     border-style: solid;
     text-align: center;
-}
-
-.tableScroll{
-    max-widht: 100%;
-    overflow: scroll;
+    padding: .3rem;
 }
 
 .tabelasMostra{
@@ -475,8 +471,5 @@ td {
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-around;
-}
-
-.tabelas{
-    max-widht: 50%;
+    widht: 100%;
 }
