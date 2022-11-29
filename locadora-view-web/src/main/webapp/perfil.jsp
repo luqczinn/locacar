@@ -1,51 +1,23 @@
 <%-- 
-    Document   : logs.jsp
-    Created on : 26 de nov. de 2022, 16:36:45
-    Author     : stell
+    Document   : perfil
+    Created on : 28 de nov. de 2022, 21:25:11
+    Author     : sufra
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
-        <meta charset="utf-8">
-        <title>Locacar - Locadora de Veículos</title>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-        <!-- Favicon -->
-        <link href="img/favicon.png" rel="icon">
-
-        <!-- Google Web Fonts -->
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap"
-              rel="stylesheet">
-
-        <!-- Font Awesome -->
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet"> 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
 
-        <!-- Libraries Stylesheet -->
         <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
         <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
-
     <body>
-        <!-- Topbar Start -->
-        <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
-
-        </div>
-        <!-- Topbar End -->
-
-
-        <!-- Navbar Start -->
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="position-relative px-lg-5" style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
@@ -82,55 +54,78 @@
                 </nav>
             </div>
         </div>
-        <!-- Navbar End -->
-
-        <!-- Page Header Start -->
-        <div class="container-fluid page-header">
-            <h1 class="display-3 text-uppercase text-white mb-3">Geração de Logs</h1>
-            <div class="d-inline-flex text-white">
-                <h6 class="text-uppercase m-0"><a class="text-white" href="">Home</a></h6>
-                <h6 class="text-body m-0 px-3">/</h6>
-                <h6 class="text-uppercase text-body m-0">Logs</h6>
-            </div>
+        
+        <section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <h5 class="my-3"><%= session.getAttribute("nome")%></h5>
+            <p class="text-muted mb-4"><%= session.getAttribute("endereco")%></p>
+          </div>
+          <div class="d-flex justify-content-center mb-2">
+              <form action="encerrarSessao" method="post">
+                <input type="submit" value="Sair da conta" class="btn btn-primary btn-block">
+                </form>
+          </div>
         </div>
-        <!-- Page Header Start -->
-        <sql:setDataSource var= "conexao" driver= "com.mysql.jdbc.Driver" url= "jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user= "admin"  password= "NFe8Y6Nh7OPZEfh^sW3hv" />
-        <sql:query dataSource="${conexao}" var="result">
-            SELECT * FROM logs ORDER BY dataHora desc
-        </sql:query>
-        <!-- Tabela de Logs -->
-        <table id="tabelLogs">
-            <!--Linha de titulos -->
-            <tr id="titulo">
-                <td>ID</td>
-                <td>Ação</td>
-                <td>Descrição</td>
-                <td>Usuário</td>
-                <td>Hora</td>
-            </tr>      
-            <c:forEach var="row" items="${result.rows}">                        
-                <tr> 
-                    <td>
-                        <c:out value = "${row.id}"/>
-                    </td>
-                    <td>
-                       <c:out value = "${row.acao}"/> 
-                    </td>
-                    <td>
-                       <c:out value = "${row.descricao}"/> 
-                    </td>
-                    <td>
-                       <c:out value = "${row.usuario}"/> 
-                    </td>
-                    <td>
-                       <c:out value = "${row.dataHora}"/> 
-                    </td>
-                </tr>
-            </c:forEach>
-        </table>
-
-
-        <!-- Footer Start -->
+ 
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Usuário</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= session.getAttribute("user")%></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Nome</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= session.getAttribute("nome")%></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Telefone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= session.getAttribute("tel")%></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= session.getAttribute("email")%></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Endereço</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0"><%= session.getAttribute("endereco")%></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+        
         <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
             <div class="row pt-5">
                 <div class="col-lg-3 col-md-6 mb-5">
@@ -149,27 +144,8 @@
             </div>
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
-            <!-- Footer End -->
-
-
-            <!-- Back to Top -->
-            <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-            <!-- JavaScript Libraries -->
-            <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="lib/tempusdominus/js/moment.min.js"></script>
-            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
+            
+            <script src="https://kit.fontawesome.com/60feab9afa.js" crossorigin="anonymous"></script>
     </body>
-
 </html>

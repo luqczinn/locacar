@@ -463,4 +463,13 @@ td {
     border-width: 1px;
     border-style: solid;
     text-align: center;
+    padding: .3rem;
+}
+
+.tabelasMostra{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    widht: 100%;
 }

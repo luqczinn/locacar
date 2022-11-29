@@ -62,15 +62,32 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
                 <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-                    <div class="navbar-nav ml-auto py-0">
-                        <a href="index.html" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">Sobre</a>
-                        <a href="service.html" class="nav-item nav-link">Serviços</a>
-                        <a href="service.html" class="nav-item nav-link">Veículos</a>
-                        <a href="contact.html" class="nav-item nav-link">Contato</a>
-                        <a href="contact.html" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                        <div class="navbar-nav ml-auto py-0">
+                            <a href="index.jsp" class="nav-item nav-link">Home</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <%
+                    if(session.getAttribute("user") == null){
+                            %>
+                            <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <%
+                }
+                else{
+                            %>
+                            <form action="perfil.jsp" method="post">
+                                <input name="apelidoCliente" value="${requestScope.user}" style="display: none;">
+                                <input name="nomeCliente" value="${requestScope.nome}" style="display: none;">
+                                <input name="emailCliente" value="${requestScope.email}" style="display: none;">
+                                <input name="telefoneCliente" value="${requestScope.tel}" style="display: none;">
+                                <input name="enderecoCliente" value="${requestScope.endereco}" style="display: none;">
+                                <input type="submit" value="Meu perfil" class="nav-item btn btn-primary btn-block" style="margin-top: 20px;">
+                            </form>
+                            <form action="encerrarSessao" method="post">
+                                <button type="submit" class="nav-item btn btn-primary btn-block" style="margin-top: 20px; margin-left: 10px;"><i class="fa fa-sign-out"></i></button>
+                            </form>
+                            <%}%>
+                        </div>
                     </div>
-                </div>
             </nav>
         </div>
     </div>
@@ -164,6 +181,7 @@
         <script src="lib/tempusdominus/js/moment.min.js"></script>
         <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
         <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+        <script src="https://kit.fontawesome.com/60feab9afa.js" crossorigin="anonymous"></script>
 
         <!-- Template Javascript -->
         <script src="js/main.js"></script>

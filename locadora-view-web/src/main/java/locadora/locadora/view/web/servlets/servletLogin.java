@@ -78,12 +78,13 @@ public class servletLogin extends HttpServlet {
             }
             HttpSession session = request.getSession();
             String ip = request.getRemoteAddr();
-            session.setAttribute("user", user);
+            
 
             switch (tipoLogin) {
 
                 case "usuario":
                     request.setAttribute("user", u);
+                    session.setAttribute("user", user);
                     ServicoLog.registrarLogUsuario(u);
                     RequestDispatcher rd3 = request.getRequestDispatcher("/index.jsp");
                     rd3.forward(request, response);
@@ -91,12 +92,27 @@ public class servletLogin extends HttpServlet {
                     break;
 
                 case "cliente":
-
+                    
+                    String email = c.getEmail();
+                    String tel = c.getTelefone();
+                    String endereco = c.getEndereco();
                     String cpf = c.getCpf();
                     String nome = c.getNome();
                     String clienteBD = nome + "|" + cpf;
+                    request.setAttribute("user", user);
+                    request.setAttribute("nome", nome);
+                    request.setAttribute("email", email);
+                    request.setAttribute("tel", tel);
+                    request.setAttribute("endereco", endereco);
                     request.setAttribute("cliente", clienteBD);
                     request.setAttribute("ip", ip);
+                    session.setAttribute("user", user);
+                    session.setAttribute("nome", nome);
+                    session.setAttribute("email", email);
+                    session.setAttribute("tel", tel);
+                    session.setAttribute("endereco", endereco);
+                    session.setAttribute("cliente", clienteBD);
+                    session.setAttribute("ip", ip);
                     SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
                     String agora = formater.format(new Date());
                     String sql = "INSERT INTO logCliente VALUES('" + clienteBD + "','" + ip + "','" + agora + "')";
@@ -108,17 +124,10 @@ public class servletLogin extends HttpServlet {
 
                     String vinda = (String) request.getParameter("vinda");
 
-                    //Codigo para conseguir definir "vinda" com getAttribute()"
-                    String teste = (String) request.getAttribute("vinda2");
-                    if (teste != null) {
-                        vinda = teste;
-                    }
-
                     String destino = "";
                     if (vinda.equals("home")) {
                         destino = "/index.jsp";
-                        request.setAttribute("user", user);
-                        request.setAttribute("cliente", clienteBD);
+                        
                     } else if (vinda.equals("listagemVeiculos")) {
                         destino = "/abrirBooking";
                         request.setAttribute("user", user);
