@@ -28,6 +28,7 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
     public String modo;
     public String cargo;
     public Usuario usuario;
+
     /**
      * Creates new form ConsultarReservas
      */
@@ -55,9 +56,11 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
             }
         }
         if (cargo.equals("Gerente")) {
-            for (int i = 0; i < listaUser.size(); i++) {
-                modelo.addRow(new Object[]{listaUser.get(i).getNome(), listaUser.get(i).getCpf(), listaUser.get(i).getRg(), listaUser.get(i).getEmail(), listaUser.get(i).getCargo(),
-                    listaUser.get(i).getEndereco(), listaUser.get(i).getTelefone(), listaUser.get(i).getUnidade(), listaUser.get(i).getCnis(), listaUser.get(i).getUsername(), listaUser.get(i).getSenha(),});
+            if (listaUser != null) {
+                for (int i = 0; i < listaUser.size(); i++) {
+                    modelo.addRow(new Object[]{listaUser.get(i).getNome(), listaUser.get(i).getCpf(), listaUser.get(i).getRg(), listaUser.get(i).getEmail(), listaUser.get(i).getCargo(),
+                        listaUser.get(i).getEndereco(), listaUser.get(i).getTelefone(), listaUser.get(i).getUnidade(), listaUser.get(i).getCnis(), listaUser.get(i).getUsername(), listaUser.get(i).getSenha(),});
+                }
             }
         }
 
