@@ -51,7 +51,7 @@
             <p class="text-muted mb-4">${param.enderecoCliente}</p>
           </div>
           <div class="d-flex justify-content-center mb-2">
-            <a href="index.jsp" type="button"><button class="btn btn-primary">Sair da conta</button></a>
+            <a href="index.jsp" onclick="<%session.invalidate();%>" type="button"><button class="btn btn-primary">Sair da conta</button></a>
           </div>
         </div>
  
