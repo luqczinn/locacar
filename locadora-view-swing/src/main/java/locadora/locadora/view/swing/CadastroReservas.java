@@ -109,10 +109,12 @@ public class CadastroReservas extends javax.swing.JFrame {
         List<Veiculo> listaVeiculos = VeiculoDAO.listarVeiculosBD();
         if (!listaVeiculos.isEmpty()) {
             for (int z = 0; z < listaVeiculos.size(); z++) {
-                String placa = listaVeiculos.get(z).getPlaca();
-                String modelo = listaVeiculos.get(z).getModeloCarro();
-                String carro = placa + " | " + modelo + ".";
-                combo_veiculo_reservas.addItem(carro);
+                if (listaVeiculos.get(z).getStatus().equals("Livre")) {
+                    String placa = listaVeiculos.get(z).getPlaca();
+                    String modelo = listaVeiculos.get(z).getModeloCarro();
+                    String carro = placa + " | " + modelo + ".";
+                    combo_veiculo_reservas.addItem(carro);
+                }
             }
         }
     }

@@ -37,6 +37,9 @@ public class ReservasDAO {
 
     public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva, String usuario) throws SQLException, Exception {
         Reservas reserva = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
+        int pos = veiculo.indexOf(" |");
+        String placa = veiculo.substring(0, pos);
+        VeiculoDAO.alugarVeiculo(placa, usuario);
         String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
         Connection com = Conexao.getConnection();
         PreparedStatement pstmt = com.prepareStatement(sql);
