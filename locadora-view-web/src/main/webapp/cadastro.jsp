@@ -54,10 +54,8 @@
         <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
           <div class="navbar-nav ml-auto py-0">
             <a href="index.jsp" class="nav-item nav-link">Home</a>
-            <a href="about.html" class="nav-item nav-link">Sobre</a>
-            <a href="service.html" class="nav-item nav-link">Serviços</a>
             <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
-            <a href="contact.html" class="nav-item nav-link">Contato</a>
+            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
             <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
           </div>
         </div>
@@ -96,12 +94,12 @@
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputRg">RG</label>
-      <input type="text" class="form-control" name="RG" id="inputRg" pattern="(^\d{1,2}).?(\d{3}).?(\d{3})-?(\d{1}|X|x$)" placeholder="RG" required>
+      <input type="text" class="form-control" name="RG" id="inputRg" pattern="(^(\d{2}\x2E\d{3}\x2E\d{3}[-]\d{1})$|^(\d{2}\x2E\d{3}\x2E\d{3})$)" placeholder="RG" required>
       <div class="valid-feedback">
         Campo correto!
       </div>
       <div class="invalid-feedback">
-        Preencha o campo corretamente.
+        Preencha na forma de 12.123.123 ou 12.123.123-1!
       </div>
     </div>
     <div class="form-group col-md-6">

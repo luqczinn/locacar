@@ -29,12 +29,26 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="home.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
-                            <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
+                            <a href="index.jsp" class="nav-item nav-link">Home</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <%
+                    if(session.getAttribute("user") == null){
+                            %>
+                            <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <%
+                }
+                else{
+                            %>
+                            <form action="perfil.jsp" method="post">
+                                <input name="apelidoCliente" value="${requestScope.user}" style="display: none;">
+                                <input name="nomeCliente" value="${requestScope.nome}" style="display: none;">
+                                <input name="emailCliente" value="${requestScope.email}" style="display: none;">
+                                <input name="telefoneCliente" value="${requestScope.tel}" style="display: none;">
+                                <input name="enderecoCliente" value="${requestScope.endereco}" style="display: none;">
+                                <input type="submit" value="Meu perfil" class="nav-item btn btn-primary btn-block" style="margin-top: 20px;">
+                            </form>
+                            <%}%>
                         </div>
                     </div>
                 </nav>
@@ -47,11 +61,13 @@
       <div class="col">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <h5 class="my-3">${param.nomeCliente}</h5>
-            <p class="text-muted mb-4">${param.enderecoCliente}</p>
+            <h5 class="my-3"><%= session.getAttribute("nome")%></h5>
+            <p class="text-muted mb-4"><%= session.getAttribute("endereco")%></p>
           </div>
           <div class="d-flex justify-content-center mb-2">
-            <a href="index.jsp" onclick="<%session.invalidate();%>" type="button"><button class="btn btn-primary">Sair da conta</button></a>
+              <form action="encerrarSessao" method="post">
+                <input type="submit" value="Sair da conta" class="btn btn-primary btn-block">
+                </form>
           </div>
         </div>
  
@@ -64,7 +80,7 @@
                 <p class="mb-0">Usuário</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">${param.apelidoCliente}</p>
+                <p class="text-muted mb-0"><%= session.getAttribute("user")%></p>
               </div>
             </div>
             <hr>
@@ -73,7 +89,7 @@
                 <p class="mb-0">Nome</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">${param.nomeCliente}</p>
+                <p class="text-muted mb-0"><%= session.getAttribute("nome")%></p>
               </div>
             </div>
             <hr>
@@ -82,7 +98,7 @@
                 <p class="mb-0">Telefone</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">${param.telefoneCliente}</p>
+                <p class="text-muted mb-0"><%= session.getAttribute("tel")%></p>
               </div>
             </div>
             <hr>
@@ -91,7 +107,7 @@
                 <p class="mb-0">Email</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">${param.emailCliente}</p>
+                <p class="text-muted mb-0"><%= session.getAttribute("email")%></p>
               </div>
             </div>
             <hr>
@@ -100,7 +116,7 @@
                 <p class="mb-0">Endereço</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0">${param.enderecoCliente}</p>
+                <p class="text-muted mb-0"><%= session.getAttribute("endereco")%></p>
               </div>
             </div>
           </div>
@@ -130,5 +146,6 @@
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
             </div>
             
+            <script src="https://kit.fontawesome.com/60feab9afa.js" crossorigin="anonymous"></script>
     </body>
 </html>
