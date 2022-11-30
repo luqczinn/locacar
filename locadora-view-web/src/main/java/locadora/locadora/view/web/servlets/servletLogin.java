@@ -125,9 +125,7 @@ public class servletLogin extends HttpServlet {
                         request.setAttribute("cliente", clienteBD);
                         String nomeVeiculo = (String) request.getParameter("marca") + " " + (String) request.getParameter("modelo");
                         Locale l = new Locale("pt", "BR");
-                        NumberFormat nf = NumberFormat.getCurrencyInstance(l);
-                        Double valor = Double.valueOf(request.getParameter("valorDiaria"));
-                        String valorAluguel = nf.format(valor);
+                        String valorAluguel = request.getParameter("valorDiaria");
                         String modelo = (String) request.getParameter("modelo");
                         String cambio = (String) request.getParameter("cambio");
                         String imagemVeiculo = (String) request.getParameter("imagem");

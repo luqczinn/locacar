@@ -17,6 +17,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import locadora.locadora.negocio.servico.ServicoReservas;
@@ -44,18 +45,20 @@ public class ComprovanteServlet extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             String modelo = (String) request.getParameter("modelo");
             String cambio = (String) request.getParameter("cambio");
-            String nome = (String) request.getParameter("nome");
-            String apelido = (String) request.getParameter("apelido");
-            String email = (String) request.getParameter("email");
-            String endereco = (String) request.getParameter("endereco");
-            String telefone = (String) request.getParameter("telefone");
-            String dataNascimento = (String) request.getParameter("dataNascimento");
-            String cpf = (String) request.getParameter("cpf");
-            String rg = (String) request.getParameter("rg");
+            String nome = (String) request.getParameter("nomeDoCliente");
+            String apelido = (String) request.getParameter("apelidoDoCliente");
+            String email = (String) request.getParameter("emailDoCliente");
+            String endereco = (String) request.getParameter("enderecoDoCliente");
+            String telefone = (String) request.getParameter("telefoneDoCliente");
+            String dataNascimento = (String) request.getParameter("dataNascimentoDoCliente");
+            String cpf = (String) request.getParameter("cpfDoCliente");
+            String rg = (String) request.getParameter("rgDoCliente");
             String localEntrega = (String) request.getParameter("localEntrega");
             String localColeta = (String) request.getParameter("localColeta");
-            String dataRetirada = (String) request.getParameter("dataRetirada");
-            String dataEntrega = (String) request.getParameter("dataEntrega");
+            String dataRe = (String) request.getParameter("dataRetirada");
+            String dataRetirada = dataRe.replaceAll("T"," ");
+            String dataEn = (String) request.getParameter("dataEntrega");
+            String dataEntrega = dataEn.replaceAll("T"," ");
             String pagamento = (String) request.getParameter("pagamento");
             String veiculo = (String) request.getParameter("veiculo");
             String motor = (String) request.getParameter("motor");
@@ -68,6 +71,7 @@ public class ComprovanteServlet extends HttpServlet {
             String vendedor = (String) request.getAttribute("vendedor");
 
             //concatenação usuario
+            System.out.println(nome);
             String usuario = nome + "|" + cpf + ".";
 
             //concatenação veiculo
@@ -85,8 +89,6 @@ public class ComprovanteServlet extends HttpServlet {
             request.setAttribute("rg", rg);
             request.setAttribute("localEntrega", localEntrega);
             request.setAttribute("localColeta", localColeta);
-            request.setAttribute("dataRetirada", dataRetirada);
-            request.setAttribute("dataEntrega", dataEntrega);
             request.setAttribute("pagamento", pagamento);
             request.setAttribute("veiculo", veiculo);
             request.setAttribute("motor", motor);
@@ -97,17 +99,22 @@ public class ComprovanteServlet extends HttpServlet {
             request.setAttribute("usuario", usuario);
             request.setAttribute("valorAluguel", valorAluguel);
 
-            //calculo do valor de reserva
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-            String data1 = df.format(dataRetirada);
-            String data2 = df.format(dataEntrega);
-
-            Date d1 = null;
-            d1 = df.parse(dataRetirada);
-            Date d2 = null;
-            d2 = df.parse(dataEntrega);
-
-            long dt = (d2.getTime() - d1.getTime());
+            System.out.println("Data de coleta = " + dataRetirada);
+            System.out.println("Data de entrega = " + dataEntrega);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+            Date dataRetiradaD = formatter.parse(dataRetirada);
+            Date dataEntregaD = formatter.parse(dataEntrega);
+            Date d = new java.util.Date(dataRetiradaD.getTime()); 
+            String dataRetiradaString = new SimpleDateFormat("dd/MM/yyyy").format(d);
+            Date e = new java.util.Date(dataEntregaD.getTime()); 
+            String dataEntregaString = new SimpleDateFormat("dd/MM/yyyy").format(e);
+            System.out.println("Data de coleta formatada = " + dataRetiradaString);
+            System.out.println("Data de entrega formatada = " + dataEntregaString);
+            
+            request.setAttribute("dataRetirada", dataRetiradaString);
+            request.setAttribute("dataEntrega", dataEntregaString);
+            
+            long dt = (e.getTime() - d.getTime()); 
             long dias = dt / 86400000L;
             int diasInt = (int) dias;
             double diaria = Double.parseDouble(valorAluguel);
@@ -115,7 +122,7 @@ public class ComprovanteServlet extends HttpServlet {
             double valorTotal = diaria * diasInt;
             request.setAttribute("valorTotal", valorTotal);
 
-            ServicoReservas.inserirReservaBD(Integer.SIZE, usuario, vendedor, carro, localColeta, data1, data2, Double.toString(diaria), Double.toString(valorTotal), "ONLINE");
+            //ServicoReservas.inserirReservaBD(Integer.SIZE, usuario, vendedor, carro, localColeta, dataRetiradaString, dataEntregaString, Double.toString(diaria), Double.toString(valorTotal), "ONLINE");
 
             RequestDispatcher rd = request.getRequestDispatcher("/comprovante.jsp");
             rd.forward(request, response);

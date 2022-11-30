@@ -88,7 +88,7 @@
                             <img class="img-fluid" src="${requestScope.imagemVeiculo}" alt="">
                         </div>
                         <div class="col-lg-6 mb-4">
-                            <h4 class="mb-2">${requestScope.valorAluguel} por dia.</h4>
+                            <h4 class="mb-2">R$ ${requestScope.valorAluguel} por dia.</h4>
                             <input name="valorAluguel" value="${requestScope.valorAluguel}" style="display: none;">
                             <div class="d-flex mb-3"></div>
                             <p>Informações do Veículo: Este veículo possui um motor <span>${requestScope.motor}</span>, da marca <span>${requestScope.marca}</span>, do ano <span>${requestScope.ano}</span>, com <span>${requestScope.quilometragem} KM</span> rodados. O seu 
@@ -135,34 +135,34 @@
                             <div class="mb-5">
                                 <div class="row">
                                     <div class="col-6 form-group">
-                                        <input type="text" class="form-control p-4" placeholder="Nome" required="required" disabled value="${requestScope.nomeCliente}">
+                                        <input name="nomeDoCliente" type="text" class="form-control p-4" placeholder="Nome" required="required" readonly value="${requestScope.nomeCliente}">
                                     </div>
                                     <div class="col-6 form-group">
-                                        <input type="text" class="form-control p-4" placeholder="Apelido" required="required" disabled value="${requestScope.apelidoCliente}">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 form-group">
-                                        <input type="email" name="email" class="form-control p-4" placeholder="Email" required="required" disabled value="${requestScope.emailCliente}">
-                                    </div>
-                                    <div class="col-6 form-group">
-                                        <input type="text" name="telefone" class="form-control p-4" placeholder="Telefone" required="required" disabled value="${requestScope.telefoneCliente}">
+                                        <input name="apelidoDoCliente" type="text" class="form-control p-4" placeholder="Apelido" required="required" readonly value="${requestScope.apelidoCliente}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 form-group">
-                                        <input type="text" name="dataNascimento" class="form-control p-4" placeholder="dataNascimento" required="required" disabled value="${requestScope.nascimentoCliente}">
+                                        <input type="email" name="emailDoCliente" class="form-control p-4" placeholder="Email" required="required" readonly value="${requestScope.emailCliente}">
                                     </div>
                                     <div class="col-6 form-group">
-                                        <input type="text" name="endereco" class="form-control p-4" placeholder="Endereco" required="required" disabled value="${requestScope.enderecoCliente}">
+                                        <input type="text" name="telefoneDoCliente" class="form-control p-4" placeholder="Telefone" required="required" readonly value="${requestScope.telefoneCliente}">
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-6 form-group">
-                                        <input type="text" name="cpf" class="form-control p-4" placeholder="CPF" required="required" disabled value="${requestScope.cpfCliente}">
+                                        <input type="text" name="dataNascimentoDoCliente" class="form-control p-4" placeholder="dataNascimento" required="required" readonly value="${requestScope.nascimentoCliente}">
                                     </div>
                                     <div class="col-6 form-group">
-                                        <input type="text" name="rg" class="form-control p-4" placeholder="RG" required="required" disabled value="${requestScope.rgCliente}">
+                                        <input type="text" name="enderecoDoCliente" class="form-control p-4" placeholder="Endereco" required="required" readonly value="${requestScope.enderecoCliente}">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6 form-group">
+                                        <input type="text" name="cpfDoCliente" class="form-control p-4" placeholder="CPF" required="required" readonly value="${requestScope.cpfCliente}">
+                                    </div>
+                                    <div class="col-6 form-group">
+                                        <input type="text" name="rgDoCliente" class="form-control p-4" placeholder="RG" required="required" readonly value="${requestScope.rgCliente}">
                                     </div>
                                 </div>
                             </div>
@@ -174,7 +174,7 @@
                                         <sql:query dataSource="${conexao}" var="result">
                                             SELECT * FROM unidades
                                         </sql:query>
-                                        <select name="localColeta"class="custom-select px-4" style="height: 50px;">
+                                        <select required name="localColeta"class="custom-select px-4" style="height: 50px;">
                                             <option selected>Local de coleta</option>
                                             <c:forEach var="row" items="${result.rows}">                        
                                                 <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
@@ -185,7 +185,7 @@
                                         <sql:query dataSource="${conexao}" var="result">
                                             SELECT * FROM unidades
                                         </sql:query>
-                                        <select name="localEntrega" class="custom-select px-4" style="height: 50px;">
+                                        <select required name="localEntrega" class="custom-select px-4" style="height: 50px;">
                                             <option selected>Local de retorno</option>
                                             <c:forEach var="row" items="${result.rows}">                        
                                                 <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
@@ -196,21 +196,29 @@
                                 <div class="row">
                                     <div class="col-6 form-group">
                                         <div class="date" id="date2" data-target-input="nearest">
-                                            <input onkeydown="return false" type="date" id="dataRetirada" name="dataRetirada" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
+                                            <input required onkeydown="return false" type="datetime-local" id="dataRetirada" name="dataRetirada" class="form-control p-4 datetimepicker-input" placeholder="Data de retirada" data-target="#date" data-toggle="datetimepicker" />
                                         </div>
                                     </div>
                                     <div class="col-6 form-group">
                                         <div class="time" id="time2" data-target-input="nearest">
-                                            <input onkeydown="return false" type="date" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
+                                            <input required onkeydown="return false" onclick="dataMinima()"  type="datetime-local" id="dataEntrega" name="dataEntrega" class="form-control p-4 datetimepicker-input" placeholder="Data de retorno" data-target="#time" data-toggle="datetimepicker" />
                                         </div>
                                     </div>
+                                    <script>
+                                        let currentDate = new Date().toISOString().slice(0, -8);
+                                        document.querySelector("#dataRetirada").value = currentDate;
+                                        document.querySelector("#dataRetirada").min = currentDate;
+                                        function dataMinima(){
+                                             document.querySelector("#dataEntrega").min = document.querySelector("#dataRetirada").value;
+                                        }
+                                    </script>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
                             <div class="bg-secondary p-5 mb-5">
                                 <h2 class="text-primary mb-4">Pagamento</h2>
-                                <select name="pagamento" class="custom-select px-4" style="height: 50px;">
+                                <select required name="pagamento" class="custom-select px-4" style="height: 50px;">
                                     <option selected>Forma de pagamento</option>                     
                                     <option value="pix">Pix</option>
                                     <option value="paypal">Paypal</option>
@@ -249,7 +257,6 @@
             </div>
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
             <!-- Footer End -->
 
@@ -259,7 +266,6 @@
 
             <script>
 
-            <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
             <script src="lib/easing/easing.min.js"></script>
@@ -269,17 +275,7 @@
             <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
             <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
-            <!-- Template Javascript -->
             <script src="js/main.js"></script>
             </body>
 
-<<<<<<< HEAD
-
-=======
-            <!-- Template Javascript -->
-            <script src="js/main.js"></script>
-            </body>
-
->>>>>>> origin/production
             </html>

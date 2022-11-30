@@ -9,14 +9,17 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-         <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.4.1/jspdf.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/canvas2image@1.0.5/canvas2image.min.js"></script>
     </head>
     <body>
         <button id="btGerarPDF" style="padding: 5px; align-items: center;">Imprimir</button>
-        <button style="padding: 5px; align-items: center;">IMPRIMIR COMPROVANTE</button>
-        <div id="containerComprovante">
-            <img src="img/LOCACAR__1_-removebg-preview.png" style="width:50px; height:50px; align-items: center;">
+        <div id="containerComprovante" style="border: solid 1px black;color: #605B5B;
+             background-color: white;
+             padding: 50px;
+             margin: 10px;">
+            <img src="img/LOCACAR__1_-removebg-preview.png" style="width:200px; height:100px; align-items: center;">
             <h1 style="color: #1d7c42;" class="info">COMPROVANTE DE RESERVA</h1>
             <div class="resultados">
                 <h2 class="info">INFORMAÇÕES CLIENTES</h2>
@@ -37,7 +40,7 @@
                     <li>Veiculo: ${requestScope.veiculo}</li>
                     <li>Unidade: ${requestScope.localColeta}</li>
                     <li>Unidade Entrega: ${requestScope.localEntrega}</li>
-                    <li>Data Início: ${requestScope.dataColeta}</li>
+                    <li>Data Início: ${requestScope.dataRetirada}</li>
                     <li>Data Entrega: ${requestScope.dataEntrega}</li>
                     <li>Valor Diária: ${requestScope.valorAluguel}</li>
                     <li>Valor Total: ${requestScope.valorTotal}</li>
@@ -55,19 +58,11 @@
         </div>
         <div id="editor"></div>
         <script>
-            var doc = new jsPDF();
-            var specialElementHandlers = {
-                '#editor': function (element, renderer) {
-                    return true;
-                }
-            };
-
             $('#btGerarPDF').click(function () {
-                doc.fromHTML($('#containerComprovante').html(), 15, 15, {
-                    'width': 170,
-                    'elementHandlers': specialElementHandlers
+                var doc = new jsPDF('landscape', 'pt', 'a4');
+                doc.addHTML($('#containerComprovante'), function () {
+                    doc.save("ComrprovanteLocacar.pdf");
                 });
-                doc.save('ComprovanteLocacar.pdf');
             });
         </script>
     </body>

@@ -96,7 +96,7 @@
     <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputRg">RG</label>
-      <input type="text" class="form-control" name="RG" id="inputRg" pattern="(^\d{1,2}).?(\d{3}).?(\d{3})-?(\d{1}|X|x$)" placeholder="RG" required>
+      <input type="text" class="form-control" name="RG" id="inputRg" pattern="(\d{2}\.\d{3}\.\d{3}-[0-9X])" placeholder="RG" required>
       <div class="valid-feedback">
         Campo correto!
       </div>
