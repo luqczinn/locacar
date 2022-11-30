@@ -253,6 +253,7 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
             <script src="js/main.js"></script>
+            <script src="https://kit.fontawesome.com/60feab9afa.js" crossorigin="anonymous"></script>
             </body>
 
             </html>

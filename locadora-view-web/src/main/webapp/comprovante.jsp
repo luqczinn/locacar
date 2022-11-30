@@ -15,6 +15,7 @@
     </head>
     <body>
         <button id="btGerarPDF" style="padding: 5px; align-items: center;">Imprimir</button>
+        <button id="sair" style="padding: 5px; align-items: center;">Sair</button>
         <div id="containerComprovante" style="border: solid 1px black;color: #605B5B;
              background-color: white;
              padding: 50px;
@@ -63,7 +64,9 @@
                 doc.addHTML($('#containerComprovante'), function () {
                     doc.save("ComrprovanteLocacar.pdf");
                 });
-                $(location).prop('href', 'index.jsp')
+            });
+            $('#sair').click(function(){
+                $(location).prop('href', 'index.jsp');
             });
         </script>
     </body>
