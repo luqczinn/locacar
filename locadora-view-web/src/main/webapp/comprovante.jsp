@@ -63,6 +63,7 @@
                 doc.addHTML($('#containerComprovante'), function () {
                     doc.save("ComrprovanteLocacar.pdf");
                 });
+                $(location).prop('href', 'index.jsp')
             });
         </script>
     </body>

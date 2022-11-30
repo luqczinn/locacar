@@ -127,7 +127,7 @@ h6,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9)), url(../img/bg-banner.jpg);
+    background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9));
     background-attachment: fixed;
 }
 
@@ -289,6 +289,40 @@ h6,
     height: 80px;
 }
 
+#tabelLogs {
+    border-style: solid;
+    border-width: 3px;
+    margin: auto;
+    width: 800px;
+}
+
+tr {
+    background-color: #F6E300;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#titulo {
+    background-color: #3afa84;
+    font-weight: bold;
+}
+
+td {
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    padding: .3rem;
+}
+
+.tabelasMostra{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    widht: 100%;
+}
+
+
 .testimonial-carousel .owl-item .testimonial-item {
     height: 350px;
     transition: .5s;
@@ -323,21 +357,21 @@ h6,
 }
 
 #containerComprovante {
-        background-color: white;
-        border: 2px solid black;
-        width: 600px;
+    background-color: white;
+    border: 2px solid black;
+    width: 600px;
 }
 
 .info {
-        font-family: Georgia, 'Times New Roman', Times, serif;
-        text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+   text-align: center;
 }
 
 .resultados {
-        font-size: 15px;
-        font-family: 'Courier New', Courier, monospace;
-        align-items: center;
-        width: 500px;
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    width: 500px;
 }
 
 .elementos {
@@ -439,28 +473,4 @@ h6,
 .margindiv{
   padding-left: 200px;
   padding-right: 200px;
-}
-
-#tabelLogs {
-    border-style: solid;
-    border-width: 3px;
-    margin: auto;
-    width: 800px;
-}
-
-tr {
-    background-color: #F6E300;
-    border-width: 1px;
-    border-style: solid;
-}
-
-#titulo {
-    background-color: #3afa84;
-    font-weight: bold;
-}
-
-td {
-    border-width: 1px;
-    border-style: solid;
-    text-align: center;
 }

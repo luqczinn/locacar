@@ -119,7 +119,9 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         btnSalvar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnSalvar.setEnabled(false);
         btnSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalvar.setInheritsPopupMenu(true);
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalvarActionPerformed(evt);
@@ -334,7 +336,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                             .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel21, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -384,6 +386,7 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
         btnCancelar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnCancelar.setEnabled(false);
         btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,9 +419,9 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(90, 90, 90)
                                 .addComponent(btnExcluir)
-                                .addGap(131, 131, 131)
-                                .addComponent(btnCancelar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnCancelar)
+                                .addGap(142, 142, 142)
                                 .addComponent(jButton4)
                                 .addGap(51, 51, 51)))))
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -454,6 +457,8 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         // TODO add your handling code here:
+        btnSalvar.setEnabled(true);
+        btnCancelar.setEnabled(true);
         int x = jTable1.getSelectedRow();
         Veiculo v = null;
         //pegar o veiculo
@@ -581,7 +586,33 @@ public class ConsultaVeiculo extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+        anoCarro.setSelectedItem(null);
+        placaCarro.setText(null);
+        marcaCarro.setSelectedItem(null);
+        imagemVeiculo.setText(null);
+        tipoDeMotor.setText(null);
+        quilometragemRodada.setText(null);
+        tipoCarro.setSelectedItem(null);
+        cambioCarro.setSelectedItem(null);
+        valorAluguel.setText(null);
+        cbxStatus.setSelectedItem(null);
+        imagemVeiculo.setText(null);
+        modeloCarro1.setText(null);
+        
+        anoCarro.setEnabled(false);
+        //placaCarro.setEnabled(false); 
+        //obs: a placa do carro n pode ser alterada 
+        marcaCarro.setEnabled(false);
+        imagemVeiculo.setEnabled(false);
+        tipoDeMotor.setEnabled(false);
+        quilometragemRodada.setEnabled(false);
+        tipoCarro.setEnabled(false);
+        cambioCarro.setEnabled(false);
+        valorAluguel.setEnabled(false);
+        cbxStatus.setEnabled(false);
+        imagemVeiculo.setEnabled(false);
+        btnSalvar.setEnabled(false);
+        btnCancelar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarActionPerformed
     
     

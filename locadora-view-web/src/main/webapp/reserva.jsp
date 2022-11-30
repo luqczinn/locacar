@@ -14,27 +14,13 @@
 
     <head>
         <meta charset="utf-8">
-        <title>Locacar - Locadora de Veículos</title>
+        <title>Locacar - Reserva</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-        <!-- Favicon -->
         <link href="img/favicon.png" rel="icon">
-
-        <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
-
-        <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-        <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
 
@@ -53,19 +39,35 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="index.jsp" class="nav-item nav-link active">Home</a>
-                            <a href="#" class="nav-item nav-link ">Sobre</a>
+                            <a href="index.jsp" class="nav-item nav-link">Home</a>
                             <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
                             <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <%
+                    if(session.getAttribute("user") == null){
+                            %>
                             <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <%
+                }
+                else{
+                            %>
+                            <form action="perfil.jsp" method="post">
+                                <input name="apelidoCliente" value="${requestScope.user}" style="display: none;">
+                                <input name="nomeCliente" value="${requestScope.nome}" style="display: none;">
+                                <input name="emailCliente" value="${requestScope.email}" style="display: none;">
+                                <input name="telefoneCliente" value="${requestScope.tel}" style="display: none;">
+                                <input name="enderecoCliente" value="${requestScope.endereco}" style="display: none;">
+                                <input type="submit" value="Meu perfil" class="nav-item btn btn-primary btn-block" style="margin-top: 20px;">
+                            </form>
+                            <form action="encerrarSessao" method="post">
+                                <button type="submit" class="nav-item btn btn-primary btn-block" style="margin-top: 20px; margin-left: 10px;"><i class="fa fa-sign-out"></i></button>
+                            </form>
+                            <%}%>
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
-        <!-- Search End -->
 
-        <!-- Page Header Start -->
         <div class="container-fluid page-header">
             <h1 class="display-3 text-uppercase text-white mb-3">Locação do Veículo</h1>
             <div class="d-inline-flex text-white">
@@ -74,10 +76,6 @@
                 <h6 class="text-uppercase text-body m-0">Locação do Veículo</h6>
             </div>
         </div>
-        <!-- Page Header Start -->
-
-
-        <!-- Detail Start -->
         <form action="ComprovanteServlet" method="POST">
             <div class="container-fluid pt-5">
                 <div class="container pt-5 pb-3">
@@ -123,10 +121,6 @@
                     </div>
                 </div>
             </div>
-            <!-- Detail End -->
-
-
-            <!-- Car Booking Start -->
             <div class="container-fluid pb-5">
                 <div class="container">
                     <div class="row">
@@ -235,10 +229,6 @@
                 </div>
             </div>
         </div>
-        <!-- Car Booking End -->
-
-
-        <!-- Footer Start -->
         <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
             <div class="row pt-5">
                 <div class="col-lg-3 col-md-6 mb-5">
@@ -258,22 +248,9 @@
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
             </div>
-            <!-- Footer End -->
-
-
-            <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-            <script>
-
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="lib/tempusdominus/js/moment.min.js"></script>
-            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
             <script src="js/main.js"></script>
             </body>

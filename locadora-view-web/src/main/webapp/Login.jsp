@@ -9,16 +9,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <title>Login</title>
         <link href="img/favicon.png" rel="icon">
-
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet"> 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
         <link href="css/bootstrap.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
 
@@ -27,7 +22,7 @@
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="position-relative px-lg-5" style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
-                    <a href="" class="navbar-brand">
+                    <a href="index.jsp" class="navbar-brand">
                         <h1 class="text-uppercase text-primary mb-1">Locacar</h1>
                     </a>
                     <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
@@ -35,12 +30,10 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="home.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
-                            <a href="Login.jsp" class="nav-item nav-link">Entrar</a>
+                            <a href="index.jsp" class="nav-item nav-link">Home</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
                         </div>
                     </div>
                 </nav>
