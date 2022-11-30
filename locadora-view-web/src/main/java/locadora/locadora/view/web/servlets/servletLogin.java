@@ -145,7 +145,7 @@ public class servletLogin extends HttpServlet {
                         Double km = Double.valueOf(request.getParameter("km"));
                         String quilometragem = nk.format(km);
                         String marca = (String) request.getParameter("marca");
-                        String placaVeiculo = (String) request.getParameter("placaVeiculo");
+                        String placaVeiculo = (String) request.getParameter("placaCarro");
                         String vendedor = "ONLINE";
 
                         request.setAttribute("nomeVeiculo", nomeVeiculo);
@@ -160,6 +160,18 @@ public class servletLogin extends HttpServlet {
                         request.setAttribute("marca", marca);
                         request.setAttribute("placaVeiculo", placaVeiculo);
                         request.setAttribute("vendedor", vendedor);
+                        session.setAttribute("nomeVeiculo", nomeVeiculo);
+                        session.setAttribute("valorAluguel", valorAluguel);
+                        session.setAttribute("modelo", modelo);
+                        session.setAttribute("cambio", cambio);
+                        session.setAttribute("imagemVeiculo", imagemVeiculo);
+                        session.setAttribute("motor", motor);
+                        session.setAttribute("tipo", tipo);
+                        session.setAttribute("ano", ano);
+                        session.setAttribute("quilometragem", quilometragem);
+                        session.setAttribute("marca", marca);
+                        session.setAttribute("placaVeiculo", placaVeiculo);
+                        session.setAttribute("vendedor", vendedor);
                     } else if (vinda.equals("enviarTicket")) {
                         destino = "/contato.jsp";
                         String assuntoSelect = (String) request.getParameter("assuntoSelect");
