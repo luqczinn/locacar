@@ -11,7 +11,7 @@ public class ServicoReservas {
     public ServicoReservas() {
     }
 
-    public static Reservas inserirReservaBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva) throws negocioException, SQLException {
+    public static Reservas inserirReservaBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva, String usuario) throws negocioException, SQLException, Exception {
         if (codigo < 0) {
             throw new negocioException(419, "Preencha o código corretamente.");
         }
@@ -39,7 +39,8 @@ public class ServicoReservas {
         if (valorReserva.isEmpty()) {
             throw new negocioException(419, "Preencha o campo 'valorReserva' corretamente.");
         }
-        return ReservasDAO.cadastrarReservasBD(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
+        System.out.println("Chegou no serviço");
+        return ReservasDAO.cadastrarReservasBD(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva, usuario);
     }
     
     public static Reservas removerReservaPorCodigo(Integer codigo) throws negocioException, SQLException{

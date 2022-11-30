@@ -127,7 +127,7 @@ h6,
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9)), url(../img/bg-banner.jpg);
+    background: linear-gradient(rgba(28, 30, 50, .9), rgba(28, 30, 50, .9));
     background-attachment: fixed;
 }
 
@@ -289,6 +289,40 @@ h6,
     height: 80px;
 }
 
+#tabelLogs {
+    border-style: solid;
+    border-width: 3px;
+    margin: auto;
+    width: 800px;
+}
+
+tr {
+    background-color: #F6E300;
+    border-width: 1px;
+    border-style: solid;
+}
+
+#titulo {
+    background-color: #3afa84;
+    font-weight: bold;
+}
+
+td {
+    border-width: 1px;
+    border-style: solid;
+    text-align: center;
+    padding: .3rem;
+}
+
+.tabelasMostra{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    widht: 100%;
+}
+
+
 .testimonial-carousel .owl-item .testimonial-item {
     height: 350px;
     transition: .5s;
@@ -322,28 +356,121 @@ h6,
     border-radius: 50%;
 }
 
-#containerComprovante {
-    background-color: white;
-    border: 5px solid black;
-    width: 500px;
+#containerComprovante {
+    background-color: white;
+    border: 2px solid black;
+    width: 600px;
 }
 
-.resultados {
-    margin: 5px;
-    border: 3px solid black;
+.info {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+   text-align: center;
 }
 
-.info {
-    text-align: center;
-    border: 1px solid black;
-    margin: 5px;
+.resultados {
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    align-items: center;
+    width: 500px;
 }
 
-.elementos {
-    border: 1px solid black;
-    margin: 5px;
+.elementos {
+        list-style: none;
+        line-height: 20px;
+        font-weight: 600;
 }
 
 #imagemIcone {
     list-style: none;
+}
+
+.parent-login{
+    border: 1px solid #fff;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "box-login submit-button forgot-password";
+    grid-gap: 20px;
+
+}
+.box-login{
+    grid-area: "box-login";
+    grid-row: box-login;
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    padding-top: 10%;
+    text-align: justify;
+}
+.submit-button{
+    grid-area: "submit-button";
+    width: 100%;
+}
+.btn-block{
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+.forgot-password{
+    grid-area: "forgot-password";
+    width: 100%;
+}
+.form-control::placeholder{
+    color: #F77D0A;
+}
+.ls-login-logo{
+    font-size: 30px;
+}
+.userPassword{
+    margin-top: 5%;
+}
+.ls-login-signup{
+    margin-top: 3%;
+}
+#senhaIncorreta{
+    display:block;
+    color: red;
+}
+.formulario{
+    border: 1px solid #fff;
+    max-width: 900px;
+    margin: auto;
+    display: grid;
+    grid-template-areas: "form-group, form-row";
+    grid-gap: 20px;
+    padding-top: 2%;
+}
+.box-login, .parent-inner, .parent-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.titleTicket{
+  margin-top: 6%;
+  text-align: center;
+}
+.title2Ticket{
+  font-size: 20px;
+  margin-top: 1%;
+  margin-left: 25%;
+  margin-right: 25%;
+  text-align: center;
+  color: rgb(100, 100, 100);
+}
+#selectOutro{
+  display: none;
+}
+#map{
+  height: 600px;
+  width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.displaydiv{
+  display: inline-block;
+}
+.margindiv{
+  padding-left: 200px;
+  padding-right: 200px;
 }

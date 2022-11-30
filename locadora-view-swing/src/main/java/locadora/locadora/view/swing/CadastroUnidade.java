@@ -22,12 +22,15 @@ import locadora.locadora.negocio.servico.ServicoUnidades;
  * @author gugup
  */
 public class CadastroUnidade extends javax.swing.JDialog {
+
     String usuario = "";
+
     @Override
     public void setDefaultCloseOperation(int operation) {
         super.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
     List<Unidades> listaUnidades = ServicoUnidades.listarUnidades();
+
     public CadastroUnidade(String usuario) throws SQLException, negocioException {
         initComponents();
         this.usuario = usuario;
@@ -60,7 +63,7 @@ public class CadastroUnidade extends javax.swing.JDialog {
     public void LoadCombos() throws SQLException, negocioException {
         List<Usuario> listaUsuarios = UsuarioDAO.listarFuncionariosBD();
         for (int i = 0; i < listaUsuarios.size(); i++) {
-            if (listaUsuarios.get(i).getCargo().equals("Gerente") ||listaUsuarios.get(i).getCargo().equals("Diretor") ) {
+            if (listaUsuarios.get(i).getCargo().equals("Gerente") || listaUsuarios.get(i).getCargo().equals("Diretor")) {
                 String nome = listaUsuarios.get(i).getNome();
                 String cpf = listaUsuarios.get(i).getCpf();
                 String gerente = nome + " | " + cpf + ".";
@@ -114,6 +117,7 @@ public class CadastroUnidade extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de Unidades"));
 
@@ -316,20 +320,22 @@ public class CadastroUnidade extends javax.swing.JDialog {
         String matricula = txt_matricula_un.getText();
         String estoque = estoque_un.getText();
         String gerente = combo_gerentes_unidade.getSelectedItem().toString();
-        if(ConsultarReservas.getVariavelB().equals("Editar")){
-            try {
-                ServicoUnidades.removerUnidadePorCEP(cep, usuario);
-            } catch (negocioException | SQLException ex) {
-                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            try {
-                ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente, usuario);
-            } catch (negocioException | SQLException ex) {
-                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (Exception ex) {
-                Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+        if (ConsultarReservas.getVariavelB() != null) {
+            if (ConsultarReservas.getVariavelB().equals("Editar")) {
+                try {
+                    ServicoUnidades.removerUnidadePorCEP(cep, usuario);
+                } catch (negocioException | SQLException ex) {
+                    Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    ServicoUnidades.inserirUnidadeBD(logradouro, matricula, cep, estado, cidade, numero, complemento, estoque, gerente, usuario);
+                } catch (negocioException | SQLException ex) {
+                    Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
+                    Logger.getLogger(CadastroUnidade.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         try {

@@ -5,15 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ page import ="java.io.*"%>;
-<%@ page import ="java.io.File.*"%>;
-<%@ page import="java.sql.*"%>
-<%@ page import="javax.sql.*"%>
-<%@ page import ="java.util.ArrayList"%>
-<%@ page import ="java.util.List"%>
-<%@page language ="Java" import = "locadora.locadora.negocio.dto.*"%>
-<%@page language ="Java" import = "locadora.locadora.negocio.dao.*"%>
-<%@page language ="Java" import = "locadora.locadora.negocio.servico.ServicoUnidades;"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -21,37 +14,18 @@
         <meta charset="utf-8">
         <title>Locacar - Locadora de Veículos</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-        <!-- Favicon -->
         <link href="img/favicon.png" rel="icon">
-
-        <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Rubik&display=swap" rel="stylesheet">
-
-        <!-- Font Awesome -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" rel="stylesheet">
-
-        <!-- Libraries Stylesheet -->
-        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-        <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
-
-        <!-- Customized Bootstrap Stylesheet -->
         <link href="css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Template Stylesheet -->
         <link href="css/style.css" rel="stylesheet">
     </head>
 
     <body>
-        <!-- Topbar Start -->
-        <div class="container-fluid bg-dark py-3 px-lg-5 d-none d-lg-block">
-
+        <div class="bg-dark py-3">
         </div>
-        <!-- Topbar End -->
 
-
-        <!-- Navbar Start -->
         <div class="container-fluid position-relative nav-bar p-0">
             <div class="position-relative px-lg-5" style="z-index: 9;">
                 <nav class="navbar navbar-expand-lg bg-secondary navbar-dark py-3 py-lg-0 pl-3 pl-lg-5">
@@ -63,46 +37,54 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="home.html" class="nav-item nav-link active">Home</a>
-                            <a href="about.html" class="nav-item nav-link">Sobre</a>
-                            <a href="service.html" class="nav-item nav-link">Serviços</a>
-                            <a href="service.html" class="nav-item nav-link">Veículos</a>
-                            <a href="contact.html" class="nav-item nav-link">Contato</a>
-                            <a href="contact.html" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <a href="index.jsp" class="nav-item nav-link">Home</a>
+                            <a href="veiculos.jsp" class="nav-item nav-link">Veículos</a>
+                            <a href="contato.jsp" class="nav-item nav-link">Contato</a>
+                            <%
+                    if(session.getAttribute("user") == null){
+                            %>
+                            <a href="Login.jsp" id="entrarBtn" class="nav-item nav-link">Entrar</a>
+                            <%
+                }
+                else{
+                            %>
+                            <form action="perfil.jsp" method="post">
+                                <input name="apelidoCliente" value="${requestScope.user}" style="display: none;">
+                                <input name="nomeCliente" value="${requestScope.nome}" style="display: none;">
+                                <input name="emailCliente" value="${requestScope.email}" style="display: none;">
+                                <input name="telefoneCliente" value="${requestScope.tel}" style="display: none;">
+                                <input name="enderecoCliente" value="${requestScope.endereco}" style="display: none;">
+                                <input type="submit" value="Meu perfil" class="nav-item btn btn-primary btn-block" style="margin-top: 20px;">
+                            </form>
+                            <form action="encerrarSessao" method="post">
+                                <button type="submit" class="nav-item btn btn-primary btn-block" style="margin-top: 20px; margin-left: 10px;"><i class="fa fa-sign-out"></i></button>
+                            </form>
+                            <%}%>
                         </div>
                     </div>
                 </nav>
             </div>
         </div>
-        <!-- Navbar End -->
 
-
-        <!-- Search Start -->
         <div class="container-fluid bg-white pt-3 px-lg-5">
             <div class="row mx-n2">
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;">
-                        <%
-                                                List<Object> listaUnidades = ServicoUnidades.listarUnidades();
-                                                for(Unidades u : listaUnidades){
-                                                int contador = 0;
-                                                contador+1;
-                        %>
-                        <option value="<%=contador%>"><=u.getNumReferencia()%> |<=u.getCidade()%></option>
-                        <%}%>
-                    </select>
+                    <sql:setDataSource var="conexao" driver="com.mysql.jdbc.Driver" url="jdbc:mysql://locacarbd.cjpzfmkc7gea.us-east-1.rds.amazonaws.com/bdlocacar" user="admin" password="NFe8Y6Nh7OPZEfh^sW3hv" />
+                    <sql:query dataSource="${conexao}" var="result">
+                        SELECT * FROM unidades
+                    </sql:query>
+                    <form action="veiculos.jsp" method="GET">
+                        <select name="unidadeRetirada" id="unidadeRetirada" class="custom-select px-4 mb-3" style="height: 50px;" >
+                            <c:forEach var="row" items="${result.rows}">                        
+                                <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                            </c:forEach>
+                        </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;">
-
-                        <%
-                                                List<Unidades> listaUnidades = listarUnidades();
-                                                for(Unidades u : listaUnidades){
-                                                int contador = 0;
-                                                contador+1;
-                        %>
-                        <option value="<%=contador%>"><=u.getNumReferencia()%> |<=u.getCidade()%></option>
-                        <%}%>
+                    <select name="unidadeEntrega" id="unidadeEntrega" class="custom-select px-4 mb-3" style="height: 50px;" >
+                        <c:forEach var="row" items="${result.rows}">                        
+                            <option value="<c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/>"><c:out value = "${row.referencia}"/> | <c:out value = "${row.logradouro}"/> | <c:out value = "${row.cidade}"/></option>
+                        </c:forEach>
                     </select>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
@@ -116,23 +98,21 @@
                     </div>
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <select id="tipoVeiculo" class="custom-select px-4 mb-3" style="height: 50px;">
-                        <option selected>Tipo de veículo</option>
-                        <option value="1">Tipo A</option>
-                        <option value="2">Tipo B</option>
-                        <option value="3">Tipo C</option>
-                        <option value="4">Tipo D</option>
+                    <select name="tipoVeiculo" id="tipoVeiculo" class="custom-select px-4 mb-3" style="height: 50px;" >
+                        <option value="Tipo A">Tipo A</option>
+                        <option value="Tipo B">Tipo B</option>
+                        <option value="Tipo C">Tipo C</option>
+                        <option value="Tipo D">Tipo D</option>
                     </select>
+
                 </div>
                 <div class="col-xl-2 col-lg-4 col-md-6 px-2">
-                    <button class="btn btn-primary btn-block mb-3" type="submit" style="height: 50px;">Procurar</button>
+                    <input type="submit" class="btn btn-primary btn-block mb-3" type="submit" value="Procurar" style="height: 50px;"/>
+                    </form>
                 </div>
             </div>
         </div>
-        <!-- Search End -->
 
-
-        <!-- Carousel Start -->
         <div class="container-fluid p-0" style="margin-bottom: 90px;">
             <div id="header-carousel" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
@@ -142,7 +122,7 @@
                             <div class="p-3" style="max-width: 900px;">
                                 <h4 class="text-white text-uppercase mb-md-3">Locacar: Aluguel de veículos</h4>
                                 <h1 class="display-1 text-white mb-md-4">A melhor locadora de veículos da América</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Reserve agora!</a>
+                                <a href="veiculos.jsp" class="btn btn-primary py-md-3 px-md-5 mt-2">Reserve agora!</a>
                             </div>
                         </div>
                     </div>
@@ -152,7 +132,7 @@
                             <div class="p-3" style="max-width: 900px;">
                                 <h4 class="text-white text-uppercase mb-md-3">Locacar: Aluguel de veículos</h4>
                                 <h1 class="display-1 text-white mb-md-4">Veículos de melhores qualidades</h1>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 mt-2">Reserve agora!</a>
+                                <a href="veiculos.jsp" class="btn btn-primary py-md-3 px-md-5 mt-2">Reserve agora!</a>
                             </div>
                         </div>
                     </div>
@@ -169,9 +149,6 @@
                 </a>
             </div>
         </div>
-        <!-- Carousel End -->
-
-        <!-- Footer Start -->
         <div class="container-fluid bg-secondary py-5 px-sm-3 px-md-5" style="margin-top: 90px;">
             <div class="row pt-5">
                 <div class="col-lg-3 col-md-6 mb-5">
@@ -190,27 +167,14 @@
             </div>
             <div class="container-fluid bg-dark py-4 px-sm-3 px-md-5">
                 <p class="mb-2 text-center text-body">&copy; <a href="#">Locacar</a>. Todos os direitos reservados</p>
-                <p class="m-0 text-center text-body">Idealizado por <a href="https://htmlcodex.com">HTML Codex</a></p>
             </div>
-            <!-- Footer End -->
 
-
-            <!-- Back to Top -->
             <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
-
-            <!-- JavaScript Libraries -->
             <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-            <script src="lib/easing/easing.min.js"></script>
-            <script src="lib/waypoints/waypoints.min.js"></script>
-            <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-            <script src="lib/tempusdominus/js/moment.min.js"></script>
-            <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-            <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
-
-            <!-- Template Javascript -->
             <script src="js/main.js"></script>
+            <script src="https://kit.fontawesome.com/60feab9afa.js" crossorigin="anonymous"></script>
     </body>
 
 </html>

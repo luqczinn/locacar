@@ -6,6 +6,7 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +29,7 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
     public String modo;
     public String cargo;
     public Usuario usuario;
+
     /**
      * Creates new form ConsultarReservas
      */
@@ -48,16 +50,18 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
         Object Colunas[] = {"Nome", "CPF", "RG", "E-Mail", "Cargo", "Endereco", "Telefone", "Unidade", "CNIS", "Username", "Senha"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
         List<Usuario> listaUsuarios = ServicoUsuarios.listarUsuarios();
-        List<Usuario> listaUser = null;
+        List<Usuario> listaUser = new ArrayList<>();
         for (int j = 0; j < listaUsuarios.size(); j++) {
             if (listaUsuarios.get(j).getCargo().equals("Vendedor")) {
                 listaUser.add(listaUsuarios.get(j));
             }
         }
         if (cargo.equals("Gerente")) {
-            for (int i = 0; i < listaUser.size(); i++) {
-                modelo.addRow(new Object[]{listaUser.get(i).getNome(), listaUser.get(i).getCpf(), listaUser.get(i).getRg(), listaUser.get(i).getEmail(), listaUser.get(i).getCargo(),
-                    listaUser.get(i).getEndereco(), listaUser.get(i).getTelefone(), listaUser.get(i).getUnidade(), listaUser.get(i).getCnis(), listaUser.get(i).getUsername(), listaUser.get(i).getSenha(),});
+            if (listaUser != null) {
+                for (int i = 0; i < listaUser.size(); i++) {
+                    modelo.addRow(new Object[]{listaUser.get(i).getNome(), listaUser.get(i).getCpf(), listaUser.get(i).getRg(), listaUser.get(i).getEmail(), listaUser.get(i).getCargo(),
+                        listaUser.get(i).getEndereco(), listaUser.get(i).getTelefone(), listaUser.get(i).getUnidade(), listaUser.get(i).getCnis(), listaUser.get(i).getUsername(), listaUser.get(i).getSenha(),});
+                }
             }
         }
 
@@ -139,6 +143,7 @@ public class ConsultaFuncionario extends javax.swing.JFrame {
         btn_editar_funcionario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Funcionários");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionarios"));
 

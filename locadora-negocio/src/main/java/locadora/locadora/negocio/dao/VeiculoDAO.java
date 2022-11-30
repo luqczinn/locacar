@@ -51,7 +51,19 @@ public class VeiculoDAO {
         }
         return null;
     }
-
+    public static void alugarVeiculo(String placa, String usuario) throws SQLException, Exception {
+        if (consultarPorPlaca(placa) == null | listarVeiculosBD() == null) {
+            String sql = "UPDATE veiculos SET situacao = 'Alugado' WHERE placa = '" +placa+ "';";
+            Connection com = Conexao.getConnection();
+            PreparedStatement pstmt = com.prepareStatement(sql);
+            pstmt.execute();
+            pstmt.close();
+            com.close();
+            String acao = "ALTEROU";
+            String descricao = "VEICULO@" + placa + "@Alugado";
+            ServicoLog.registrarLogs(acao, descricao, usuario);
+        }
+    }
     public static List<Veiculo> consultarPorModelo(String modelo) throws SQLException {
         List<Veiculo> listaConsulta = new ArrayList<>();
         if (listarVeiculosBD() != null) {

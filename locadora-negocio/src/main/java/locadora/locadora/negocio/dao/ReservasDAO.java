@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import locadora.locadora.negocio.dto.Reservas;
 import java.util.List;
 import locadora.locadora.database.Conexao;
+import locadora.locadora.negocio.servico.ServicoLog;
 
 public class ReservasDAO {
 
-    
     public static Reservas consultarPorCliente(String cliente) throws SQLException {
         if (listarReservasBD() != null) {
             for (Reservas r : listarReservasBD()) {
@@ -23,6 +23,7 @@ public class ReservasDAO {
         }
         return null;
     }
+
     public static Reservas consultarPorCodigo(Integer codigo) throws SQLException {
         if (listarReservasBD() != null) {
             for (Reservas r : listarReservasBD()) {
@@ -34,18 +35,22 @@ public class ReservasDAO {
         return null;
     }
 
-    public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva) throws SQLException {
-        if (consultarPorCodigo(codigo) == null) {
-            Reservas reserva = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
-            String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
-            Connection com = Conexao.getConnection();
-            PreparedStatement pstmt = com.prepareStatement(sql);
-            pstmt.execute();
-            pstmt.close();
-            com.close();
-            return reserva;
-        }
-        return null;
+    public static Reservas cadastrarReservasBD(Integer codigo, String cliente, String vendedor, String veiculo, String unidade, String inicio, String fim, String valorDiaria, String valorReserva, String usuario) throws SQLException, Exception {
+        Reservas reserva = new Reservas(codigo, cliente, vendedor, veiculo, unidade, inicio, fim, valorDiaria, valorReserva);
+        int pos = veiculo.indexOf(" |");
+        String placa = veiculo.substring(0, pos);
+        VeiculoDAO.alugarVeiculo(placa, usuario);
+        String sql = "INSERT INTO reservas VALUES(" + codigo + ",'" + cliente + "','" + vendedor + "','" + veiculo + "','" + unidade + "','" + inicio + "','" + fim + "','" + valorDiaria + "','" + valorReserva + "')";
+        Connection com = Conexao.getConnection();
+        PreparedStatement pstmt = com.prepareStatement(sql);
+        pstmt.execute();
+        pstmt.close();
+        com.close();
+        String acao = "ADICAO";
+        String descricao = "RESERVA@" + codigo;
+        ServicoLog.registrarLogs(acao, descricao, usuario);
+        
+        return reserva;
     }
 
     public static List<Reservas> listarReservasBD() throws SQLException {
@@ -72,13 +77,13 @@ public class ReservasDAO {
         }
         return null;
     }
-    
+
     public static Reservas removerReservaBD(Integer codigo) throws SQLException {
         if (consultarPorCodigo(codigo) != null) {
             Reservas r = consultarPorCodigo(codigo);
             Connection com = Conexao.getConnection();
             Statement statement = com.createStatement();
-            String sql = "DELETE FROM reservas WHERE codigo='"+codigo+"'";
+            String sql = "DELETE FROM reservas WHERE codigo='" + codigo + "'";
             statement.executeUpdate(sql);
             return r;
         }

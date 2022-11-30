@@ -6,6 +6,8 @@ package locadora.locadora.view.swing;
 
 import java.awt.Toolkit;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -25,9 +27,11 @@ public class ConsultarReservas extends javax.swing.JFrame {
     /**
      * Creates new form ConsultarReservas
      */
-    public ConsultarReservas(java.awt.Frame parent, boolean modal) throws SQLException {
+    public String usuario = "";
+    public ConsultarReservas(java.awt.Frame parent, boolean modal, String usuario) throws SQLException {
         //super(parent, modal);
         initComponents();
+        this.usuario = usuario;
         this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
                 ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
         modo = "Navegar";
@@ -37,11 +41,11 @@ public class ConsultarReservas extends javax.swing.JFrame {
     public void LoadTableContent() throws SQLException {
         Object Colunas[] = {"Código", "Cliente", "Vendedor", "Veiculo", "Unidade", "Coleta", "Entrega", "Valor diário", "Valor total"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
-
-        for (int i = 0; i < ReservasDAO.listarReservasBD().size(); i++) {
-            modelo.addRow(new Object[]{ReservasDAO.listarReservasBD().get(i).getCodigo(), ReservasDAO.listarReservasBD().get(i).getCliente(), ReservasDAO.listarReservasBD().get(i).getVendedor(), ReservasDAO.listarReservasBD().get(i).getVeiculo(),
-                ReservasDAO.listarReservasBD().get(i).getUnidade(), ReservasDAO.listarReservasBD().get(i).getInicio(), ReservasDAO.listarReservasBD().get(i).getFim(), "R$ " + ReservasDAO.listarReservasBD().get(i).getValorDiaria(),
-                "R$ " + ReservasDAO.listarReservasBD().get(i).getValorReserva()});
+        List<Reservas> listaReservas = ReservasDAO.listarReservasBD();
+        for (int i = 0; i < listaReservas.size(); i++) {
+            modelo.addRow(new Object[]{listaReservas.get(i).getCodigo(), listaReservas.get(i).getCliente(), listaReservas.get(i).getVendedor(), listaReservas.get(i).getVeiculo(),
+                listaReservas.get(i).getUnidade(), listaReservas.get(i).getInicio(), listaReservas.get(i).getFim(), "R$ " + listaReservas.get(i).getValorDiaria(),
+                "R$ " + listaReservas.get(i).getValorReserva()});
         }
 
         tlb_reservas.setModel(modelo);
@@ -115,6 +119,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
         btn_editar_reserva = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Reservas");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Reservas"));
 
@@ -243,7 +248,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
 
     private void btn_nova_reservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nova_reservaActionPerformed
         modo = "Novo";
-        Controle.abrirCadastroReservas();
+        Controle.abrirCadastroReservas(usuario);
         setVariavelB(modo);
     }//GEN-LAST:event_btn_nova_reservaActionPerformed
 
@@ -257,7 +262,7 @@ public class ConsultarReservas extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Erro no Banco de Dados", JOptionPane.ERROR_MESSAGE);
         }
         setVariavelA(x);
-        Controle.abrirCadastroReservas();
+        Controle.abrirCadastroReservas(usuario);
     }//GEN-LAST:event_btn_editar_reservaActionPerformed
 
     private void tlb_reservasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tlb_reservasMouseClicked

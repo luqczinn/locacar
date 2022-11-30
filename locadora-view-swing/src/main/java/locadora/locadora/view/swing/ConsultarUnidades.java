@@ -118,6 +118,7 @@ public class ConsultarUnidades extends javax.swing.JFrame {
         btn_editar_unidade = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Consulta Unidades");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Unidades"));
 

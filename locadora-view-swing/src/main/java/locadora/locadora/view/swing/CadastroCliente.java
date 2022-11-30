@@ -4,6 +4,7 @@
  */
 package locadora.locadora.view.swing;
 
+import java.awt.Toolkit;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
@@ -29,6 +30,8 @@ public class CadastroCliente extends javax.swing.JDialog {
     public CadastroCliente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocation(((Toolkit.getDefaultToolkit().getScreenSize().width / 2) - (this.getWidth() / 2)),
+                ((Toolkit.getDefaultToolkit().getScreenSize().height / 2) - (this.getHeight() / 2)));
     }
 
     /**
@@ -67,6 +70,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         botaoCadastrarFunc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Cadastro Cliente");
 
         jLabel7.setFont(new java.awt.Font("Droid Serif", 0, 24)); // NOI18N
         jLabel7.setText("Cadastro dos Clientes ");
@@ -281,13 +285,7 @@ public class CadastroCliente extends javax.swing.JDialog {
         try {
             //adicionar no bd
             ServicoClientes.cadastrarCliente(nome, dataString, cpf, rg, endereco, tel, email, username, senha);
-        } catch (negocioException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
+        } catch (negocioException | SQLException | UnsupportedEncodingException | NoSuchAlgorithmException ex) {
             Logger.getLogger(CadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         String mensagem = "Cliente cadastrado com sucesso";
