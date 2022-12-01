@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Trabalho Final: Locacar
 #### REQUISITOS/PROTÓTIPOS
 Físicos: estação de trabalho PC ou Mobile com conexão estável com a internet.
@@ -46,4 +45,13 @@ representada.
 ![image](https://user-images.githubusercontent.com/82380592/198911067-c16e01c5-1891-4cc8-88c2-d3b48253f9dc.png)
 =======
 
->>>>>>> origin/production
+
+#### USUÁRIOS E SENHAS
+
+Funcionários:
+Usuario: gus
+Senha: 1234
+Usuario: infDiretor
+Senha: 2022
+
+Clientes: auto-cadastro via web.
