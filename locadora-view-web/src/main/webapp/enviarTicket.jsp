@@ -53,11 +53,11 @@
                 }
                 else{
                             %>
-                            <%! String email = (String)session.getAttribute("email");%>
-                            <%! String user =(String)session.getAttribute("user");%>
-                            <%! String tel =(String)session.getAttribute("tel");%>
-                            <%! String endereco =(String)session.getAttribute("endereco");%>
-                            <%! String nome =(String)session.getAttribute("nome");%>
+                            <% String email = (String)session.getAttribute("email");%>
+                            <% String user =(String)session.getAttribute("user");%>
+                            <% String tel =(String)session.getAttribute("tel");%>
+                            <% String endereco =(String)session.getAttribute("endereco");%>
+                            <% String nome =(String)session.getAttribute("nome");%>
                             <form action="perfil.jsp" method="post">
                                 <input name="apelidoCliente" value="<%=user%>" style="display: none;">
                                 <input name="nomeCliente" value="<%=nome%>" style="display: none;">
